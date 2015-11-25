@@ -30,6 +30,7 @@ public class App {
         DaoFactory daoFactory = DaoFactory.newInstance();
         GenericDao<Vehicle> vehicleDao = daoFactory.getDao(Vehicle.class);
 
+
         // Query
         Vehicle resultVehicle = vehicleDao.save(vehicle);
     }

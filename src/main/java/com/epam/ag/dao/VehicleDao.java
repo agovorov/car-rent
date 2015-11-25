@@ -1,50 +1,26 @@
 package com.epam.ag.dao;
 
 import com.epam.ag.model.Vehicle;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 
 /**
  * @author Govorov Andrey
  */
-public class VehicleDao implements GenericDao<Vehicle> {
+public interface VehicleDao extends GenericDao<Vehicle> {
 
     @Override
-    public Vehicle save(Vehicle entity) {
-        return null;
-    }
+    Vehicle save(Vehicle entity);
 
     @Override
-    public Vehicle getByParameter(String param, String value) {
-        return null;
-    }
+    Vehicle getByParameter(String param, String value);
 
     @Override
-    public Vehicle getById(Long id) {
-        return null;
-    }
+    Vehicle getById(Long id);
 
     @Override
-    public List<Vehicle> getAll() {
-        return null;
-    }
+    List<Vehicle> getAll();
 
     @Override
-    public boolean delete(Vehicle entity) {
-        return false;
-    }
-
-    //Create
-    //Vehicle insert(Vehicle vehicle);
-
-    // Read
-    //Vehicle getById(Long id);
-    //Vehicle getByParameter(String param, String value);
-
-    // Update
-    //Vehicle update(Vehicle vehicle);
-
-    // Delete
-    //boolean delete(Vehicle vehicle);
+    boolean delete(Vehicle entity);
 }

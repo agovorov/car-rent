@@ -12,7 +12,7 @@ import java.util.List;
 public class JdbcDaoFactory extends DaoFactory implements GenericDao {
 
     @Override
-    public BaseEntity insert(BaseEntity entity) {
+    public BaseEntity save(BaseEntity entity) {
         return null;
     }
 
@@ -28,11 +28,6 @@ public class JdbcDaoFactory extends DaoFactory implements GenericDao {
 
     @Override
     public List getAll() {
-        return null;
-    }
-
-    @Override
-    public BaseEntity update(BaseEntity entity) {
         return null;
     }
 
