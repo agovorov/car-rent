@@ -25,25 +25,4 @@ public class DaoFactory<T extends BaseEntity> {
         }
         return instance;
     }
-
-    public static GenericDao getDao(Class clazz) {
-        //
-        // TODO Как лучше указать пакет?
-        //
-        //String currentPackage = this.getClass().getPackage().getName();
-        String DaoClassName = DAO_PACKAGE_PATH + "." + clazz.getSimpleName() + "Dao";
-
-        Class c = null;
-        GenericDao dao = null;
-        try {
-            log.trace("Trying to create DAO instance ({})", DaoClassName);
-            c = Class.forName(DaoClassName);
-            dao = (GenericDao) c.newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            log.error("Unable to create DAO instance ({})", DaoClassName);
-            throw new RuntimeException("Unable to create/find DAO instance", e);
-        }
-        log.trace("DAO successfully created ({})", DaoClassName);
-        return dao;
-    }
 }
