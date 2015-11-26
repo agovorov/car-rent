@@ -26,9 +26,4 @@ public abstract class DaoFactory {
     }
 
     public abstract <T extends GenericDao> T getDao(Class<T> clazz);
-
-    // Could be...
-    // public abstract VehicleDao createVehicleDao();
-    // public abstract UserDao createUserDao();
-    // public abstract OrderDao createOrderDao();
 }

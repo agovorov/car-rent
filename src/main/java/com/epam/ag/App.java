@@ -39,7 +39,6 @@ public class App {
         UserDao userDao = daoFactory.getDao(UserDao.class);
 
         // Test query
-        Vehicle vehic = vehicleDao.save(vehicle);
-        User user = userDao.save(new User());
+        vehicle = vehicleDao.save(vehicle);
     }
 }

@@ -1,5 +1,6 @@
-package com.epam.ag.dao;
+package com.epam.ag.dao.impl;
 
+import com.epam.ag.dao.UserDao;
 import com.epam.ag.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
