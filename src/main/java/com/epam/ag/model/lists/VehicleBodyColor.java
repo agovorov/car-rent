@@ -1,9 +1,11 @@
 package com.epam.ag.model.lists;
 
+import com.epam.ag.model.BaseEntity;
+
 /**
  * Govorov Andrey
  */
-public class VehicleBodyColor {
+public class VehicleBodyColor extends BaseEntity {
     String color;
 
 

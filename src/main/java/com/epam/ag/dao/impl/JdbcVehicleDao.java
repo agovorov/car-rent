@@ -25,17 +25,13 @@ public class JdbcVehicleDao implements VehicleDao {
         // propertyManager.getProperty("vehicle.update")
         log.trace("JdbcVehicleDao save");
         Connection connection = ConnectionPool.getConnection();
-        try {
-            PreparedStatement ps = connection.prepareStatement(INSERT_VEHICLE_SQL);
-            ps.setString(1, "BMW");
-            ps.setString(2, "X5");
-            ps.executeUpdate();
-            return entity;
-        } catch (SQLException e) {
-            log.error("Unable to execute save method: {}", entity);
-            log.error("SQL: {} ", INSERT_VEHICLE_SQL);
-            throw new RuntimeException("Unable to execute save method", e);
-        }
+        /*
+        PreparedStatement ps = connection.prepareStatement(INSERT_VEHICLE_SQL);
+        ps.setString(1, "BMW");
+        ps.setString(2, "X5");
+        ps.executeUpdate();
+        */
+        return entity;
     }
 
     @Override

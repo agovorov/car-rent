@@ -1,9 +1,12 @@
 package com.epam.ag.model.lists;
 
+import com.epam.ag.model.BaseEntity;
+
 /**
  * Govorov Andrey
  */
-public enum VehicleBodyType {
+public class VehicleBodyType extends BaseEntity {
+    /*
     HATCHBACK,
     VAN,
     SEDAN,
@@ -14,4 +17,5 @@ public enum VehicleBodyType {
     COUPE,
     PICKUP,
     CROSSOVER,
+    */
 }

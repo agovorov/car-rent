@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  */
 public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
 
-    public static final String DAO_PACKAGE_PATH = "com.epam.ag.dao";
+    public static final String DAO_PACKAGE_PATH = "com.epam.ag.dao.impl";
     private static final Logger log = LoggerFactory.getLogger(JdbcDaoFactory.class);
 
     @SuppressWarnings("unchecked")

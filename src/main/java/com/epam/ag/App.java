@@ -1,13 +1,12 @@
 package com.epam.ag;
 
 import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.GenericDao;
 import com.epam.ag.dao.UserDao;
 import com.epam.ag.dao.VehicleDao;
-import com.epam.ag.model.BaseEntity;
-import com.epam.ag.model.Order;
-import com.epam.ag.model.User;
 import com.epam.ag.model.Vehicle;
+import com.epam.ag.model.lists.VehicleBodyColor;
+import com.epam.ag.model.lists.VehicleFuelType;
+import com.epam.ag.model.lists.VehicleGearShift;
 import com.epam.ag.model.lists.VehicleManufacturer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,11 @@ import org.slf4j.LoggerFactory;
  * отклонить Заявку, указав причины отказа.
  *
  * @author Govorov Andrey
+ *
+ *
+ * Questions:
+ *  1 FuelType, GearShift - Enum?
+ *
  */
 public class App {
 
@@ -31,6 +35,12 @@ public class App {
         vehicle.setManufacturer(new VehicleManufacturer("BMW"));
         vehicle.setModel("X5");
         vehicle.setYear(2005);
+        vehicle.setTransmission(VehicleGearShift.MANUAL);
+        vehicle.setFuelType(VehicleFuelType.GASOLINE);
+        vehicle.setConsumption(12.5);
+        vehicle.setVolume(3.0);
+        vehicle.setColor(VehicleBodyColor.);
+
 
         DaoFactory daoFactory = DaoFactory.getInstance();
 

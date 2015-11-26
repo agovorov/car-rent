@@ -1,8 +1,10 @@
 package com.epam.ag.model.lists;
 
-/**
- * Govorov Andrey
- */
+import com.epam.ag.model.BaseEntity;
+
+//
+// TODO Может enum оставить
+//
 public enum VehicleFuelType {
     GASOLINE,
     DIESEL,
