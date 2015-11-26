@@ -15,31 +15,31 @@ public class JdbcVehicleDao implements VehicleDao {
 
     @Override
     public Vehicle save(Vehicle entity) {
-        log.trace("Save JDBC method");
+        log.trace("JdbcVehicleDao save");
         return null;
     }
 
     @Override
     public Vehicle getByParameter(String param, String value) {
-        log.trace("Save JDBC getByParameter");
+        log.trace("JdbcVehicleDao getByParameter");
         return null;
     }
 
     @Override
     public Vehicle getById(Long id) {
-        log.trace("Save JDBC getById");
+        log.trace("JdbcVehicleDao getById");
         return null;
     }
 
     @Override
     public List<Vehicle> getAll() {
-        log.trace("Save JDBC getAll");
+        log.trace("JdbcVehicleDao getAll");
         return null;
     }
 
     @Override
     public boolean delete(Vehicle entity) {
-        log.trace("Save JDBC delete");
+        log.trace("JdbcVehicleDao delete");
         return false;
     }
 }

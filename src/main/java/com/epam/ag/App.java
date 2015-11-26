@@ -2,6 +2,11 @@ package com.epam.ag;
 
 import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.GenericDao;
+import com.epam.ag.dao.UserDao;
+import com.epam.ag.dao.VehicleDao;
+import com.epam.ag.model.BaseEntity;
+import com.epam.ag.model.Order;
+import com.epam.ag.model.User;
 import com.epam.ag.model.Vehicle;
 import com.epam.ag.model.lists.VehicleManufacturer;
 import org.slf4j.Logger;
@@ -27,11 +32,14 @@ public class App {
         vehicle.setModel("X5");
         vehicle.setYear(2005);
 
-        DaoFactory daoFactory = DaoFactory.newInstance();
-        GenericDao<Vehicle> vehicleDao = daoFactory.getDao(Vehicle.class);
+        DaoFactory daoFactory = DaoFactory.getInstance();
 
+        // Получаем DAO и совершаем зло
+        VehicleDao vehicleDao = daoFactory.getDao(VehicleDao.class);
+        UserDao userDao = daoFactory.getDao(UserDao.class);
 
-        // Query
-        Vehicle resultVehicle = vehicleDao.save(vehicle);
+        // Test query
+        Vehicle vehic = vehicleDao.save(vehicle);
+        User user = userDao.save(new User());
     }
 }

@@ -7,22 +7,28 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Govorov Andrey
  */
-public class DaoFactory<T extends BaseEntity> {
+public abstract class DaoFactory {
 
-    public static final String DAO_PACKAGE_PATH = "com.epam.ag.dao";
     private static DaoFactory instance;
     private static final Logger log = LoggerFactory.getLogger(DaoFactory.class);
 
     /**
      * Creating or returning base class
      *
-     * @return instance of DAO
+     * @return instance of DAO factory
      */
-    public static DaoFactory newInstance() {
+    public static DaoFactory getInstance() {
         if (instance == null) {
             log.trace("Creating new JDBC DAO.");
             instance = new JdbcDaoFactory();
         }
         return instance;
     }
+
+    public abstract <T extends GenericDao> T getDao(Class<T> clazz);
+
+    // Could be...
+    // public abstract VehicleDao createVehicleDao();
+    // public abstract UserDao createUserDao();
+    // public abstract OrderDao createOrderDao();
 }
