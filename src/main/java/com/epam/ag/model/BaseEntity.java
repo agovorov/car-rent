@@ -3,7 +3,7 @@ package com.epam.ag.model;
 /**
  * @author Govorov Andrey
  */
-public class BaseEntity {
+public abstract class BaseEntity {
 
     private Long id;
 
@@ -13,5 +13,12 @@ public class BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * If true - use insert data, otherwise - update
+     */
+    public boolean isNewRecord() {
+        return id == null;
     }
 }

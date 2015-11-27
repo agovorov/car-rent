@@ -2,32 +2,36 @@ package com.epam.ag.model;
 
 import com.epam.ag.model.lists.*;
 
-/**
- */
-public class Vehicle extends BaseEntity {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Vehicle extends BaseEntity {
     private VehicleBodyColor vehicleBodyColor;
     private VehicleBodyType vehicleBodyType;
     private VehicleManufacturer manufacturer;
     private VehicleFuelType vehicleFuelType;
     private VehicleGearShift vehicleGearShift;
-    private String vehicleModel;
-    private int manufacturYear;
+    private String model;
+    private int year;
     private boolean isAvailable = true;
     private double averageConsumption;
     private double volume;
+    private List<VehicleImage> vehicleImages;
 
+    public Vehicle() {
+        vehicleImages = new ArrayList<>();
+    }
 
     public void setManufacturer(VehicleManufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
 
     public void setModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
+        this.model = vehicleModel;
     }
 
-    public void setYear(int manufacturYear) {
-        this.manufacturYear = manufacturYear;
+    public void setYear(int manufacturyYear) {
+        this.year = manufacturyYear;
     }
 
     public void setTransmission(VehicleGearShift vehicleGearShift) {
@@ -50,7 +54,43 @@ public class Vehicle extends BaseEntity {
         this.vehicleBodyColor = vehicleBodyColor;
     }
 
-    public void setColor(VehicleBodyType vehicleBodyType) {
+    public void setBodyType(VehicleBodyType vehicleBodyType) {
         this.vehicleBodyType = vehicleBodyType;
+    }
+
+    public Long getManufactorId() {
+        return manufacturer.getId();
+    }
+
+    public String getModelId() {
+        return model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public Long getColorId() {
+        return vehicleBodyColor.getId();
+    }
+
+    public long getBodyType() {
+        return vehicleBodyType.getId();
+    }
+
+    public long getFuel() {
+        return vehicleFuelType.getId();
+    }
+
+    public long getGearShift() {
+        return vehicleGearShift.getId();
+    }
+
+    public double getConsumption() {
+        return averageConsumption;
+    }
+
+    public double getVolume() {
+        return volume;
     }
 }

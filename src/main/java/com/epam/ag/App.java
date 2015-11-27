@@ -4,10 +4,8 @@ import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.UserDao;
 import com.epam.ag.dao.VehicleDao;
 import com.epam.ag.model.Vehicle;
-import com.epam.ag.model.lists.VehicleBodyColor;
-import com.epam.ag.model.lists.VehicleFuelType;
-import com.epam.ag.model.lists.VehicleGearShift;
-import com.epam.ag.model.lists.VehicleManufacturer;
+import com.epam.ag.model.lists.*;
+import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,36 +17,43 @@ import org.slf4j.LoggerFactory;
  * отклонить Заявку, указав причины отказа.
  *
  * @author Govorov Andrey
- *
- *
- * Questions:
- *  1 FuelType, GearShift - Enum?
- *
+ *         <p/>
+ *         <p/>
+ *         Questions:
+ *         1. Price/day где лучше? (поле или отдельный класс)
+ *         2. User -> Passport -> Address - ?
+ *         3. Что должен возвращать entity.getColor(), чтобы потом работать с БД: id или name?
+ *         4. Set... в prepareStatement, SetString или все set...?
+ *         5. Где описана работа с транзакциями? Dao? JdbcDao?
  */
 public class App {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-
         Vehicle vehicle = new Vehicle();
-        vehicle.setManufacturer(new VehicleManufacturer("BMW"));
         vehicle.setModel("X5");
         vehicle.setYear(2005);
-        vehicle.setTransmission(VehicleGearShift.MANUAL);
-        vehicle.setFuelType(VehicleFuelType.GASOLINE);
         vehicle.setConsumption(12.5);
         vehicle.setVolume(3.0);
-        vehicle.setColor(VehicleBodyColor.);
 
+        // Как правильно делать? Откуда брать ID пока его нет
+        // Точнее даже, что делать при сохранении такой конструкции в JdbcVehicleDao
+        vehicle.setColor(new VehicleBodyColor("Серый"));
+        vehicle.setFuelType(new VehicleFuelType("Бензин"));
+        vehicle.setBodyType(new VehicleBodyType("Кросссовер"));
+        vehicle.setManufacturer(new VehicleManufacturer("BMW"));
+        vehicle.setTransmission(new VehicleGearShift("Автомат"));
 
         DaoFactory daoFactory = DaoFactory.getInstance();
 
         // Получаем DAO и совершаем зло
         VehicleDao vehicleDao = daoFactory.getDao(VehicleDao.class);
-        UserDao userDao = daoFactory.getDao(UserDao.class);
+        // UserDao userDao = daoFactory.getDao(UserDao.class);
 
         // Test query
+        log.trace("Is new: {}", vehicle.isNewRecord());
         vehicle = vehicleDao.save(vehicle);
+        log.trace("Is new: {}", vehicle.isNewRecord());
     }
 }

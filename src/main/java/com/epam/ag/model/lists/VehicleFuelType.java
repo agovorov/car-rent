@@ -1,14 +1,8 @@
 package com.epam.ag.model.lists;
 
-import com.epam.ag.model.BaseEntity;
+public class VehicleFuelType extends DictionaryBase {
 
-//
-// TODO Может enum оставить
-//
-public enum VehicleFuelType {
-    GASOLINE,
-    DIESEL,
-    NATURAL_GAS,
-    HYBRID,
-    ELECTRO
+    public VehicleFuelType(String value) {
+        super(value);
+    }
 }

@@ -1,11 +1,8 @@
 package com.epam.ag.model.lists;
 
-import com.epam.ag.model.BaseEntity;
+public class VehicleGearShift extends DictionaryBase{
 
-//
-// TODO Может enum оставить
-//
-public enum  VehicleGearShift{
-    AUTOMATIC,
-    MANUAL,
+    public VehicleGearShift(String value) {
+        super(value);
+    }
 }
