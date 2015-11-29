@@ -1,7 +1,6 @@
 package com.epam.ag.dao.impl;
 
 import com.epam.ag.model.VehicleBodyTypeDao;
-import com.epam.ag.model.dict.VehicleBodyColor;
 import com.epam.ag.model.dict.VehicleBodyType;
 import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;

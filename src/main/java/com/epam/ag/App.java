@@ -60,13 +60,13 @@ public class App {
         // Add new manufacture
         DaoFactory daoFactory = DaoFactory.getInstance();
         //VehicleBodyTypeDao dao = daoFactory.getDao(VehicleBodyTypeDao.class);
-        VehicleFuelTypeDao dao = daoFactory.getDao(VehicleFuelTypeDao.class);
+        VehicleGearShiftDao dao = daoFactory.getDao(VehicleGearShiftDao.class);
 
-        //VehicleFuelType entity = new VehicleFuelType("Атомы", "Atom");
-        //entity = dao.save(entity);
+//        VehicleGearShift entity = new VehicleGearShift("Робот", "Robot");
+//        entity = dao.save(entity);
 
-        VehicleFuelType entity = new VehicleFuelType();
-        entity = dao.getById(6L);
+        VehicleGearShift entity = new VehicleGearShift();
+        entity = dao.getById(3L);
         entity.setValues("ttt", "yyy");
         entity = dao.save(entity);
 
@@ -74,7 +74,7 @@ public class App {
         //VehicleBodyColor entity = new VehicleBodyColor();
         System.out.println(entity);
 //
-        //boolean delete = dao.delete(entity);
+        boolean delete = dao.delete(entity);
 //        System.out.println(delete);
 
        // List<VehicleBodyColor> list = dao.getAll();
