@@ -1,6 +1,6 @@
 package com.epam.ag.model;
 
-import com.epam.ag.model.lists.*;
+import com.epam.ag.model.dict.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,5 +92,23 @@ public class Vehicle extends BaseEntity {
 
     public double getVolume() {
         return volume;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                ",\n ID='" + id + '\'' +
+                ", model='" + model + '\'' +
+                ", manufacturer=" + manufacturer +
+                ", year=" + year +
+                ", volume=" + volume +
+                ", averageConsumption=" + averageConsumption +
+                ", isAvailable=" + isAvailable +
+                ", vehicleBodyColor=" + vehicleBodyColor +
+                ", vehicleBodyType=" + vehicleBodyType +
+                ", vehicleFuelType=" + vehicleFuelType +
+                ", vehicleGearShift=" + vehicleGearShift +
+                ", vehicleImages=" + vehicleImages +
+                '}';
     }
 }

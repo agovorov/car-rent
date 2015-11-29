@@ -24,6 +24,13 @@ public class PropertiesManager implements GenericPropertiesManager{
     private static PropertiesManager instance;
     private Properties properties;
 
+    private PropertiesManager(String filename) {
+    }
+
+    public PropertiesManager() {
+
+    }
+
     public static PropertiesManager getInstance() {
         if (instance == null) {
             log.trace("Creating new properties manager instance");

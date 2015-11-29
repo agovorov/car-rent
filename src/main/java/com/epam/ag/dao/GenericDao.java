@@ -2,6 +2,7 @@ package com.epam.ag.dao;
 
 import com.epam.ag.model.BaseEntity;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**

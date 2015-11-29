@@ -5,6 +5,7 @@ import com.epam.ag.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -13,10 +14,15 @@ import java.util.List;
 public class JdbcUserDao implements UserDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcUserDao.class);
+    private Connection connection;
+
+    public JdbcUserDao(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public User save(User entity) {
-        log.trace("JdbcUserDao save");
+        log.trace("save");
         return null;
     }
 

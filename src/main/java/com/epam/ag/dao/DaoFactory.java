@@ -26,4 +26,10 @@ public abstract class DaoFactory {
     }
 
     public abstract <T extends GenericDao> T getDao(Class<T> clazz);
+
+    public abstract void beginTransaction();
+    public abstract void commit();
+    public abstract void rollback();
+
+    public abstract void close();
 }

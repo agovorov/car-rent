@@ -5,7 +5,7 @@ package com.epam.ag.model;
  */
 public abstract class BaseEntity {
 
-    private Long id;
+    protected Long id;
 
     public Long getId() {
         return id;
@@ -18,7 +18,11 @@ public abstract class BaseEntity {
     /**
      * If true - use insert data, otherwise - update
      */
-    public boolean isNewRecord() {
+    public boolean isPersisted() {
+        return id != null;
+    }
+
+    public boolean isNotPersisted() {
         return id == null;
     }
 }

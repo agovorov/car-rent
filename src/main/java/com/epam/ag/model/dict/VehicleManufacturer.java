@@ -1,4 +1,4 @@
-package com.epam.ag.model.lists;
+package com.epam.ag.model.dict;
 
 /**
  * List of manufacturers
@@ -11,4 +11,11 @@ public class VehicleManufacturer extends DictionaryBase {
         super(value);
     }
 
+    public VehicleManufacturer(Long id, String value) {
+        super(id, value);
+    }
+
+    public VehicleManufacturer() {
+        super();
+    }
 }
