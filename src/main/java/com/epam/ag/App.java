@@ -1,13 +1,12 @@
 package com.epam.ag;
 
-import com.epam.ag.dao.*;
-import com.epam.ag.model.Vehicle;
-import com.epam.ag.model.VehicleBodyTypeDao;
-import com.epam.ag.model.dict.*;
+import com.epam.ag.dao.DaoFactory;
+import com.epam.ag.dao.UserDao;
+import com.epam.ag.dao.UserRoleDao;
+import com.epam.ag.model.User;
+import com.epam.ag.model.user.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * 15.	Система Прокат автомобилей. Клиент выбирает Автомобиль из списка доступных. Заполняет
@@ -60,24 +59,23 @@ public class App {
         // Add new manufacture
         DaoFactory daoFactory = DaoFactory.getInstance();
         //VehicleBodyTypeDao dao = daoFactory.getDao(VehicleBodyTypeDao.class);
-        VehicleGearShiftDao dao = daoFactory.getDao(VehicleGearShiftDao.class);
+        UserRoleDao dao = daoFactory.getDao(UserRoleDao.class);
 
-//        VehicleGearShift entity = new VehicleGearShift("Робот", "Robot");
-//        entity = dao.save(entity);
+        UserRole role = new UserRole();
+        role = dao.getById(3L);
 
-        VehicleGearShift entity = new VehicleGearShift();
-        entity = dao.getById(3L);
-        entity.setValues("ttt", "yyy");
-        entity = dao.save(entity);
+        dao.delete(role);
+        /*
+        User user = new User();
+        user.setEmail("admin@admin.ru");
+        user.setFirstName("John");
+        user.setLastName("Doe");
+        user.setPhone("+1 555 32 45 44");
+        user.setPassword("secret");
+        user.setRole(new UserRole("ADMIN"));
 
-
-        //VehicleBodyColor entity = new VehicleBodyColor();
-        System.out.println(entity);
-//
-        boolean delete = dao.delete(entity);
-//        System.out.println(delete);
-
-       // List<VehicleBodyColor> list = dao.getAll();
-        //System.out.println(list);
+        user = dao.save(user);
+        */
+        System.out.println(role);
     }
 }

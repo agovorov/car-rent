@@ -1,5 +1,6 @@
 package com.epam.ag.dao.impl;
 
+import com.epam.ag.dao.impl.exception.JdbcDictionaryDaoException;
 import com.epam.ag.model.dict.DictionaryBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

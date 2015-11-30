@@ -1,4 +1,4 @@
-package com.epam.ag.dao.impl;
+package com.epam.ag.dao.impl.exception;
 
 import java.sql.SQLException;
 
