@@ -1,6 +1,7 @@
 package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.impl.exception.JdbcDictionaryDaoException;
+import com.epam.ag.model.BaseEntity;
 import com.epam.ag.model.dict.DictionaryBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,7 @@ public class JdbcCommonDictDao {
         return clazz.cast(entity);
     }
 
-    public static boolean delete(String query, Connection connection, DictionaryBase entity) {
+    public static boolean delete(String query, Connection connection, BaseEntity entity) {
         PreparedStatement ps = null;
         boolean isDeleted;
         try {
@@ -76,7 +77,7 @@ public class JdbcCommonDictDao {
             int i = ps.executeUpdate();
             isDeleted = (i > 0) ? true : false;
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}", entity);
+            log.error("Unable to query SQL {} {}", entity, e);
             throw new RuntimeException("Unable to query SQL", e);
         }
         return isDeleted;

@@ -8,6 +8,8 @@ import com.epam.ag.model.user.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * 15.	Система Прокат автомобилей. Клиент выбирает Автомобиль из списка доступных. Заполняет
  * форму Заказа, указывая паспортные данные, срок аренды. Клиент оплачивает Заказ.
@@ -16,14 +18,6 @@ import org.slf4j.LoggerFactory;
  * отклонить Заявку, указав причины отказа.
  *
  * @author Govorov Andrey
- *         <p/>
- *         <p/>
- *         Questions:
- *         1. Price/day где лучше? (поле или отдельный класс)
- *         2. User -> Passport -> Address - ?
- *         3. Что должен возвращать entity.getColor(), чтобы потом работать с БД: id или name?
- *         4. Set... в prepareStatement, SetString или все set...?
- *         5. Где описана работа с транзакциями? Dao? JdbcDao?
  */
 public class App {
 
@@ -59,23 +53,20 @@ public class App {
         // Add new manufacture
         DaoFactory daoFactory = DaoFactory.getInstance();
         //VehicleBodyTypeDao dao = daoFactory.getDao(VehicleBodyTypeDao.class);
-        UserRoleDao dao = daoFactory.getDao(UserRoleDao.class);
+        UserDao dao = daoFactory.getDao(UserDao.class);
 
-        UserRole role = new UserRole();
-        role = dao.getById(3L);
 
-        dao.delete(role);
-        /*
         User user = new User();
-        user.setEmail("admin@admin.ru");
-        user.setFirstName("John");
-        user.setLastName("Doe");
-        user.setPhone("+1 555 32 45 44");
+        /*user.setEmail("client@client.ru");
+        user.setFirstName("John3");
+        user.setLastName("Doe3");
+        user.setPhone("+1 555 11 11 11");
         user.setPassword("secret");
-        user.setRole(new UserRole("ADMIN"));
-
-        user = dao.save(user);
         */
-        System.out.println(role);
+
+        user = dao.getById(1L);
+        System.out.println(user);
+
+        //System.out.println(user);
     }
 }

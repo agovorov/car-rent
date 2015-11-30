@@ -1,15 +1,16 @@
 package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.UserDao;
+import com.epam.ag.dao.impl.exception.JdbcDictionaryDaoException;
 import com.epam.ag.dao.impl.exception.JdbcUserDaoException;
 import com.epam.ag.model.User;
+import com.epam.ag.model.user.UserRole;
 import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public class JdbcUserDao implements UserDao {
             ps.setLong(6, user.getRoleId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}", user);
+            log.error("Unable to query SQL {}, {} ", user, e);
             throw new JdbcUserDaoException("Unable to query SQL", e);
         }
         return user;
@@ -66,7 +67,7 @@ public class JdbcUserDao implements UserDao {
             ps.setLong(7, user.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}", user);
+            log.error("Unable to query SQL {}, {}", user, e);
             throw new JdbcUserDaoException("Unable to query SQL", e);
         }
         return null;
@@ -80,19 +81,81 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User getById(Long id) {
-        log.trace("JdbcUserDao getById");
-        return null;
+        log.trace("User statement: {}", id);
+        String query = pm.get("user.getById");
+
+        PreparedStatement ps;
+        User user = null;
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new User();
+                user.setId(id);
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setFirstName(rs.getString("email"));
+                user.setLastName(rs.getString("email"));
+                user.setPhone(rs.getString("email"));
+
+                // TEMPORARY !!!
+                user.setRole(new UserRole(rs.getLong("role_id"), "ADMIN"));
+
+                // TODO Подгружаем роль UserRole
+                // Тут надо UserRoleDAO, а можно ли...
+                /*
+                UserRole role = new UserRole();
+                role = dao.getById( rs.getLong("role_id") );
+                user.setRole( role );
+                */
+            }
+        } catch (SQLException e) {
+            log.error("Unable to query SQL {}, {} ", user, e);
+            throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+        }
+        return user;
     }
 
     @Override
     public List<User> getAll() {
-        log.trace("JdbcUserDao getAll");
-        return null;
+        log.trace("getAll");
+        String query = pm.get("user.getAll");
+        List<User> userList = new ArrayList();
+        Statement statement = null;
+        Long id;
+        String value_ru;
+        String value_en;
+
+        User user;
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                user = new User();
+                user.setId(rs.getLong("id"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setFirstName(rs.getString("email"));
+                user.setLastName(rs.getString("email"));
+                user.setPhone(rs.getString("email"));
+
+                // TEMPORARY creating role !!!
+                user.setRole(new UserRole(rs.getLong("role_id"), "ADMIN"));
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            log.error("Error while SQL query select {}", e);
+            throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+        }
+        return userList;
     }
 
     @Override
     public boolean delete(User entity) {
         log.trace("JdbcUserDao delete");
-        return false;
+        String query = pm.get("user.delete");
+        return JdbcCommonDictDao.delete(query, connection, entity);
     }
 }
