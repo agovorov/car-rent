@@ -1,9 +1,11 @@
 package com.epam.ag.model.user;
 
+import com.epam.ag.model.BaseEntity;
+
 /**
  * @author Govorov Andrey
  */
-public class Address {
+public class Address extends BaseEntity {
     private String country;
     private String city;
     private String street;
@@ -48,5 +50,16 @@ public class Address {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", appartmentNumber=" + appartmentNumber +
+                ", streetNumber='" + streetNumber + '\'' +
+                '}';
     }
 }

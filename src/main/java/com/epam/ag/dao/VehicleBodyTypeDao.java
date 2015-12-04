@@ -1,4 +1,4 @@
-package com.epam.ag.model;
+package com.epam.ag.dao;
 
 import com.epam.ag.dao.GenericDao;
 import com.epam.ag.model.dict.VehicleBodyType;

@@ -23,4 +23,10 @@ public interface VehicleDao extends GenericDao<Vehicle> {
 
     @Override
     boolean delete(Vehicle entity);
+
+    void beginTransaction();
+
+    void commit();
+
+    void rollback();
 }

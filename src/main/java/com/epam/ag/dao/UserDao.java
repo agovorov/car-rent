@@ -1,7 +1,6 @@
 package com.epam.ag.dao;
 
 import com.epam.ag.model.User;
-import com.epam.ag.model.Vehicle;
 
 import java.util.List;
 

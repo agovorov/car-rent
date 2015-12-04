@@ -1,15 +1,13 @@
 package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.VehicleDao;
+import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.Vehicle;
 import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -19,20 +17,27 @@ public class JdbcVehicleDao implements VehicleDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleDao.class);
     private Connection connection;
+    private PropertiesManager pm;
 
     public JdbcVehicleDao(Connection connection) {
         this.connection = connection;
+        pm = PropertiesManager.getInstance();
+        pm.loadPropertyFile("query.properties");
+    }
+
+    @Override
+    public Vehicle save(Vehicle vehicle) {
+        return vehicle.isPersisted() ? update(vehicle) : insert(vehicle);
     }
 
     private Vehicle update(Vehicle vehicle) {
-        PropertiesManager pm = new PropertiesManager();
-        String update_query = pm.get("query.properties", "vehicle.update");
+        String query = pm.get("vehicle.update");
 
         log.trace("SQL update statement: {}", vehicle);
         PreparedStatement ps = null;
         try {
             // Old record - UPDATE query
-            ps = connection.prepareStatement(update_query);
+            ps = connection.prepareStatement(query);
             ps.setLong(1, vehicle.getManufactorId());
             ps.setString(2, vehicle.getModelId());
             ps.setInt(3, vehicle.getYear());
@@ -42,9 +47,10 @@ public class JdbcVehicleDao implements VehicleDao {
             ps.setLong(7, vehicle.getGearShift());
             ps.setDouble(8, vehicle.getConsumption());
             ps.setDouble(9, vehicle.getVolume());
-            ps.setLong(10, vehicle.getId());
+            ps.setDouble(10, vehicle.getPrice());
+            ps.setLong(11, vehicle.getGalleryId());
+            ps.setLong(12, vehicle.getId());
             ps.executeUpdate();
-
         } catch (SQLException e) {
             log.error("Error while SQL query update", e);
         }
@@ -52,13 +58,12 @@ public class JdbcVehicleDao implements VehicleDao {
     }
 
     private Vehicle insert(Vehicle vehicle) {
-        PropertiesManager pm = new PropertiesManager();
-        String insert_query = pm.get("query.properties", "vehicle.insert");
+        String query = pm.get("vehicle.insert");
 
         log.trace("SQL insert statement: {}", vehicle);
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement(insert_query);
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, vehicle.getManufactorId());
             ps.setString(2, vehicle.getModelId());
             ps.setInt(3, vehicle.getYear());
@@ -68,28 +73,28 @@ public class JdbcVehicleDao implements VehicleDao {
             ps.setLong(7, vehicle.getGearShift());
             ps.setDouble(8, vehicle.getConsumption());
             ps.setDouble(9, vehicle.getVolume());
-            ps.executeUpdate();
+            ps.setDouble(10, vehicle.getPrice());
+            ps.setLong(11, vehicle.getGalleryId());
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating fail, no rows affected.");
+            }
 
             // Updating ID
-            long recordId = getInsertedId(ps);
-            vehicle.setId(recordId);
+            Long newId = JdbcHelper.getReturningID(ps);
+            vehicle.setId(newId);
         } catch (SQLException e) {
             log.error("Error while SQL query update", e);
+            throw new RuntimeException("Unable to query SQL", e);
         }
 
         // test connection close
         try {
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.trace("Unable to close connection: {}", e);
         }
 
-        return vehicle;
-    }
-
-    @Override
-    public Vehicle save(Vehicle vehicle) {
-        vehicle = vehicle.isPersisted() ? insert(vehicle) : update(vehicle);
         return vehicle;
     }
 
@@ -101,8 +106,36 @@ public class JdbcVehicleDao implements VehicleDao {
 
     @Override
     public Vehicle getById(Long id) {
+        log.trace("Vehicle getById statement: {}", id);
+        String query = pm.get("vehicle.getById");
+        PreparedStatement ps;
+        Vehicle vehicle = null;
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                vehicle = new Vehicle();
+                vehicle.setId(id);
+                vehicle.setModel(rs.getString("model"));
+                vehicle.setYear(rs.getInt("year"));
+                vehicle.setConsumption(rs.getDouble("consumption"));
+                vehicle.setVolume(rs.getDouble("volume"));
+                vehicle.setPrice(rs.getDouble("price"));
 
-        return null;
+                //
+//                manufactor
+//                color
+//                body
+//                        fueltype
+//                gearshift
+//                        gallery
+            }
+        } catch (SQLException e) {
+            log.error("getById: {}", id);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+        return vehicle;
     }
 
     @Override
@@ -113,22 +146,36 @@ public class JdbcVehicleDao implements VehicleDao {
 
     @Override
     public boolean delete(Vehicle entity) {
-        log.trace("JdbcVehicleDao delete");
         return false;
     }
 
-    private Long getInsertedId(PreparedStatement statement) {
-        long id = 0;
-        ResultSet rs = null;
+    @Override
+    public void beginTransaction() {
         try {
-            rs = statement.getGeneratedKeys();
-            if (rs.next()) {
-                id = rs.getInt(1);
-            }
+            connection.setAutoCommit(false);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("begin transaction");
+            throw new JdbcDaoException("Unable to begin transaction", e);
         }
+    }
 
-        return id;
+    @Override
+    public void commit() {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            log.error("commit transaction");
+            throw new JdbcDaoException("Unable to commit transaction", e);
+        }
+    }
+
+    @Override
+    public void rollback() {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            log.error("rollback transaction");
+            throw new JdbcDaoException("Unable to rollback transaction", e);
+        }
     }
 }

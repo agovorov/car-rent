@@ -1,6 +1,7 @@
 package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.UserDao;
+import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.dao.impl.exception.JdbcDictionaryDaoException;
 import com.epam.ag.dao.impl.exception.JdbcUserDaoException;
 import com.epam.ag.model.User;
@@ -37,17 +38,24 @@ public class JdbcUserDao implements UserDao {
         String query = pm.get("user.insert");
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement(query);
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getFirstName());
             ps.setString(4, user.getLastName());
             ps.setString(5, user.getPhone());
             ps.setLong(6, user.getRoleId());
-            ps.executeUpdate();
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating fail, no rows affected.");
+            }
+
+            // Updating ID
+            Long newId = JdbcHelper.getReturningID(ps);
+            user.setId(newId);
         } catch (SQLException e) {
             log.error("Unable to query SQL {}, {} ", user, e);
-            throw new JdbcUserDaoException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
         }
         return user;
     }
@@ -68,7 +76,7 @@ public class JdbcUserDao implements UserDao {
             ps.executeUpdate();
         } catch (SQLException e) {
             log.error("Unable to query SQL {}, {}", user, e);
-            throw new JdbcUserDaoException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
         }
         return null;
     }
@@ -112,7 +120,7 @@ public class JdbcUserDao implements UserDao {
             }
         } catch (SQLException e) {
             log.error("Unable to query SQL {}, {} ", user, e);
-            throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
         }
         return user;
     }
@@ -147,7 +155,7 @@ public class JdbcUserDao implements UserDao {
             }
         } catch (SQLException e) {
             log.error("Error while SQL query select {}", e);
-            throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
         }
         return userList;
     }

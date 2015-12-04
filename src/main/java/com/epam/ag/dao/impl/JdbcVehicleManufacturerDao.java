@@ -102,9 +102,17 @@ public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
         log.trace("SQL insert statement: {}", manufacturer);
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement(update_query);
+            ps = connection.prepareStatement(update_query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, manufacturer.getValue());
-            ps.executeUpdate();
+            int affectedRows = ps.executeUpdate();
+            // TODO может вынести в утильный класс?
+            if (affectedRows == 0) {
+                throw new SQLException("Creating fail, no rows affected.");
+            }
+
+            // Добавляем ключ
+            Long newId = JdbcHelper.getReturningID(ps);
+            manufacturer.setId(newId);
         } catch (SQLException e) {
             log.error("Unable to query SQL {}", manufacturer);
             throw new RuntimeException("Unable to query SQL", e);

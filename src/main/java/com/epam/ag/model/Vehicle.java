@@ -2,7 +2,6 @@ package com.epam.ag.model;
 
 import com.epam.ag.model.dict.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Vehicle extends BaseEntity {
@@ -16,11 +15,21 @@ public class Vehicle extends BaseEntity {
     private boolean isAvailable = true;
     private double averageConsumption;
     private double volume;
-    private List<VehicleImage> vehicleImages;
+    //private List<GalleryItem> vehicleImages;
+    //private Gallery<GalleryItem> vehicleImages = new Gallery<>();
+    private Gallery vehicleImages = new Gallery();
 
-    public Vehicle() {
-        vehicleImages = new ArrayList<>();
+    public double getPrice() {
+        return price;
     }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    // TODO В идеале это кандидат на вынос в другую таблицу, тогда и история будет.
+    // сейчас разрешили тут разместить
+    private double price;
 
     public void setManufacturer(VehicleManufacturer manufacturer) {
         this.manufacturer = manufacturer;
@@ -28,10 +37,6 @@ public class Vehicle extends BaseEntity {
 
     public void setModel(String vehicleModel) {
         this.model = vehicleModel;
-    }
-
-    public void setYear(int manufacturyYear) {
-        this.year = manufacturyYear;
     }
 
     public void setTransmission(VehicleGearShift vehicleGearShift) {
@@ -42,20 +47,8 @@ public class Vehicle extends BaseEntity {
         this.vehicleFuelType = vehicleFuelType;
     }
 
-    public void setConsumption(double averageConsumption) {
-        this.averageConsumption = averageConsumption;
-    }
-
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
-
     public void setColor(VehicleBodyColor vehicleBodyColor) {
         this.vehicleBodyColor = vehicleBodyColor;
-    }
-
-    public void setBodyType(VehicleBodyType vehicleBodyType) {
-        this.vehicleBodyType = vehicleBodyType;
     }
 
     public Long getManufactorId() {
@@ -70,12 +63,20 @@ public class Vehicle extends BaseEntity {
         return year;
     }
 
+    public void setYear(int manufacturyYear) {
+        this.year = manufacturyYear;
+    }
+
     public Long getColorId() {
         return vehicleBodyColor.getId();
     }
 
     public long getBodyType() {
         return vehicleBodyType.getId();
+    }
+
+    public void setBodyType(VehicleBodyType vehicleBodyType) {
+        this.vehicleBodyType = vehicleBodyType;
     }
 
     public long getFuel() {
@@ -90,8 +91,20 @@ public class Vehicle extends BaseEntity {
         return averageConsumption;
     }
 
+    public void setConsumption(double averageConsumption) {
+        this.averageConsumption = averageConsumption;
+    }
+
     public double getVolume() {
         return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    public void setGallery(Gallery gallery) {
+        vehicleImages = gallery;
     }
 
     @Override
@@ -110,5 +123,9 @@ public class Vehicle extends BaseEntity {
                 ", vehicleGearShift=" + vehicleGearShift +
                 ", vehicleImages=" + vehicleImages +
                 '}';
+    }
+
+    public long getGalleryId() {
+        return vehicleImages.getId();
     }
 }

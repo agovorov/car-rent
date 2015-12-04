@@ -5,6 +5,7 @@ import com.epam.ag.model.BaseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,9 +22,7 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
     public JdbcDaoFactory() {
         log.trace("Get free connection from Connection pool.");
         ConnectionPool instance = ConnectionPool.getInstance();
-        log.trace("Got connection pool instance.");
         connection = instance.getConnection();
-        log.trace("Got connection");
     }
 
     @SuppressWarnings("unchecked")
@@ -33,20 +32,15 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
         // TODO пакет можно положить в пропертя и читать оттуда
         //
         String DaoClassName = DAO_PACKAGE_PATH + ".Jdbc" + clazz.getSimpleName();
-
-        Class c = null;
         GenericDao dao = null;
         try {
             log.trace("Trying to create DAO instance ({})", DaoClassName);
-            c = Class.forName(DaoClassName);
+            Class c = Class.forName(DaoClassName);
 
             // Looking for constructor with 'Connection' class as parameter
             dao = (T) c.getDeclaredConstructor(Connection.class).newInstance(connection);
-            //
-            // TODO Вот тебе на... сколько эксепшенов.
-            //
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            log.error("Unable to create DAO instance ({})", DaoClassName);
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            log.error("Unable to create DAO instance ({}, {})", DaoClassName, e);
             throw new RuntimeException("Unable to create/find DAO instance", e);
         }
 

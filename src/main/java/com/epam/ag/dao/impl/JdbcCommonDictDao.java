@@ -1,6 +1,6 @@
 package com.epam.ag.dao.impl;
 
-import com.epam.ag.dao.impl.exception.JdbcDictionaryDaoException;
+import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.BaseEntity;
 import com.epam.ag.model.dict.DictionaryBase;
 import org.slf4j.Logger;
@@ -24,7 +24,13 @@ public class JdbcCommonDictDao {
             ps.executeUpdate();
         } catch (SQLException e) {
             log.error("Unable to query SQL {}", entity);
-            throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return clazz.cast(entity);
     }
@@ -32,13 +38,26 @@ public class JdbcCommonDictDao {
     public static <T> T insert(String query, Connection connection, DictionaryBase entity, Class<T> clazz) {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement(query);
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, entity.getValue("ru"));
             ps.setString(2, entity.getValue("en"));
-            ps.executeUpdate();
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating fail, no rows affected.");
+            }
+
+            // Updating ID
+            Long newId = JdbcHelper.getReturningID(ps);
+            entity.setId(newId);
         } catch (SQLException e) {
             log.error("Unable to query SQL {}", entity);
-            throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return clazz.cast(entity);
     }
@@ -61,8 +80,14 @@ public class JdbcCommonDictDao {
             entity = c.getDeclaredConstructor(Long.class, String.class, String.class).newInstance(id, value_ru, value_en);
         } catch (SQLException e) {
             log.error("getById: {}", id);
-            throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException | IllegalAccessException e) {
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return clazz.cast(entity);
@@ -78,7 +103,13 @@ public class JdbcCommonDictDao {
             isDeleted = (i > 0) ? true : false;
         } catch (SQLException e) {
             log.error("Unable to query SQL {} {}", entity, e);
-            throw new RuntimeException("Unable to query SQL", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return isDeleted;
     }
@@ -106,9 +137,11 @@ public class JdbcCommonDictDao {
                 dictionaryList.add(entity);
             }
         } catch (SQLException e) {
-            log.error("Error while SQL query select", e);
+            log.error("Error while SQL query select {}", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
         } catch (InstantiationException | ClassNotFoundException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            //throw new JdbcDictionaryDaoException("Unable to query SQL", e);
+            log.error("Error while SQL query select", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
         }
 
         // test connection close
