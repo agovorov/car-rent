@@ -18,4 +18,8 @@ public class VehicleManufacturer extends DictionaryBase {
     public VehicleManufacturer() {
         super();
     }
+
+    public String getTitle(){
+        return getValue();
+    }
 }

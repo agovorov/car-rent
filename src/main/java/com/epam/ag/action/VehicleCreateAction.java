@@ -18,19 +18,19 @@ public class VehicleCreateAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        String vehicleName = req.getParameter("vehicle-name");
-        if (vehicleName.isEmpty()) {
-            req.setAttribute("vehicleError", "Please, enter vehicle name!");
-            return "admin/vehicle-form-add";
-        }
-
-        // It`s ok save it and redirect to list
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        VehicleManufacturerDao dao = daoFactory.getDao(VehicleManufacturerDao.class);
-        VehicleManufacturer manufacturer = new VehicleManufacturer(vehicleName);
-        dao.save(manufacturer);
-
-        // It`s ok
-        return "redirect:admin/vehicle-list";
+//        String vehicleName = req.getParameter("vehicle-name");
+//        if (vehicleName.isEmpty()) {
+//            req.setAttribute("vehicleError", "Please, enter vehicle name!");
+//            return "admin/vehicle-form-add";
+//        }
+//
+//        // It`s ok save it and redirect to list
+//        DaoFactory daoFactory = DaoFactory.getInstance();
+//        VehicleManufacturerDao dao = daoFactory.getDao(VehicleManufacturerDao.class);
+//        VehicleManufacturer manufacturer = new VehicleManufacturer(vehicleName);
+//        dao.save(manufacturer);
+//
+//        // It`s ok
+      return "redirect:admin/vehicle-list";
     }
 }

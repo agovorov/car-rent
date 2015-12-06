@@ -15,8 +15,8 @@
 
     <h1>Add vehicle</h1>
     <form method="post">
-        <input type="text" name="vehicle-name">
-        <button type="submit">Add</button>
+        <input type="text" name="vehicle-name" value="">
+        <button class="btn btn-default" type="submit">Add</button>
         <c:if test="${not empty vehicleError}">
             <div class="error">${vehicleError}</div>
         </c:if>

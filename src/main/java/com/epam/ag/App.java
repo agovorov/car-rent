@@ -2,6 +2,7 @@ package com.epam.ag;
 
 import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.VehicleDao;
+import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.model.Gallery;
 import com.epam.ag.model.GalleryItem;
 import com.epam.ag.model.Vehicle;
@@ -10,6 +11,8 @@ import com.epam.ag.service.GalleryService;
 import com.epam.ag.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * 15.	Система Прокат автомобилей. Клиент выбирает Автомобиль из списка доступных. Заполняет
@@ -54,9 +57,15 @@ public class App {
 //        VehicleDao dao = daoFactory.getDao(VehicleDao.class);
 //        vehicle = dao.save(vehicle);
 
-        VehicleService vehicleService = new VehicleService();
-        vehicle = vehicleService.getEntireEntity(51L);
-        System.out.println(vehicle);
+//        VehicleService vehicleService = new VehicleService();
+//        vehicle = vehicleService.getEntireEntity(51L);
+//        System.out.println(vehicle);
+
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        VehicleManufacturerDao dao = daoFactory.getDao(VehicleManufacturerDao.class);
+        List<VehicleManufacturer> manufacturers = dao.getAll();
+        System.out.println(manufacturers);
+
 
 //        VehicleService vehicleService = new VehicleService();
 //        vehicle = vehicleService.save(vehicle, true);

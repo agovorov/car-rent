@@ -19,6 +19,17 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
     private static final Logger log = LoggerFactory.getLogger(JdbcDaoFactory.class);
     Connection connection;
 
+    // Here
+//    private final ConnectionPool connectionPool = ConnectionPool.getInstance(
+//            propertyManager.getProperty("driverName"),
+//            propertyManager.getProperty("url"),
+//            propertyManager.getProperty("login"),
+//            propertyManager.getProperty("password"),
+//            Integer.parseInt(propertyManager.getProperty("maxConnections")));
+
+    // Add ConnectionPoll here
+    // and call
+
     public JdbcDaoFactory() {
         log.trace("Get free connection from Connection pool.");
         ConnectionPool instance = ConnectionPool.getInstance();

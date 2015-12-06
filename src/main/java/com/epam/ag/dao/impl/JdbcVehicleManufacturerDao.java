@@ -1,12 +1,14 @@
 package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.VehicleManufacturerDao;
+import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.dict.VehicleManufacturer;
 import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,8 +17,8 @@ import java.util.List;
 public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleManufacturerDao.class);
-    private Connection connection;
     private static PropertiesManager pm = PropertiesManager.getInstance();
+    private Connection connection;
 
     public JdbcVehicleManufacturerDao(Connection connection) {
         this.connection = connection;
@@ -67,7 +69,26 @@ public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
 
     @Override
     public List<VehicleManufacturer> getAll() {
-        return null;
+        log.trace("manufacterer getAll");
+        String query = pm.get("vehicleManufacturer.getAll");
+        List<VehicleManufacturer> manufacturerList = new ArrayList();
+        Statement statement = null;
+        VehicleManufacturer manufacturer;
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                manufacturer = new VehicleManufacturer(
+                        rs.getLong("id"),
+                        rs.getString("manufacturer")
+                );
+                manufacturerList.add(manufacturer);
+            }
+        } catch (SQLException e) {
+            log.error("Error while SQL query select {}", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+        return manufacturerList;
     }
 
     @Override
@@ -86,7 +107,7 @@ public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
         try {
             ps = connection.prepareStatement(update_query);
             ps.setString(1, manufacturer.getValue());
-            ps.setLong(2, manufacturer.getId ());
+            ps.setLong(2, manufacturer.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             log.error("Unable to query SQL {}", manufacturer);

@@ -13,15 +13,24 @@ import java.util.Map;
 public class ActionFactory {
 
     private static final Logger log = LoggerFactory.getLogger(ActionFactory.class);
-
     Map<String, Action> actions;
 
     public ActionFactory() {
         actions = new HashMap<>();
-        actions.put("GET/index", new IndexAction());
-        actions.put("GET/error", new ErrorAction());
+        actions.put("GET/index", new ShowPageAction("index"));
+        actions.put("GET/manufacturers-list", new ShowManufacturerListAction());
+
+        actions.put("GET/manufacturer-create", new ShowPageAction("/admin/manufacturer-form"));
+        actions.put("POST/manufacturer-create", new ManufacturerAddAction());
+
+        actions.put("GET/manufacturer-update", new ManufacturerUpdateAction());
+        actions.put("POST/manufacturer-update", new ManufacturerUpdateAction());
+
+        actions.put("GET/manufacturer-delete", new ManufacturerDeleteAction());
+        actions.put("POST/manufacturer-delete", new ManufacturerDeleteAction());
+
         actions.put("GET/vehicle-list", new ShowVehicleListAction());
-        actions.put("GET/vehicle-create", new ShowVehicleCreateAction());
+        actions.put("GET/vehicle-create", new ShowPageAction("vehicle-create"));
         actions.put("POST/vehicle-create", new VehicleCreateAction());
 
         /*
@@ -37,11 +46,6 @@ public class ActionFactory {
         String method = request.getMethod();
         String actionKey = method + "/" + actionName;
         log.info("Action key: {}", actionKey);
-
-        if (!actions.containsKey(actionKey)) {
-            log.warn("Action method not found.");
-            return actions.get("GET/error");
-        }
         return actions.get(actionKey);
     }
 }
