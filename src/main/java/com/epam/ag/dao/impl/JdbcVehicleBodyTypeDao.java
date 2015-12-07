@@ -46,7 +46,7 @@ public class JdbcVehicleBodyTypeDao implements VehicleBodyTypeDao {
     @Override
     public VehicleBodyType getById(Long id) {
         log.trace("getById SQL statement: id={}", id);
-        String query = pm.get("vehicleBodyColor.getbyid");
+        String query = pm.get("vehicleBodyType.getbyid");
         return JdbcCommonDictDao.getById(query, connection, id, VehicleBodyType.class);
     }
 

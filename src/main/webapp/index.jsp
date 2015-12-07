@@ -7,13 +7,15 @@
     <ul>
         <li><a href="/controller?action=manufacturers-list">Manufacturers lists</a></li>
         <li><a href="/controller?action=manufacturer-create">Add manufacturer</a></li>
-
+        <hr>
         <li><a href="/controller?action=color-list"><fmt:message key="color.list.title"/></a></li>
         <li><a href="/controller?action=color-create"><fmt:message key="color.create.title"/></a></li>
-
-        <br>
-
-        <li><a href="/controller?action=vehicle-list">List vehicle</a></li>
-        <li><a href="/controller?action=vehicle-create">Add vehicle</a></li>
+        <hr>
+        <li><a href="/controller?action=vehicle-type-list"><fmt:message key="type.list.title"/></a></li>
+        <li><a href="/controller?action=vehicle-type-create"><fmt:message key="type.create.title"/></a></li>
+        <hr>
+        <li><a href="/controller?action=vehicle-fuel-list"><fmt:message key="fuel.list.title"/></a></li>
+        <li><a href="/controller?action=vehicle-fuel-create"><fmt:message key="fuel.create.title"/></a></li>
+        <hr>
     </ul>
 </a:page>

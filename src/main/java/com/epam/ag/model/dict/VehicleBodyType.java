@@ -15,4 +15,12 @@ public class VehicleBodyType extends DictionaryBase {
     public VehicleBodyType(Long id, String value) {
         super(id, value);
     }
+
+    public  VehicleBodyType(String valueRu, String valueEn) {
+        super(valueRu, valueEn);
+    }
+
+    public VehicleBodyType(Long id, String valueRu, String valueEn) {
+        super(id, valueRu, valueEn);
+    }
 }

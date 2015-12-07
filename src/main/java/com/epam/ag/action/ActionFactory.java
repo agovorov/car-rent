@@ -37,6 +37,25 @@ public class ActionFactory {
         actions.put("GET/color-delete", new ColorDeleteAction());
         actions.put("POST/color-delete", new ColorDeleteAction());
 
+        // Body types
+        actions.put("GET/vehicle-type-list", new ShowVehicleTypeListAction());
+        actions.put("GET/vehicle-type-create", new ShowPageAction("/admin/vehicle-type-form"));
+        actions.put("POST/vehicle-type-create", new VehicleTypeCreateAction());
+        actions.put("GET/vehicle-type-update", new VehicleTypeUpdateAction());
+        actions.put("POST/vehicle-type-update", new VehicleTypeUpdateAction());
+        actions.put("GET/vehicle-type-delete", new VehicleTypeDeleteAction());
+        actions.put("POST/vehicle-type-delete", new VehicleTypeDeleteAction());
+
+        // Fuel type
+        actions.put("GET/vehicle-fuel-list", new ShowVehicleFuelListAction());
+        actions.put("GET/vehicle-fuel-create", new ShowPageAction("/admin/vehicle-fuel-form"));
+        actions.put("POST/vehicle-fuel-create", new VehicleFuelCreateAction());
+        actions.put("GET/vehicle-fuel-update", new VehicleFuelUpdateAction());
+        actions.put("POST/vehicle-fuel-update", new VehicleFuelUpdateAction());
+        actions.put("GET/vehicle-fuel-delete", new VehicleFuelDeleteAction());
+        actions.put("POST/vehicle-fuel-delete", new VehicleFuelDeleteAction());
+
+
 
         actions.put("GET/vehicle-list", new ShowVehicleListAction());
         actions.put("GET/vehicle-create", new ShowPageAction("vehicle-create"));

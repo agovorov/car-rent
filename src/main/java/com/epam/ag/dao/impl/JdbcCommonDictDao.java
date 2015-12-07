@@ -76,6 +76,8 @@ public class JdbcCommonDictDao {
                 value_en = rs.getString("value_en");
             }
 
+            log.trace("value ru {}, value en {}", value_ru, value_en);
+
             Class c = Class.forName(clazz.getName());
             entity = c.getDeclaredConstructor(Long.class, String.class, String.class).newInstance(id, value_ru, value_en);
         } catch (SQLException e) {
