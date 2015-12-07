@@ -55,6 +55,16 @@ public class ActionFactory {
         actions.put("GET/vehicle-fuel-delete", new VehicleFuelDeleteAction());
         actions.put("POST/vehicle-fuel-delete", new VehicleFuelDeleteAction());
 
+        // Gearshift type
+        actions.put("GET/vehicle-gear-list", new ShowVehicleGearListAction());
+        actions.put("GET/vehicle-gear-create", new ShowPageAction("/admin/vehicle-gear-form"));
+        actions.put("POST/vehicle-gear-create", new VehicleGearShiftCreateAction());
+        actions.put("GET/vehicle-gear-update", new VehicleGearUpdateAction());
+        actions.put("POST/vehicle-gear-update", new VehicleGearUpdateAction());
+        actions.put("GET/vehicle-gear-delete", new VehicleGearDeleteAction());
+        actions.put("POST/vehicle-gear-delete", new VehicleGearDeleteAction());
+
+
 
 
         actions.put("GET/vehicle-list", new ShowVehicleListAction());

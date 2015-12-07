@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setBundle basename="messages/messages"/>
 <a:page title="Main">
-    <h3>Админка</h3>
+    <h3>Index</h3>
     <ul>
         <li><a href="/controller?action=manufacturers-list">Manufacturers lists</a></li>
         <li><a href="/controller?action=manufacturer-create">Add manufacturer</a></li>
@@ -16,6 +16,9 @@
         <hr>
         <li><a href="/controller?action=vehicle-fuel-list"><fmt:message key="fuel.list.title"/></a></li>
         <li><a href="/controller?action=vehicle-fuel-create"><fmt:message key="fuel.create.title"/></a></li>
+        <hr>
+        <li><a href="/controller?action=vehicle-gear-list"><fmt:message key="gear.list.title"/></a></li>
+        <li><a href="/controller?action=vehicle-gear-create"><fmt:message key="gear.create.title"/></a></li>
         <hr>
     </ul>
 </a:page>
