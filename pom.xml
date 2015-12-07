@@ -58,11 +58,11 @@
             <version>1.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>html5-boilerplate</artifactId>
-            <version>5.2.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.webjars.bower</groupId>-->
+            <!--<artifactId>html5-boilerplate</artifactId>-->
+            <!--<version>5.2.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.webjars</groupId>

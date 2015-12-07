@@ -18,16 +18,25 @@ public class ActionFactory {
     public ActionFactory() {
         actions = new HashMap<>();
         actions.put("GET/index", new ShowPageAction("index"));
-        actions.put("GET/manufacturers-list", new ShowManufacturerListAction());
 
+        // Manufacturer
+        actions.put("GET/manufacturers-list", new ShowManufacturerListAction());
         actions.put("GET/manufacturer-create", new ShowPageAction("/admin/manufacturer-form"));
         actions.put("POST/manufacturer-create", new ManufacturerAddAction());
-
         actions.put("GET/manufacturer-update", new ManufacturerUpdateAction());
         actions.put("POST/manufacturer-update", new ManufacturerUpdateAction());
-
         actions.put("GET/manufacturer-delete", new ManufacturerDeleteAction());
         actions.put("POST/manufacturer-delete", new ManufacturerDeleteAction());
+
+        // Colors
+        actions.put("GET/color-list", new ShowColorListAction());
+        actions.put("GET/color-create", new ShowPageAction("/admin/color-form"));
+        actions.put("POST/color-create", new ColorCreateAction());
+        actions.put("GET/color-update", new ColorUpdateAction());
+        actions.put("POST/color-update", new ColorUpdateAction());
+        actions.put("GET/color-delete", new ColorDeleteAction());
+        actions.put("POST/color-delete", new ColorDeleteAction());
+
 
         actions.put("GET/vehicle-list", new ShowVehicleListAction());
         actions.put("GET/vehicle-create", new ShowPageAction("vehicle-create"));

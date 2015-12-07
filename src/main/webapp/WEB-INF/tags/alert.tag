@@ -3,6 +3,6 @@
 <%@attribute name="type" type="java.lang.String" required="false" %>
 
 <c:if test="${not empty systemMessage}">
-    <div class="" style="border: 1px solid green">${systemMessage.getMessage()}</div>
+    <div class="alert alert-${systemMessage.getType()}" style="border: 1px solid green">${systemMessage.getMessage()}</div>
     <c:remove var="systemMessage" scope="session" />
 </c:if>

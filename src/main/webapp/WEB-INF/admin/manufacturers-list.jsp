@@ -5,6 +5,12 @@
 <fmt:setBundle basename="messages/messages"/>
 <a:page title="Manufacturers list">
     Список авто
+    <ul>
+        <li><a href="/">Index page</a></li>
+        <li><a href="/controller?action=manufacturer-create">Add manufacturer</a></li>
+    </ul>
+
+    <a:alert/>
     <table class="list">
         <tr>
             <th><fmt:message key="manufactors.table.title"/></th>
@@ -18,11 +24,5 @@
             </tr>
         </c:forEach>
     </table>
-
-    <ul>
-        <li><a href="/">Index page</a></li>
-        <li><a href="/controller?action=manufacturer-create">Add manufacturer</a></li>
-    </ul>
 </a:page>
 
-<a:alert/>

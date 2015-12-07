@@ -1,49 +1,49 @@
 package com.epam.ag.action;
 
 import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleManufacturerDao;
-import com.epam.ag.model.dict.VehicleManufacturer;
+import com.epam.ag.dao.VehicleBodyColorDao;
+import com.epam.ag.model.dict.VehicleBodyColor;
 import com.epam.ag.utils.SystemMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author by Govorov Andrey.
+ * @author Govorov Andrey
  */
-public class ManufacturerDeleteAction implements Action {
+public class ColorDeleteAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        Long manufacturerId = Long.valueOf(req.getParameter("id"));
-        if (manufacturerId <= 0) {
+        Long colorId = Long.valueOf(req.getParameter("id"));
+        if (colorId <= 0) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, wrong ID parameter!", SystemMessage.Type.ERROR));
-            return "admin/manufacturers-list";
+            return "admin/color-list";
         }
 
         // Loading model
         DaoFactory daoFactory = DaoFactory.getInstance();
-        VehicleManufacturerDao dao = daoFactory.getDao(VehicleManufacturerDao.class);
-        VehicleManufacturer vehicleManufacturer = new VehicleManufacturer();
-        vehicleManufacturer = dao.getById(manufacturerId);
+        VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
+        VehicleBodyColor vehicleBodyColor = new VehicleBodyColor();
+        vehicleBodyColor = dao.getById(colorId);
 
-        if (vehicleManufacturer == null) {
+        if (vehicleBodyColor == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.Type.ERROR));
-            return "admin/manufacturers-list";
+            return "admin/color-list";
         }
 
+        // Show confirm page
         if (req.getMethod().equalsIgnoreCase("GET")) {
-            // Show confirm page
-            req.setAttribute("model", vehicleManufacturer);
-            return "admin/manufacturer-delete";
+            req.setAttribute("model", vehicleBodyColor);
+            return "admin/color-delete";
         }
 
         // Do remove
-        boolean isDeleted = dao.delete(vehicleManufacturer);
+        boolean isDeleted = dao.delete(vehicleBodyColor);
         if (!isDeleted) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.Type.ERROR));
-            return "admin/manufacturers-list";
+            return "admin/color-list";
         }
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.Type.SUCCESS));
-        return "redirect:controller?action=manufacturers-list";
+        return "redirect:controller?action=color-list";
     }
 }

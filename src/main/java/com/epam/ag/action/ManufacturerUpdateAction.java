@@ -3,6 +3,7 @@ package com.epam.ag.action;
 import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.model.dict.VehicleManufacturer;
+import com.epam.ag.utils.SystemMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ public class ManufacturerUpdateAction implements Action {
         Long manufacturerId = Long.valueOf(req.getParameter("id"));
 
         if (manufacturerId <= 0) {
-            req.setAttribute("errorMessage", new SystemMessage("Please, wrong ID parameter!", "error"));
+            req.setAttribute("errorMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.Type.ERROR));
             return "admin/manufacturers-list";
         }
 
@@ -28,14 +29,14 @@ public class ManufacturerUpdateAction implements Action {
         vehicleManufacturer = dao.getById(manufacturerId);
 
         if (vehicleManufacturer == null) {
-            req.setAttribute("errorMessage", new SystemMessage("Sorry, no data.", "error"));
+            req.setAttribute("errorMessage", new SystemMessage("Sorry, no data.", SystemMessage.Type.ERROR));
             return "admin/manufacturers-list";
         }
 
         if (req.getMethod().equals("POST")) {
             String manufacturer = req.getParameter("manufacturer-name");
             if (manufacturer.isEmpty()) {
-                req.setAttribute("errorMessage", new SystemMessage("Please, enter manufacturer name!", "error"));
+                req.setAttribute("errorMessage", new SystemMessage("Please, enter manufacturer name!", SystemMessage.Type.ERROR));
                 return "admin/manufacturer-form";
             }
 
@@ -43,7 +44,7 @@ public class ManufacturerUpdateAction implements Action {
             vehicleManufacturer.setValues(manufacturer, null);
             dao.save(vehicleManufacturer);
             req.setAttribute("errorMessage", "Record successfully saved.");
-            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", "success"));
+            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.Type.SUCCESS));
             return "redirect:controller?action=manufacturer-update&id=" +vehicleManufacturer.getId();
         }
 

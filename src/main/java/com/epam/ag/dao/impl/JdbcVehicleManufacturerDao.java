@@ -132,7 +132,9 @@ public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
             }
 
             // Добавляем ключ
-            Long newId = JdbcHelper.getReturningID(ps);
+            log.trace("PS: {}", ps);
+            long newId = JdbcHelper.getReturningID(ps);
+            log.trace("New ID: {}", newId);
             manufacturer.setId(newId);
         } catch (SQLException e) {
             log.error("Unable to query SQL {}", manufacturer);
