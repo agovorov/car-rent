@@ -16,7 +16,7 @@ public class ManufacturerDeleteAction implements Action {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Long manufacturerId = Long.valueOf(req.getParameter("id"));
         if (manufacturerId <= 0) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, wrong ID parameter!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, wrong ID parameter!", SystemMessage.ERROR));
             return "admin/manufacturers-list";
         }
 
@@ -27,7 +27,7 @@ public class ManufacturerDeleteAction implements Action {
         vehicleManufacturer = dao.getById(manufacturerId);
 
         if (vehicleManufacturer == null) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
             return "admin/manufacturers-list";
         }
 
@@ -40,10 +40,10 @@ public class ManufacturerDeleteAction implements Action {
         // Do remove
         boolean isDeleted = dao.delete(vehicleManufacturer);
         if (!isDeleted) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
             return "admin/manufacturers-list";
         }
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.SUCCESS));
         return "redirect:controller?action=manufacturers-list";
     }
 }

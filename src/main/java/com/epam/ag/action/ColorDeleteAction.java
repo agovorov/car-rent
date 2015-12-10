@@ -16,7 +16,7 @@ public class ColorDeleteAction implements Action {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Long colorId = Long.valueOf(req.getParameter("id"));
         if (colorId <= 0) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, wrong ID parameter!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, wrong ID parameter!", SystemMessage.ERROR));
             return "admin/color-list";
         }
 
@@ -27,7 +27,7 @@ public class ColorDeleteAction implements Action {
         vehicleBodyColor = dao.getById(colorId);
 
         if (vehicleBodyColor == null) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
             return "admin/color-list";
         }
 
@@ -40,10 +40,10 @@ public class ColorDeleteAction implements Action {
         // Do remove
         boolean isDeleted = dao.delete(vehicleBodyColor);
         if (!isDeleted) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
             return "admin/color-list";
         }
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.SUCCESS));
         return "redirect:controller?action=color-list";
     }
 }

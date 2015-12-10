@@ -31,6 +31,18 @@ public class Vehicle extends BaseEntity {
     // сейчас разрешили тут разместить
     private double price;
 
+    public String getModel() {
+        return model;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public double getAverageConsumption() {
+        return averageConsumption;
+    }
+
     public void setManufacturer(VehicleManufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
@@ -61,6 +73,30 @@ public class Vehicle extends BaseEntity {
 
     public int getYear() {
         return year;
+    }
+
+    public VehicleBodyColor getVehicleBodyColor() {
+        return vehicleBodyColor;
+    }
+
+    public VehicleBodyType getVehicleBodyType() {
+        return vehicleBodyType;
+    }
+
+    public VehicleManufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public VehicleFuelType getVehicleFuelType() {
+        return vehicleFuelType;
+    }
+
+    public VehicleGearShift getVehicleGearShift() {
+        return vehicleGearShift;
+    }
+
+    public Gallery getVehicleImages() {
+        return vehicleImages;
     }
 
     public void setYear(int manufacturyYear) {

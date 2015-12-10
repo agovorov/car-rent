@@ -20,4 +20,8 @@ public class VehicleFuelType extends DictionaryBase {
     public VehicleFuelType() {
 
     }
+
+    public VehicleFuelType(long id) {
+        super(id);
+    }
 }

@@ -5,23 +5,9 @@
 <fmt:setBundle basename="messages/messages"/>
 <fmt:message key="dict.gear.pageheader" var="pageHeader"/>
 <a:page title="${pageHeader}">
-    <ul>
-        <li><a href="/"><fmt:message key="main.index.title"/></a></li>
-        <li><a href="/controller?action=vehicle-gear-create"><fmt:message key="dict.gear.action.create"/></a></li>
-    </ul>
-
+    <fmt:message key="gear.table.list"/>
+    <a:breadcrumbs items="${breadcrumbItems}"/>
     <a:alert/>
-    <table class="list">
-        <tr>
-            <th><fmt:message key="dict.gear.table.title"/></th>
-            <th><fmt:message key="dict.gear.table.action"/></th>
-        </tr>
-        <c:forEach items="${gearShifts}" var="gearShift" varStatus="s">
-            <tr class="row-${s.count % 2}">
-                <td>${gearShift.getValue()}</td>
-                <td><a href="/controller?action=vehicle-gear-update&id=${gearShift.getId()}"><fmt:message key="dict.action.update"/></a></td>
-                <td><a href="/controller?action=vehicle-gear-delete&id=${gearShift.getId()}"><fmt:message key="dict.action.delete"/></a></td>
-            </tr>
-        </c:forEach>
-    </table>
+    <a:dtable list="${gearShifts}"
+              actionname="vehicle-gear"/>
 </a:page>

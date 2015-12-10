@@ -19,6 +19,10 @@ public class Gallery extends BaseEntity {
         this.title = title;
     }
 
+    public Gallery(long id) {
+        this.id = id;
+    }
+
     public void addImage(GalleryItem item) {
         items.add(item);
     }

@@ -19,7 +19,7 @@ public class VehicleGearShiftCreateAction implements Action {
         String gearRu = req.getParameter("gear-name-ru");
         String gearEn = req.getParameter("gear-name-en");
         if (gearRu.isEmpty() || gearEn.isEmpty()) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
             return "admin/vehicle-gear-form";
         }
 
@@ -30,7 +30,7 @@ public class VehicleGearShiftCreateAction implements Action {
         dao.save(vehicleGearShift);
 
         // It`s ok
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));
         return "redirect:controller?action=vehicle-gear-list";
     }
 }

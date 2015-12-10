@@ -19,7 +19,7 @@ public class VehicleGearUpdateAction implements Action {
         Long vehicleGearId = Long.valueOf(req.getParameter("id"));
 
         if (vehicleGearId <= 0) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.ERROR));
             return "admin/vehicle-gear-list";
         }
 
@@ -30,7 +30,7 @@ public class VehicleGearUpdateAction implements Action {
         vehicleGearShift = dao.getById(vehicleGearId);
 
         if (vehicleGearShift == null) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
             return "admin/vehicle-gear-list";
         }
 
@@ -39,14 +39,14 @@ public class VehicleGearUpdateAction implements Action {
             String gearEn = req.getParameter("gear-name-en");
             if (gearRu.isEmpty() || gearEn.isEmpty()) {
                 req.setAttribute("vehicleGearShift", vehicleGearShift);
-                req.setAttribute("systemMessage", new SystemMessage("Please, enter vehicle`s type name in both languages!", SystemMessage.Type.ERROR));
+                req.setAttribute("systemMessage", new SystemMessage("Please, enter vehicle`s type name in both languages!", SystemMessage.ERROR));
                 return "admin/vehicle-gear-form";
             }
 
             // Save
             vehicleGearShift.setValues(gearRu, gearEn);
             dao.save(vehicleGearShift);
-            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.Type.SUCCESS));
+            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
             return "redirect:controller?action=vehicle-gear-update&id=" +vehicleGearShift.getId();
         }
 

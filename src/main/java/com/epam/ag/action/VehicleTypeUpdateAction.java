@@ -24,7 +24,7 @@ public class VehicleTypeUpdateAction implements Action {
         Long vehicleTypeId = Long.valueOf(req.getParameter("id"));
 
         if (vehicleTypeId <= 0) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.ERROR));
             return "admin/vehicle-type-list";
         }
 
@@ -35,7 +35,7 @@ public class VehicleTypeUpdateAction implements Action {
         vehicleBodyType = dao.getById(vehicleTypeId);
 
         if (vehicleBodyType == null) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
             return "admin/vehicle-type-list";
         }
 
@@ -44,14 +44,14 @@ public class VehicleTypeUpdateAction implements Action {
             String typeEn = req.getParameter("type-name-en");
             if (typeRu.isEmpty() || typeEn.isEmpty()) {
                 req.setAttribute("vehicleBodyType", vehicleBodyType);
-                req.setAttribute("systemMessage", new SystemMessage("Please, enter vehicle`s type name in both languages!", SystemMessage.Type.ERROR));
+                req.setAttribute("systemMessage", new SystemMessage("Please, enter vehicle`s type name in both languages!", SystemMessage.ERROR));
                 return "admin/vehicle-type-form";
             }
 
             // Save
             vehicleBodyType.setValues(typeRu, typeEn);
             dao.save(vehicleBodyType);
-            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.Type.SUCCESS));
+            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
             return "redirect:controller?action=vehicle-type-update&id=" +vehicleBodyType.getId();
         }
 

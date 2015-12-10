@@ -19,6 +19,10 @@ public class VehicleManufacturer extends DictionaryBase {
         super();
     }
 
+    public VehicleManufacturer(long id) {
+        super(id);
+    }
+
     public String getTitle(){
         return getValue();
     }

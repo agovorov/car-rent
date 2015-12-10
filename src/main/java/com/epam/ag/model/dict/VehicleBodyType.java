@@ -23,4 +23,8 @@ public class VehicleBodyType extends DictionaryBase {
     public VehicleBodyType(Long id, String valueRu, String valueEn) {
         super(id, valueRu, valueEn);
     }
+
+    public VehicleBodyType(Long id) {
+        super(id);
+    }
 }

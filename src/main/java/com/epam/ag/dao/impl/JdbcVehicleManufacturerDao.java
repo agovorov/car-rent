@@ -9,13 +9,14 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Govorov Andrey
  */
 public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
-
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleManufacturerDao.class);
     private static PropertiesManager pm = PropertiesManager.getInstance();
     private Connection connection;

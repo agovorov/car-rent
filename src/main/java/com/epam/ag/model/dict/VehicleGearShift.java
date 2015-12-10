@@ -23,4 +23,8 @@ public class VehicleGearShift extends DictionaryBase{
     public VehicleGearShift() {
 
     }
+
+    public VehicleGearShift(long id) {
+        super(id);
+    }
 }

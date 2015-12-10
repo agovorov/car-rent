@@ -1,19 +1,34 @@
 package com.epam.ag.utils;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author by Govorov Andrey.
  */
 public class SystemMessage {
-    private Type type = Type.SUCCESS;
-    private String message;
+    public static final String SUCCESS = "success";
+    public static final String ERROR = "danger";
+    public static final String INFO = "danger";
+    public static final String WARNING = "warning";
 
+    private boolean showErrorsList = true;
+
+    private String type;
+    private String message;
+    private Map<String, String> errorMap = new HashMap<>();
     public SystemMessage(String message) {
         this.message = message;
     }
 
-    public SystemMessage(String message, Type type) {
+    public SystemMessage(String message, String type) {
         this.message = message;
         this.type = type;
+    }
+
+    public SystemMessage() {
+
     }
 
     public String getMessage() {
@@ -21,14 +36,26 @@ public class SystemMessage {
     }
 
     public String getType() {
-        return type.name();
+        return type;
     }
 
-    public enum Type {
-        SUCCESS,
-        ERROR,
-        DANGER,
-        INFO,
-        WARNING,
+    public void addError(String parameter, String error) {
+        errorMap.put(parameter, error);
+    }
+
+    public Map<String, String> getErrors() {
+        return errorMap;
+    }
+
+    public boolean isShowErrorsList() {
+        return showErrorsList;
+    }
+
+    public void setShowErrorsList(boolean showErrorsList) {
+        this.showErrorsList = showErrorsList;
+    }
+
+    public void setType(String messageType) {
+        type = messageType;
     }
 }

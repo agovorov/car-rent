@@ -8,19 +8,19 @@
 <fmt:message key="dict.gear.form.colorname.placeholder-en" var="enterGearEn"/>
 <a:page title="Main">
     <h1><fmt:message key="dict.type.form.title"/></h1>
-
-    <ul>
-        <li><a href="/"><fmt:message key="main.index.title"/></a></li>
-        <li><a href="/controller?action=vehicle-gear-list"><fmt:message key="dict.type.title"/></a></li>
-    </ul>
-
     <a:alert/>
     <form method="post">
-        <input type="text" name="gear-name-ru" maxlength="50" autofocus="true" placeholder="${enterGearRu}"
-               value="${vehicleGearShift.getValue("ru")}">
+        <div class="form-group">
+            <label for="fGearRu"><fmt:message key="vehicle.form.model-name"/></label>
+            <input type="text" class="form-control" id="fGearRu" name="gear-name-ru" maxlength="50"
+                   placeholder="${enterGearRu}" value="${vehicleGearShift.getValue("ru")}" autofocus="true">
+        </div>
 
-        <input type="text" name="gear-name-en" maxlength="50" placeholder="${enterGearEn}"
-               value="${vehicleGearShift.getValue("en")}">
+        <div class="form-group">
+            <label for="fGearEn"><fmt:message key="vehicle.form.model-name"/></label>
+            <input type="text" class="form-control" id="fGearEn" name="gear-name-en" maxlength="50"
+                   placeholder="${enterGearEn}" value="${vehicleGearShift.getValue("en")}">
+        </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
 </a:page>

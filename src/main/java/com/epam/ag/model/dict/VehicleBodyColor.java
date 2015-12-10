@@ -25,4 +25,8 @@ public class VehicleBodyColor extends DictionaryBase {
     public VehicleBodyColor() {
 
     }
+
+    public VehicleBodyColor(long id) {
+        super(id);
+    }
 }

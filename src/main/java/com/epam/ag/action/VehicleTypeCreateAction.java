@@ -17,7 +17,7 @@ public class VehicleTypeCreateAction implements Action {
         String typeRu = req.getParameter("type-name-ru");
         String typeEn = req.getParameter("type-name-en");
         if (typeRu.isEmpty() || typeEn.isEmpty()) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
             return "admin/vehicle-type-form";
         }
 
@@ -28,7 +28,7 @@ public class VehicleTypeCreateAction implements Action {
         dao.save(vehicleBodyType);
 
         // It`s ok
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));
         return "redirect:controller?action=vehicle-type-list";
     }
 }

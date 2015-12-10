@@ -8,19 +8,19 @@
 <fmt:message key="dict.color.form.colorname.placeholder-en" var="enterColorEn"/>
 <a:page title="Main">
     <h1><fmt:message key="dict.color.form.title"/></h1>
-
-    <ul>
-        <li><a href="/"><fmt:message key="main.index.title"/></a></li>
-        <li><a href="/controller?action=color-list"><fmt:message key="dict.color.title"/></a></li>
-    </ul>
-
     <a:alert/>
     <form method="post">
-        <input type="text" name="color-name-ru" maxlength="50" autofocus="true" placeholder="${enterColorRu}"
-               value="${vehicleColor.getValue("ru")}">
+        <div class="form-group">
+            <label for="fColorRu"><fmt:message key="vehicle.form.model-name"/></label>
+            <input type="text" class="form-control" id="fColorRu" name="color-name-ru" maxlength="50"
+                   placeholder="${enterColorRu}" value="${vehicleColor.getValue("ru")}" autofocus="true">
+        </div>
 
-        <input type="text" name="color-name-en" maxlength="50" placeholder="${enterColorEn}"
-               value="${vehicleColor.getValue("en")}">
+        <div class="form-group">
+            <label for="fColorEn"><fmt:message key="vehicle.form.model-name"/></label>
+            <input type="text" class="form-control" id="fColorEn" name="color-name-en" maxlength="50"
+                   placeholder="${enterColorEn}" value="${vehicleColor.getValue("en")}">
+        </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
 </a:page>

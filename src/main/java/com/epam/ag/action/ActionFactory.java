@@ -65,11 +65,12 @@ public class ActionFactory {
         actions.put("POST/vehicle-gear-delete", new VehicleGearDeleteAction());
 
 
-
-
+        // Vehicle
         actions.put("GET/vehicle-list", new ShowVehicleListAction());
-        actions.put("GET/vehicle-create", new ShowPageAction("vehicle-create"));
+        actions.put("GET/vehicle-create", new VehicleCreateAction());
         actions.put("POST/vehicle-create", new VehicleCreateAction());
+        actions.put("GET/vehicle-update", new VehicleUpdateAction());
+        actions.put("POST/vehicle-update", new VehicleUpdateAction());
 
         /*
         actions.put("GET/register", new DisplayPageAction());
@@ -83,7 +84,7 @@ public class ActionFactory {
         String actionName = request.getParameter("action");
         String method = request.getMethod();
         String actionKey = method + "/" + actionName;
-        log.info("Action key: {}", actionKey);
+        log.trace("Action key: {}", actionKey);
         return actions.get(actionKey);
     }
 }

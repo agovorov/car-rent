@@ -17,7 +17,7 @@ public class ColorCreateAction implements Action {
         String colorRu = req.getParameter("color-name-ru");
         String colorEn = req.getParameter("color-name-en");
         if (colorRu.isEmpty() || colorEn.isEmpty()) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
             return "admin/color-form";
         }
 
@@ -28,7 +28,7 @@ public class ColorCreateAction implements Action {
         dao.save(vehicleBodyColor);
 
         // It`s ok
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));
         return "redirect:controller?action=color-list";
     }
 }

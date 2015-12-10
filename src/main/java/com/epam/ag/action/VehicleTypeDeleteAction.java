@@ -16,7 +16,7 @@ public class VehicleTypeDeleteAction implements Action {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Long typeId = Long.valueOf(req.getParameter("id"));
         if (typeId <= 0) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, wrong ID parameter!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, wrong ID parameter!", SystemMessage.ERROR));
             return "admin/vehicle-type-list";
         }
 
@@ -27,7 +27,7 @@ public class VehicleTypeDeleteAction implements Action {
         vehicleBodyType = dao.getById(typeId);
 
         if (vehicleBodyType == null) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
             return "admin/vehicle-type-list";
         }
 
@@ -40,10 +40,10 @@ public class VehicleTypeDeleteAction implements Action {
         // Do remove
         boolean isDeleted = dao.delete(vehicleBodyType);
         if (!isDeleted) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
             return "admin/vehicle-type-list";
         }
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.SUCCESS));
         return "redirect:controller?action=vehicle-type-list";
     }
 }

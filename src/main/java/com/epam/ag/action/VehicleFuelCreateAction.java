@@ -19,7 +19,7 @@ public class VehicleFuelCreateAction implements Action {
         String fuelRu = req.getParameter("fuel-name-ru");
         String fuelEn = req.getParameter("fuel-name-en");
         if (fuelRu.isEmpty() || fuelEn.isEmpty()) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
             return "admin/vehicle-fuel-form";
         }
 
@@ -30,7 +30,7 @@ public class VehicleFuelCreateAction implements Action {
         dao.save(vehicleFuelType);
 
         // It`s ok
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));
         return "redirect:controller?action=vehicle-fuel-list";
     }
 }

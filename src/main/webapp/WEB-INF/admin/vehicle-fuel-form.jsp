@@ -8,19 +8,19 @@
 <fmt:message key="dict.fuel.form.colorname.placeholder-en" var="enterFuelEn"/>
 <a:page title="Main">
     <h1><fmt:message key="dict.fuel.form.title"/></h1>
-
-    <ul>
-        <li><a href="/"><fmt:message key="main.index.title"/></a></li>
-        <li><a href="/controller?action=vehicle-fuel-list"><fmt:message key="dict.fuel.title"/></a></li>
-    </ul>
-
     <a:alert/>
     <form method="post">
-        <input type="text" name="fuel-name-ru" maxlength="50" autofocus="true" placeholder="${enterFuelRu}"
-               value="${vehicleFuelType.getValue("ru")}">
+        <div class="form-group">
+            <label for="fFuelRu"><fmt:message key="vehicle.form.model-name"/></label>
+            <input type="text" class="form-control" id="fFuelRu" name="fuel-name-ru" maxlength="50"
+                   placeholder="${enterFuelRu}" value="${vehicleFuelType.getValue("ru")}" autofocus="true">
+        </div>
 
-        <input type="text" name="fuel-name-en" maxlength="50" placeholder="${enterFuelEn}"
-               value="${vehicleFuelType.getValue("en")}">
+        <div class="form-group">
+            <label for="fFuelEn"><fmt:message key="vehicle.form.model-name"/></label>
+            <input type="text" class="form-control" id="fFuelEn" name="fuel-name-en" maxlength="50"
+                   placeholder="${enterFuelEn}" value="${vehicleFuelType.getValue("en")}">
+        </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
 </a:page>

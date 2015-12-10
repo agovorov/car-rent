@@ -19,7 +19,7 @@ public class ColorUpdateAction implements Action {
         Long colorId = Long.valueOf(req.getParameter("id"));
 
         if (colorId <= 0) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.ERROR));
             return "admin/color-list";
         }
 
@@ -30,7 +30,7 @@ public class ColorUpdateAction implements Action {
         vehicleBodyColor = dao.getById(colorId);
 
         if (vehicleBodyColor == null) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
             return "admin/color-list";
         }
 
@@ -39,7 +39,7 @@ public class ColorUpdateAction implements Action {
             String colorEn = req.getParameter("color-name-en");
             if (colorRu.isEmpty() || colorEn.isEmpty()) {
                 req.setAttribute("vehicleColor", vehicleBodyColor);
-                req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.Type.ERROR));
+                req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
                 return "admin/color-form";
             }
 
@@ -47,7 +47,7 @@ public class ColorUpdateAction implements Action {
             vehicleBodyColor.setValues(colorRu, colorEn);
             dao.save(vehicleBodyColor);
             req.setAttribute("systemMessage", "Record successfully saved.");
-            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.Type.SUCCESS));
+            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
             return "redirect:controller?action=color-update&id=" +vehicleBodyColor.getId();
         }
 

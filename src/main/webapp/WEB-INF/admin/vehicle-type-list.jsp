@@ -5,23 +5,9 @@
 <fmt:setBundle basename="messages/messages"/>
 <fmt:message key="dict.type.pageheader" var="pageHeader"/>
 <a:page title="${pageHeader}">
-    <ul>
-        <li><a href="/"><fmt:message key="main.index.title"/></a></li>
-        <li><a href="/controller?action=vehicle-type-create"><fmt:message key="dict.type.action.create"/></a></li>
-    </ul>
-
+    <fmt:message key="color.table.list"/>
+    <a:breadcrumbs items="${breadcrumbItems}"/>
     <a:alert/>
-    <table class="list">
-        <tr>
-            <th><fmt:message key="dict.type.table.title"/></th>
-            <th><fmt:message key="dict.type.table.action"/></th>
-        </tr>
-        <c:forEach items="${types}" var="type" varStatus="s">
-            <tr class="row-${s.count % 2}">
-                <td>${type.getValue()}</td>
-                <td><a href="/controller?action=vehicle-type-update&id=${type.getId()}"><fmt:message key="dict.action.update"/></a></td>
-                <td><a href="/controller?action=vehicle-type-delete&id=${type.getId()}"><fmt:message key="dict.action.delete"/></a></td>
-            </tr>
-        </c:forEach>
-    </table>
+    <a:dtable list="${types}"
+              actionname="vehicle-type"/>
 </a:page>

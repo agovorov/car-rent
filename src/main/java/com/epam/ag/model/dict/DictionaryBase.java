@@ -14,6 +14,10 @@ public class DictionaryBase extends BaseEntity {
 
     }
 
+    public DictionaryBase(Long id) {
+        this.id = id;
+    }
+
     public DictionaryBase(String value) {
         this.value = value;
     }

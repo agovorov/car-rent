@@ -16,7 +16,7 @@ public class ManufacturerAddAction implements Action {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String manufacturer = req.getParameter("manufacturer-name");
         if (manufacturer.isEmpty()) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, enter manufacturer name!", SystemMessage.Type.ERROR));
+            req.setAttribute("systemMessage", new SystemMessage("Please, enter manufacturer name!", SystemMessage.ERROR));
             return "admin/manufacturer-form";
         }
 
@@ -27,7 +27,7 @@ public class ManufacturerAddAction implements Action {
         dao.save(vehicleManufacturer);
 
         // It`s ok
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.Type.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));
         return "redirect:controller?action=manufacturers-list";
     }
 }
