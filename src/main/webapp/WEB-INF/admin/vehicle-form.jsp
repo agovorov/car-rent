@@ -20,15 +20,16 @@
 <c:set var="model" value="${not empty param.model ? param.model : vehicle.getModel() }"/>
 <c:set var="year" value="${not empty param.year ? param.year : vehicle.getYear() }"/>
 
-<c:set var="volume" value="${not empty param.volume ? param.volume : vehicle.vehicleVolume() }"/>
-<c:if test="price eq Double.NaN">
+<c:set var="volume" value="${not empty param.volume ? param.volume : vehicle.getVolume() }"/>
+<c:if test="${not empty vehicle.getVolume()}">
     <fmt:formatNumber var="volume" value="${volume}" maxFractionDigits="2" />
 </c:if>
 
 <c:set var="consumption" value="${not empty param.consumption ? param.consumption : vehicle.getConsumption() }"/>
-
 <c:set var="price" value="${not empty param.price ? param.price : vehicle.getPrice() }"/>
-<%--<fmt:formatNumber var="price" value="${price}" maxFractionDigits="0" />--%>
+<c:if test="${not empty vehicle.getPrice()}">
+    <fmt:formatNumber var="price" value="${price}" groupingUsed="" maxFractionDigits="0" />
+</c:if>
 
 <c:set var="bodytype_id" value="${not empty param.bodytype ? param.bodytype : vehicle.getBodyType() }"/>
 <c:set var="color_id" value="${not empty param.color ? param.color : vehicle.getColorId() }"/>

@@ -2,6 +2,7 @@ package com.epam.ag.action.helpers;
 
 import com.epam.ag.model.Gallery;
 import com.epam.ag.model.Vehicle;
+import com.epam.ag.model.VehicleException;
 import com.epam.ag.model.dict.*;
 import com.sun.deploy.net.HttpRequest;
 import org.slf4j.Logger;
@@ -29,52 +30,48 @@ public class ModelLoader {
 
         log.trace("Getting data from request...");
         try {
-            manufacturerId = Long.parseLong(req.getParameter("v-manufactor"));
+            manufacturerId = Long.parseLong(req.getParameter("manufactor"));
             vehicle.setManufacturer(new VehicleManufacturer(manufacturerId));
             log.trace("Manufacturer ID done {}", manufacturerId);
 
-            model = req.getParameter("v-model");
+            model = req.getParameter("model");
             vehicle.setModel(model);
 
-            int year = Integer.parseInt(req.getParameter("v-year"));
+            int year = Integer.parseInt(req.getParameter("year"));
             vehicle.setYear(year);
 
-            if (req.getParameter("v-volume") != null) {
-                String volumeString = req.getParameter("v-volume");
+            if (req.getParameter("volume") != null) {
+                String volumeString = req.getParameter("volume");
                 Number volume = formatter.parse(volumeString);
                 vehicle.setVolume(volume.floatValue());
                 log.trace("volume: {} => {}", volumeString, volume.floatValue());
             }
 
-            double consumption = Double.parseDouble(req.getParameter("v-consumpt"));
+            int consumption = Integer.parseInt(req.getParameter("consumption"));
             vehicle.setConsumption(consumption);
 
-            if (req.getParameter("v-price") != null) {
-                String priceString = req.getParameter("v-price");
+            if (req.getParameter("price") != null) {
+                String priceString = req.getParameter("price");
                 Number volume = formatter.parse(priceString);
                 vehicle.setPrice(volume.floatValue());
                 log.trace("price: {} => {}", priceString, volume.floatValue());
             }
 
-            long bodyTypeId = Integer.parseInt(req.getParameter("v-bodytype"));
+            long bodyTypeId = Integer.parseInt(req.getParameter("bodytype"));
             vehicle.setBodyType(new VehicleBodyType(bodyTypeId));
 
-            long colorId = Integer.parseInt(req.getParameter("v-color"));
+            long colorId = Integer.parseInt(req.getParameter("color"));
             vehicle.setColor(new VehicleBodyColor(colorId));
 
-            long gearId = Integer.parseInt(req.getParameter("v-gear"));
+            long gearId = Integer.parseInt(req.getParameter("gear"));
             vehicle.setTransmission(new VehicleGearShift(gearId));
 
-            long fuelId = Integer.parseInt(req.getParameter("v-fuel"));
+            long fuelId = Integer.parseInt(req.getParameter("fuel"));
             vehicle.setFuelType(new VehicleFuelType(fuelId));
-
-            // !!!!!
-
-            vehicle.setGallery(new Gallery(1L));
         } catch (NumberFormatException | ParseException e) {
             log.error("Exception: ", e);
+            throw new VehicleException("Unable to set data to model", e);
         }
-
         return vehicle;
     }
 }

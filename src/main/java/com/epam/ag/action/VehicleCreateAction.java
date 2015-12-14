@@ -2,14 +2,10 @@ package com.epam.ag.action;
 
 import com.epam.ag.action.helpers.ModelLoader;
 import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.GalleryDao;
-import com.epam.ag.dao.VehicleDao;
 import com.epam.ag.model.*;
-import com.epam.ag.propmanager.PropertiesManager;
 import com.epam.ag.service.GalleryService;
 import com.epam.ag.service.VehicleService;
 import com.epam.ag.utils.DictionaryLoader;
-import com.epam.ag.utils.ImageUploader;
 import com.epam.ag.utils.SystemMessage;
 import com.epam.ag.validator.FormValidator;
 import org.slf4j.Logger;
@@ -18,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.List;
 
@@ -45,50 +40,52 @@ public class VehicleCreateAction implements Action {
             // Run validation
             FormValidator validator = new FormValidator();
             SystemMessage systemMessage = validator.validateForm(req);
-
-            //req.setAttribute("year", 2015);
-
-            // If form has error show them
             if (systemMessage.hasErrors()) {
                 req.setAttribute("systemMessage", systemMessage);
                 return "admin/vehicle-form";
             }
 
-//            Vehicle vehicle = new Vehicle();
-//            vehicle = ModelLoader.loadVehicleFromRequest(req, vehicle);
-//            try {
-//                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
-//                final Part filePart = req.getPart("f-gallery");
-//
-//                // Uploading image
-//                ImageUploader imageUploader = new ImageUploader();
-//                String filename = imageUploader.fromRequest(filePart, path);
-//                log.trace("Successfully uploaded to {}", filename);
-//
-//                // save image to db
-//                Gallery gallery = new Gallery(vehicle.getModel());
-//                gallery.addImage(new GalleryItem(filename, filename, true));
-//                vehicle.setGallery(gallery);
-//            } catch (IOException | ServletException e) {
-//                // Unable to upload image
-//                log.error("Unable to upload image", e);
-//                systemMessage.setType(SystemMessage.ERROR);
-//                systemMessage.addError("f-gallery", "form.save.gallery.error");
-//            }
-//
-//            try {
-//                // Trying to save
-//                VehicleService vs = new VehicleService();
-//                vehicle = vs.save(vehicle);
-//            } catch (Exception e) {
-//                // Error occurred
-//                req.setAttribute("systemMessage", systemMessage);
-//                return "admin/vehicle-form";
-//            }
+            /*
+             1 VALIDATE POST
+             2 If has gallery - save gallery
+             3 Set post to model
+             3 Save model
+             4 Add BLOB to gallery
+             */
+
+            // If new image selected trying ti upload it
+            Gallery gallery = new Gallery("G" + req.getParameter("model"));
+            try {
+                if (req.getPart("gallery").getSize() > 0) {
+                    // New image has been selected
+                    log.trace("New gallery found");
+                    GalleryService galleryService = new GalleryService();
+                    gallery = galleryService.save(gallery, false);
+                    GalleryItem item = galleryService.createBLOBItem(req, "gallery", gallery.getId(), true);
+                    gallery.addImage(item);
+                }
+            } catch (IOException | ServletException e) {
+                systemMessage.addError("form.vehicle.gallery", "gallery.image.not_uploaded");
+                req.setAttribute("systemMessage", systemMessage);
+                return "admin/vehicle-form";
+            }
+
+            Vehicle vehicle = new Vehicle();
+            vehicle = ModelLoader.loadVehicleFromRequest(req, vehicle);
+            vehicle.setGallery(gallery);
+
+            try {
+                // Trying to save
+                VehicleService vs = new VehicleService();
+                vehicle = vs.save(vehicle);
+            } catch (Exception e) {
+                // Error occurred
+                req.setAttribute("systemMessage", systemMessage);
+                return "admin/vehicle-form";
+            }
             req.getSession().setAttribute("systemMessage", new SystemMessage("form.save.success", SystemMessage.SUCCESS));
             return "redirect:controller?action=vehicle-list";
         }
-
 
         // Тестовые ошибки
 //        SystemMessage msg = new SystemMessage("form.save.error", SystemMessage.ERROR);

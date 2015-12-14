@@ -130,7 +130,7 @@ public class JdbcVehicleDao implements VehicleDao {
                 vehicle.setId(id);
                 vehicle.setModel(rs.getString("model"));
                 vehicle.setYear(rs.getInt("year"));
-                vehicle.setConsumption(rs.getDouble("consumption"));
+                vehicle.setConsumption(rs.getInt("consumption"));
                 vehicle.setVolume(rs.getDouble("volume"));
                 vehicle.setPrice(rs.getDouble("price"));
 
@@ -192,7 +192,7 @@ public class JdbcVehicleDao implements VehicleDao {
                 vehicle.setId(rs.getLong("id"));
                 vehicle.setModel(rs.getString("model"));
                 vehicle.setYear(rs.getInt("year"));
-                vehicle.setConsumption(rs.getDouble("consumption"));
+                vehicle.setConsumption(rs.getInt("consumption"));
                 vehicle.setVolume(rs.getDouble("volume"));
                 vehicle.setPrice(rs.getDouble("price"));
 

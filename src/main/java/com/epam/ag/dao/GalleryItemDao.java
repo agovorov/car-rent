@@ -2,6 +2,7 @@ package com.epam.ag.dao;
 
 import com.epam.ag.model.GalleryItem;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface GalleryItemDao extends GenericDao<GalleryItem> {
@@ -27,4 +28,7 @@ public interface GalleryItemDao extends GenericDao<GalleryItem> {
     void commit();
 
     void rollback();
+
+    GalleryItem saveBLOB(GalleryItem item, InputStream imageContent);
+    void getImage(int id);
 }

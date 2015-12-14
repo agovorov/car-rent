@@ -13,7 +13,7 @@ public class Vehicle extends BaseEntity {
     private String model;
     private int year;
     private boolean isAvailable = true;
-    private double averageConsumption;
+    private int consumption;
     private double volume;
     //private List<GalleryItem> vehicleImages;
     //private Gallery<GalleryItem> vehicleImages = new Gallery<>();
@@ -39,8 +39,8 @@ public class Vehicle extends BaseEntity {
         return isAvailable;
     }
 
-    public double getAverageConsumption() {
-        return averageConsumption;
+    public int getAverageConsumption() {
+        return consumption;
     }
 
     public void setManufacturer(VehicleManufacturer manufacturer) {
@@ -123,12 +123,12 @@ public class Vehicle extends BaseEntity {
         return vehicleGearShift.getId();
     }
 
-    public double getConsumption() {
-        return averageConsumption;
+    public int getConsumption() {
+        return consumption;
     }
 
-    public void setConsumption(double averageConsumption) {
-        this.averageConsumption = averageConsumption;
+    public void setConsumption(int averageConsumption) {
+        this.consumption = averageConsumption;
     }
 
     public double getVolume() {
@@ -151,7 +151,7 @@ public class Vehicle extends BaseEntity {
                 ", manufacturer=" + manufacturer +
                 ", year=" + year +
                 ", volume=" + volume +
-                ", averageConsumption=" + averageConsumption +
+                ", averageConsumption=" + consumption +
                 ", isAvailable=" + isAvailable +
                 ", vehicleBodyColor=" + vehicleBodyColor +
                 ", vehicleBodyType=" + vehicleBodyType +

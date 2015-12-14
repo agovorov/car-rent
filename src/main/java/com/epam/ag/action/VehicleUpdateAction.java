@@ -60,45 +60,61 @@ public class VehicleUpdateAction implements Action {
             SystemMessage systemMessage = validator.validateForm(req);
             // If form has error show them
             //if (systemMessage.hasErrors()) {
+
+            try {
+                Part part = req.getPart("gallery");
+
+                if (part.getSize() > 0) {
+                    log.trace("New image");
+                } else {
+                    log.trace("No image");
+                }
+            } catch (IOException | ServletException e) {
+
+            }
+
+
             if (true) {
                 req.setAttribute("systemMessage", systemMessage);
                 req.setAttribute("vehicle", vehicle);
                 return "admin/vehicle-form";
             }
 
-            vehicle = ModelLoader.loadVehicleFromRequest(req, vehicle);
+//            vehicle = ModelLoader.loadVehicleFromRequest(req, vehicle);
 
-            try {
-                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
-                final Part filePart = req.getPart("f-gallery");
 
-                // Uploading image
-                ImageUploader imageUploader = new ImageUploader();
-                String filename = imageUploader.fromRequest(filePart, path);
-                log.trace("Successfully uploaded to {}", filename);
-
-                // save image to db
-                Gallery gallery = new Gallery(vehicle.getModel());
-                gallery.addImage(new GalleryItem(filename, filename, true));
-                vehicle.setGallery(gallery);
-            } catch (IOException | ServletException e) {
-                // Unable to upload image
-                log.error("Unable to upload image", e);
-                systemMessage.setType(SystemMessage.ERROR);
-                systemMessage.addError("f-gallery", "form.save.gallery.error");
-            }
-
-            // Trying to save
-            try {
-                // Trying to save
-                VehicleService vs = new VehicleService();
-                vehicle = vs.save(vehicle);
-            } catch (Exception e) {
-                // Error occurred
-                req.setAttribute("vehicle", vehicle);
-                req.setAttribute("systemMessage", systemMessage);
-                return "admin/vehicle-form";
-            }
+//
+//            try {
+//                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
+//                final Part filePart = req.getPart("f-gallery");
+//
+//                // Uploading image
+//                ImageUploader imageUploader = new ImageUploader();
+//                String filename = imageUploader.fromRequest(filePart, path);
+//                log.trace("Successfully uploaded to {}", filename);
+//
+//                // save image to db
+////                Gallery gallery = new Gallery(vehicle.getModel());
+////                gallery.addImage(new GalleryItem(filename, filename, true));
+////                vehicle.setGallery(gallery);
+//            } catch (IOException | ServletException e) {
+//                // Unable to upload image
+//                log.error("Unable to upload image", e);
+//                systemMessage.setType(SystemMessage.ERROR);
+//                systemMessage.addError("f-gallery", "form.save.gallery.error");
+//            }
+//
+//            // Trying to save
+//            try {
+//                // Trying to save
+//                VehicleService vs = new VehicleService();
+//                vehicle = vs.save(vehicle);
+//            } catch (Exception e) {
+//                // Error occurred
+//                req.setAttribute("vehicle", vehicle);
+//                req.setAttribute("systemMessage", systemMessage);
+//                return "admin/vehicle-form";
+//            }
             req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
             return "redirect:controller?action=vehicle-update&id=" + vehicle.getId();
         }

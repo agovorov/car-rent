@@ -7,6 +7,9 @@ import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +37,7 @@ public class JdbcGalleryItemDao implements GalleryItemDao {
         try {
             ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, item.getGalleryId());
-            ps.setString(2, item.getFullImagePath());
-            ps.setString(3, item.getThumbPath());
-            ps.setInt(4, (item.isMainImage() ? 1 : 0));
+            ps.setInt(2, (item.isMainImage() ? 1 : 0));
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating fail, no rows affected.");
@@ -59,10 +60,8 @@ public class JdbcGalleryItemDao implements GalleryItemDao {
         try {
             ps = connection.prepareStatement(query);
             ps.setLong(1, item.getGalleryId());
-            ps.setString(2, item.getFullImagePath());
-            ps.setString(3, item.getThumbPath());
-            ps.setInt(4, (item.isMainImage() ? 1 : 0));
-            ps.setLong(5, item.getId());
+            ps.setInt(2, (item.isMainImage() ? 1 : 0));
+            ps.setLong(3, item.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             log.error("Unable to query SQL {}", item);
@@ -89,8 +88,6 @@ public class JdbcGalleryItemDao implements GalleryItemDao {
             while (rs.next()) {
                 item = new GalleryItem();
                 item.setId(id);
-                item.setFullImagePath(rs.getString("fullimage_path"));
-                item.setThumbPath(rs.getString("thumb_path"));
                 item.setMainImage(rs.getInt("is_main") == 1);
                 item.setGalleryId(rs.getLong("gallery_id"));
             }
@@ -128,8 +125,6 @@ public class JdbcGalleryItemDao implements GalleryItemDao {
             while (rs.next()) {
                 item = new GalleryItem();
                 item.setId(rs.getLong("id"));
-                item.setFullImagePath(rs.getString("fullimage_path"));
-                item.setThumbPath(rs.getString("thumb_path"));
                 item.setMainImage(rs.getInt("is_main") == 1);
                 item.setGalleryId(rs.getLong("gallery_id"));
                 itemList.add(item);
@@ -169,5 +164,69 @@ public class JdbcGalleryItemDao implements GalleryItemDao {
             log.error("rollback transaction");
             throw new JdbcDaoException("Unable to rollback transaction", e);
         }
+    }
+
+
+    @Override
+    public GalleryItem saveBLOB(GalleryItem item, InputStream is) {
+        log.trace("Gallery item insert statement: {}", item);
+        String query = PropertiesManager.getInstance().get("query.properties", "galleryItem.insertBLOB");
+        //String query = pm.get("galleryItem.insertBLOB");
+        PreparedStatement ps = null;
+        log.trace("Query: {}", query);
+        try {
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            connection.setAutoCommit(false);
+            ps.setLong(1, item.getGalleryId());
+            ps.setInt(2, (item.isMainImage() ? 1 : 0));
+            ps.setBinaryStream(3, is);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                connection.rollback();
+                throw new SQLException("Creating fail, no rows affected.");
+            }
+
+            // Updating ID
+            Long newId = JdbcHelper.getReturningID(ps);
+            item.setId(newId);
+        } catch (SQLException e) {
+            log.error("Unable to query SQL {}", item, e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            log.error("Unable to commit query {}", item, e);
+            throw new JdbcDaoException("Unable to commit query", e);
+        }
+        return item;
+    }
+
+
+    // THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!!
+    public void getImage(int id) {
+        PreparedStatement ps = null;
+        String query = PropertiesManager.getInstance().get("query.properties", "galleryItem.getBLOB");
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                byte[] imgBytes = rs.getBytes(1);
+
+                // Save to
+                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
+                FileOutputStream fos = new FileOutputStream(path + "out.png");
+                fos.write(imgBytes);
+                fos.close();
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException | IOException e) {
+            log.error("Unable to get resource", e);
+            throw new RuntimeException("Unable to get resource");
+        }
+
     }
 }

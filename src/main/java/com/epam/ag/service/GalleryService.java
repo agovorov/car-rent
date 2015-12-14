@@ -5,13 +5,23 @@ import com.epam.ag.dao.GalleryDao;
 import com.epam.ag.dao.GalleryItemDao;
 import com.epam.ag.model.Gallery;
 import com.epam.ag.model.GalleryItem;
+import com.epam.ag.propmanager.PropertiesManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
  * @author Govorov Andrey
  */
 public class GalleryService extends BaseService {
+
+    private static final Logger log = LoggerFactory.getLogger(GalleryService.class);
 
     private static final DaoFactory daoFactory = DaoFactory.getInstance();
 
@@ -36,7 +46,7 @@ public class GalleryService extends BaseService {
             for (int i = 0; i < gallery.size(); i++) {
                 item = gallery.getItem(i);
                 item.setGalleryId(galleryId);
-                item =  itemDao.save(item);
+                item = itemDao.save(item);
             }
         }
         if (transaction) {
@@ -77,5 +87,39 @@ public class GalleryService extends BaseService {
             gallery.removeImage(idx);
         }
         return gallery;
+    }
+
+    /**
+     * Add BLOB object to database.
+     * @param req Servlet request to get files`s Part
+     * @param partName Name of the Part in servlet request
+     * @param galleryId Gallery ID
+     * @param isMainPage Main image or not
+     * @return Item of gallery
+     */
+    public GalleryItem createBLOBItem(HttpServletRequest req, String partName, Long galleryId, boolean isMainPage) {
+        GalleryItem item = new GalleryItem();
+        item.setGalleryId(galleryId);
+        item.setMainImage(isMainPage);
+
+        GalleryItemDao itemDao = daoFactory.getDao(GalleryItemDao.class);
+        InputStream imageContent = null;
+        try {
+            final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
+            log.trace("IMG path: {}", path);
+            final Part filePart = req.getPart(partName);
+            imageContent = filePart.getInputStream();
+            item = itemDao.saveBLOB(item, imageContent);
+        } catch (IOException | ServletException e) {
+            log.error("Unable to upload gallery", e);
+            throw new RuntimeException("Unable to upload resource");
+        } finally {
+            if (imageContent != null) try {
+                imageContent.close();
+            } catch (IOException e) {
+                log.warn("Unable to close resource {}", e);
+            }
+        }
+        return item;
     }
 }
