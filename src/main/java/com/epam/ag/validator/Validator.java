@@ -7,5 +7,7 @@ import java.util.List;
  */
 public interface Validator {
 
-    boolean isValid(String Param);
+    void setMessage(String msg);
+    String getMessage();
+    boolean isValid(String param);
 }

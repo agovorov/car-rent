@@ -8,11 +8,15 @@ import com.epam.ag.model.dict.*;
 import com.epam.ag.service.GalleryService;
 import com.epam.ag.service.VehicleService;
 import com.epam.ag.utils.SystemMessage;
+import com.epam.ag.validator.FormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 15.	Система Прокат автомобилей. Клиент выбирает Автомобиль из списка доступных. Заполняет
@@ -31,14 +35,29 @@ public class App {
 
     public static void main(String[] args) {
 
-        SystemMessage systemMessage = new SystemMessage("Error found!", SystemMessage.ERROR);
-        systemMessage.addError("user-name", "username.wrong-length");
-        systemMessage.addError("user-passwd", "username.pass.too-short");
-        systemMessage.addError("user-date", "username.date.wrong-date-format");
+        Map<String, String> map = new TreeMap<>();
 
-        System.out.println( systemMessage.getType() );
-        Map y = systemMessage.getErrors();
-        System.out.println( y.get("user-name"));
+//        map.put("v-manufactor", "3434343");
+//        map.put("v-model", "bs");
+//        map.put("v-year", "asas");
+        map.put("v-volume", "443.5");
+
+        FormValidator validator = new FormValidator();
+        SystemMessage systemMessage = validator.validateMap(map);
+        if (!systemMessage.getErrors().isEmpty()) {
+            System.out.println("----------------------------");
+            System.out.println("Errors found");
+            System.out.println(systemMessage.getErrors());
+        } else {
+            System.out.println("All ok");
+        }
+//        SystemMessage systemMessage = new SystemMessage("Error found!", SystemMessage.ERROR);
+//        systemMessage.addError("user-name", "username.wrong-length");
+//        systemMessage.addError("user-passwd", "username.pass.too-short");
+//        systemMessage.addError("user-passwd", "username.pass.required");
+//        systemMessage.addError("user-date", "username.date.wrong-date-format");
+//
+//        System.out.println( systemMessage.getType() );
 
         //SystemMessage.ERROR
 

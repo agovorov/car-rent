@@ -16,7 +16,7 @@ public class GalleryService extends BaseService {
     private static final DaoFactory daoFactory = DaoFactory.getInstance();
 
     // Транзакция
-    // Save gllery
+    // Save gallery
     // save galleryItem
     // save
     public Gallery save(Gallery gallery, boolean transaction) {

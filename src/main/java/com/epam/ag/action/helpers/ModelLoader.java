@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
 
 /**
@@ -70,7 +71,7 @@ public class ModelLoader {
             // !!!!!
 
             vehicle.setGallery(new Gallery(1L));
-        } catch (Exception e) {
+        } catch (NumberFormatException | ParseException e) {
             log.error("Exception: ", e);
         }
 

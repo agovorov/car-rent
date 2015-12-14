@@ -78,8 +78,8 @@ public class JdbcVehicleDao implements VehicleDao {
             ps.setDouble(10, vehicle.getPrice());
 
             // TODO help!!!
-            //ps.setLong(11, vehicle.getGalleryId());
-            ps.setNull(11, java.sql.Types.INTEGER);
+            ps.setLong(11, vehicle.getGalleryId());
+//            ps.setNull(11, java.sql.Types.INTEGER);
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {

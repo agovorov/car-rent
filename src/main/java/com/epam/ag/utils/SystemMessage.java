@@ -31,6 +31,10 @@ public class SystemMessage {
 
     }
 
+    public boolean hasErrors() {
+        return !errorMap.isEmpty();
+    }
+
     public String getMessage() {
         return message;
     }
@@ -57,5 +61,15 @@ public class SystemMessage {
 
     public void setType(String messageType) {
         type = messageType;
+    }
+
+    @Override
+    public String toString() {
+        return "SystemMessage{" +
+                "showErrorsList=" + showErrorsList +
+                ", type='" + type + '\'' +
+                ", message='" + message + '\'' +
+                ", errorMap.size=" + errorMap.size() +
+                '}';
     }
 }

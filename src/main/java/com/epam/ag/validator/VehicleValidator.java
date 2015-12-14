@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * @author Govorov Andrey
+ * @deprecated
  */
 public class VehicleValidator {
     public static List validate(Vehicle vehicle) {
