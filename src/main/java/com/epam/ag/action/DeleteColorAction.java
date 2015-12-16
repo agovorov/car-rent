@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Govorov Andrey
  */
-public class ColorDeleteAction implements Action {
+public class DeleteColorAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Long colorId = Long.valueOf(req.getParameter("id"));
@@ -23,8 +23,7 @@ public class ColorDeleteAction implements Action {
         // Loading model
         DaoFactory daoFactory = DaoFactory.getInstance();
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
-        VehicleBodyColor vehicleBodyColor = new VehicleBodyColor();
-        vehicleBodyColor = dao.getById(colorId);
+        VehicleBodyColor vehicleBodyColor = dao.getById(colorId);
 
         if (vehicleBodyColor == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
@@ -39,6 +38,7 @@ public class ColorDeleteAction implements Action {
 
         // Do remove
         boolean isDeleted = dao.delete(vehicleBodyColor);
+        daoFactory.close();
         if (!isDeleted) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
             return "admin/color-list";

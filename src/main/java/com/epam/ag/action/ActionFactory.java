@@ -31,11 +31,11 @@ public class ActionFactory {
         // Colors
         actions.put("GET/color-list", new ShowColorListAction());
         actions.put("GET/color-create", new ShowPageAction("/admin/color-form"));
-        actions.put("POST/color-create", new ColorCreateAction());
-        actions.put("GET/color-update", new ColorUpdateAction());
-        actions.put("POST/color-update", new ColorUpdateAction());
-        actions.put("GET/color-delete", new ColorDeleteAction());
-        actions.put("POST/color-delete", new ColorDeleteAction());
+        actions.put("POST/color-create", new AddColorAction());
+        actions.put("GET/color-update", new UpdateColorAction());
+        actions.put("POST/color-update", new UpdateColorAction());
+        actions.put("GET/color-delete", new DeleteColorAction());
+        actions.put("POST/color-delete", new DeleteColorAction());
 
         // Body types
         actions.put("GET/vehicle-type-list", new ShowVehicleTypeListAction());

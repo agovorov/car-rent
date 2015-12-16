@@ -17,11 +17,9 @@ import java.util.List;
 /**
  * @author Govorov Andrey
  */
-public class JdbcUserDao implements UserDao {
+public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcUserDao.class);
-    private Connection connection;
-    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcUserDao(Connection connection) {
         this.connection = connection;

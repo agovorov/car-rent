@@ -1,20 +1,13 @@
 package com.epam.ag;
 
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleDao;
-import com.epam.ag.dao.VehicleManufacturerDao;
-import com.epam.ag.model.*;
-import com.epam.ag.model.dict.*;
-import com.epam.ag.service.GalleryService;
-import com.epam.ag.service.VehicleService;
-import com.epam.ag.utils.SystemMessage;
-import com.epam.ag.validator.FormValidator;
+import com.epam.ag.dao.*;
+import com.epam.ag.model.User;
+import com.epam.ag.model.Vehicle;
+import com.epam.ag.model.dict.VehicleBodyColor;
+import com.epam.ag.model.dict.VehicleManufacturer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -40,17 +33,17 @@ public class App {
 //        map.put("v-manufactor", "3434343");
 //        map.put("v-model", "bs");
 //        map.put("v-year", "asas");
-        map.put("v-volume", "443.5");
-
-        FormValidator validator = new FormValidator();
-        SystemMessage systemMessage = validator.validateMap(map);
-        if (!systemMessage.getErrors().isEmpty()) {
-            System.out.println("----------------------------");
-            System.out.println("Errors found");
-            System.out.println(systemMessage.getErrors());
-        } else {
-            System.out.println("All ok");
-        }
+//        map.put("v-volume", "443.5");
+//
+//        FormValidator validator = new FormValidator();
+//        SystemMessage systemMessage = validator.validateMap(map);
+//        if (!systemMessage.getErrors().isEmpty()) {
+//            System.out.println("----------------------------");
+//            System.out.println("Errors found");
+//            System.out.println(systemMessage.getErrors());
+//        } else {
+//            System.out.println("All ok");
+//        }
 //        SystemMessage systemMessage = new SystemMessage("Error found!", SystemMessage.ERROR);
 //        systemMessage.addError("user-name", "username.wrong-length");
 //        systemMessage.addError("user-passwd", "username.pass.too-short");
@@ -60,7 +53,6 @@ public class App {
 //        System.out.println( systemMessage.getType() );
 
         //SystemMessage.ERROR
-
 
 
         // Load data
@@ -97,7 +89,6 @@ public class App {
 //        vehicle = dao.save(vehicle);
 
 
-
 //        VehicleService vehicleService = new VehicleService();
 //        vehicle = vehicleService.getEntireEntity(51L);
 //        System.out.println(vehicle);
@@ -110,10 +101,52 @@ public class App {
 //            System.out.println(v.getManufactorId());
 //        }
 
-
 //        VehicleService vehicleService = new VehicleService();
 //        vehicle = vehicleService.save(vehicle, true);
 
+        // Get factory
+        DaoFactory daoFactory = DaoFactory.getInstance();
 
+        // DAO 1
+        VehicleManufacturerDao mdao = daoFactory.getDao(VehicleManufacturerDao.class);
+        VehicleManufacturer man = mdao.getById(1L);
+
+        // DAO 2
+        VehicleDao dao = daoFactory.getDao(VehicleDao.class);
+        Vehicle vehicle = dao.getById(55L);
+
+        // DAO 3
+//        VehicleBodyColorDao cdao = daoFactory.getDao(VehicleBodyColorDao.class);
+//        VehicleBodyColor e1 = cdao.getById(1L);
+//        System.out.println(e1);
+
+        daoFactory.close();
+
+
+//        DaoFactory daoFactory2 = DaoFactory.getInstance();
+//        VehicleBodyColorDao cdao2 = daoFactory2.getDao(VehicleBodyColorDao.class);
+//        VehicleBodyColor e12 = cdao2.getById(1L);
+//        System.out.println(e12);
+//
+//        DaoFactory daoFactory3 = DaoFactory.getInstance();
+//        VehicleBodyColorDao cdao3 = daoFactory3.getDao(VehicleBodyColorDao.class);
+//        VehicleBodyColor e13 = cdao3.getById(1L);
+//        System.out.println(e13);
+//        daoFactory3.close();
+//
+//        DAO 4
+//        UserDao udao = daoFactory.getDao(UserDao.class);
+//        User e2 = udao.getById(1L);
+//        System.out.println(e2);
+
+//       daoFactory2.close();
     }
 }
+
+/*
+[17:37:09] Timofey Balashov: фабрика = даоФабрика.дайФабрику(); // тут вытянется коннекшн из бд
+[17:37:50] Timofey Balashov: юзерДао = фабрика.дайЮзерДао(); // получим юзерДао с тем коннекшном
+[17:38:15] Timofey Balashov: шмузерДао = фабрика.дайШмузерДао(); // получим шмузерДао всё с тем же коннекшном
+[17:38:42] Timofey Balashov: юзерДао.сделайТо(); шмузерДао.сделайСё();
+[17:39:04] Timofey Balashov: фабрика.закройся(); // вот тут отдаем коннекш обратно в пул
+ */

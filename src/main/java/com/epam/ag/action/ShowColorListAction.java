@@ -2,9 +2,7 @@ package com.epam.ag.action;
 
 import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.VehicleBodyColorDao;
-import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.model.dict.VehicleBodyColor;
-import com.epam.ag.model.dict.VehicleManufacturer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +18,7 @@ public class ShowColorListAction implements Action {
         DaoFactory daoFactory = DaoFactory.getInstance();
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
         List<VehicleBodyColor> colors = dao.getAll();
-
+        daoFactory.close();
         req.setAttribute("colors", colors);
         return "admin/color-list";
     }

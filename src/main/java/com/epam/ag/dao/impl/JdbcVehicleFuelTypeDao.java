@@ -9,11 +9,9 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.util.List;
 
-public class JdbcVehicleFuelTypeDao implements VehicleFuelTypeDao {
+public class JdbcVehicleFuelTypeDao extends JdbcAbstractDao implements VehicleFuelTypeDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleFuelTypeDao.class);
-    private static PropertiesManager pm = PropertiesManager.getInstance();
-    private Connection connection;
 
     public JdbcVehicleFuelTypeDao(Connection connection) {
         this.connection = connection;

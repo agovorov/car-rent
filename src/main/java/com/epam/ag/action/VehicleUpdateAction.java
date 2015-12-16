@@ -31,7 +31,6 @@ public class VehicleUpdateAction implements Action {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Long vehicleId = Long.valueOf(req.getParameter("id"));
 
-        DaoFactory daoFactory = DaoFactory.getInstance();
 
         // List of the manufactors
         DictionaryLoader.loadDictionaries(req);
@@ -40,17 +39,20 @@ public class VehicleUpdateAction implements Action {
             req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.ERROR));
             return "admin/vehicle-list";
         }
+
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());
         req.setAttribute("breadcrumbItems", breadcrumbItems);
 
+        DaoFactory daoFactory = DaoFactory.getInstance();
+
         // Loading model
         VehicleDao dao = daoFactory.getDao(VehicleDao.class);
-        Vehicle vehicle = new Vehicle();
-        vehicle = dao.getById(vehicleId);
+        Vehicle vehicle = dao.getById(vehicleId);
 
         if (vehicle == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-list";
         }
 
@@ -77,6 +79,7 @@ public class VehicleUpdateAction implements Action {
             if (true) {
                 req.setAttribute("systemMessage", systemMessage);
                 req.setAttribute("vehicle", vehicle);
+                daoFactory.close();
                 return "admin/vehicle-form";
             }
 
@@ -116,10 +119,12 @@ public class VehicleUpdateAction implements Action {
 //                return "admin/vehicle-form";
 //            }
             req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
+            daoFactory.close();
             return "redirect:controller?action=vehicle-update&id=" + vehicle.getId();
         }
 
         req.setAttribute("vehicle", vehicle);
+        daoFactory.close();
         return "admin/vehicle-form";
     }
 }

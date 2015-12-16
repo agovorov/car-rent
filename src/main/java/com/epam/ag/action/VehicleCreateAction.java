@@ -26,8 +26,6 @@ public class VehicleCreateAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        // TODO как правильно поступить с формой, чтобы после поста выбранные данные остались
-
         DictionaryLoader.loadDictionaries(req);
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());
@@ -80,9 +78,11 @@ public class VehicleCreateAction implements Action {
                 vehicle = vs.save(vehicle);
             } catch (Exception e) {
                 // Error occurred
+                daoFactory.close();
                 req.setAttribute("systemMessage", systemMessage);
                 return "admin/vehicle-form";
             }
+            daoFactory.close();
             req.getSession().setAttribute("systemMessage", new SystemMessage("form.save.success", SystemMessage.SUCCESS));
             return "redirect:controller?action=vehicle-list";
         }

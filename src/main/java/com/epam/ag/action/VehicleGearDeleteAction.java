@@ -28,12 +28,14 @@ public class VehicleGearDeleteAction implements Action {
 
         if (vehicleGearShift == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-gear-list";
         }
 
         // Show confirm page
         if (req.getMethod().equalsIgnoreCase("GET")) {
             req.setAttribute("model", vehicleGearShift);
+            daoFactory.close();
             return "admin/vehicle-gear-delete";
         }
 
@@ -41,9 +43,11 @@ public class VehicleGearDeleteAction implements Action {
         boolean isDeleted = dao.delete(vehicleGearShift);
         if (!isDeleted) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-gear-list";
         }
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.SUCCESS));
+        daoFactory.close();
         return "redirect:controller?action=vehicle-gear-list";
     }
 }

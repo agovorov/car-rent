@@ -17,9 +17,11 @@ public class CookieManager {
     public static Cookie findParam(HttpServletRequest req, String parameterName) {
         Cookie[] cookies = req.getCookies();
 
-        for (Cookie cookie : cookies) {
-            if (parameterName.equals(cookie.getName())) {
-                return cookie;
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (parameterName.equals(cookie.getName())) {
+                    return cookie;
+                }
             }
         }
         return null;

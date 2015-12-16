@@ -28,12 +28,14 @@ public class VehicleFuelDeleteAction implements Action {
 
         if (vehicleFuelType == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-fuel-list";
         }
 
         // Show confirm page
         if (req.getMethod().equalsIgnoreCase("GET")) {
             req.setAttribute("model", vehicleFuelType);
+            daoFactory.close();
             return "admin/vehicle-fuel-delete";
         }
 
@@ -41,8 +43,10 @@ public class VehicleFuelDeleteAction implements Action {
         boolean isDeleted = dao.delete(vehicleFuelType);
         if (!isDeleted) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-fuel-list";
         }
+        daoFactory.close();
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.SUCCESS));
         return "redirect:controller?action=vehicle-fuel-list";
     }

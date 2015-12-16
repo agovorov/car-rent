@@ -30,6 +30,7 @@ public class ManufacturerUpdateAction implements Action {
 
         if (vehicleManufacturer == null) {
             req.setAttribute("errorMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/manufacturers-list";
         }
 
@@ -37,6 +38,7 @@ public class ManufacturerUpdateAction implements Action {
             String manufacturer = req.getParameter("manufacturer-name");
             if (manufacturer.isEmpty()) {
                 req.setAttribute("errorMessage", new SystemMessage("Please, enter manufacturer name!", SystemMessage.ERROR));
+                daoFactory.close();
                 return "admin/manufacturer-form";
             }
 
@@ -45,10 +47,12 @@ public class ManufacturerUpdateAction implements Action {
             dao.save(vehicleManufacturer);
             req.setAttribute("errorMessage", "Record successfully saved.");
             req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
+            daoFactory.close();
             return "redirect:controller?action=manufacturer-update&id=" +vehicleManufacturer.getId();
         }
 
         req.setAttribute("vehicleManufacturer", vehicleManufacturer);
+        daoFactory.close();
         return "admin/manufacturer-form";
     }
 }

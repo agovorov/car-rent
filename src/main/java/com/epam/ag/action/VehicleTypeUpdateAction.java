@@ -36,6 +36,7 @@ public class VehicleTypeUpdateAction implements Action {
 
         if (vehicleBodyType == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-type-list";
         }
 
@@ -45,6 +46,7 @@ public class VehicleTypeUpdateAction implements Action {
             if (typeRu.isEmpty() || typeEn.isEmpty()) {
                 req.setAttribute("vehicleBodyType", vehicleBodyType);
                 req.setAttribute("systemMessage", new SystemMessage("Please, enter vehicle`s type name in both languages!", SystemMessage.ERROR));
+                daoFactory.close();
                 return "admin/vehicle-type-form";
             }
 
@@ -52,11 +54,13 @@ public class VehicleTypeUpdateAction implements Action {
             vehicleBodyType.setValues(typeRu, typeEn);
             dao.save(vehicleBodyType);
             req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
+            daoFactory.close();
             return "redirect:controller?action=vehicle-type-update&id=" +vehicleBodyType.getId();
         }
 
         log.trace("Model: {}", vehicleBodyType);
         req.setAttribute("vehicleBodyType", vehicleBodyType);
+        daoFactory.close();
         return "admin/vehicle-type-form";
     }
 }

@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.List;
 
-public class JdbcGalleryDao implements GalleryDao {
+public class JdbcGalleryDao  extends JdbcAbstractDao implements GalleryDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcGalleryDao.class);
-    private Connection connection;
-    private PropertiesManager pm = PropertiesManager.getInstance();
+//    private Connection connection;
+//    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcGalleryDao(Connection connection) {
         this.connection = connection;

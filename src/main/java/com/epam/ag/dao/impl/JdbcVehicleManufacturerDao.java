@@ -3,27 +3,22 @@ package com.epam.ag.dao.impl;
 import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.dict.VehicleManufacturer;
-import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Govorov Andrey
  */
-public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
+public class JdbcVehicleManufacturerDao extends JdbcAbstractDao implements VehicleManufacturerDao {
+
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleManufacturerDao.class);
-    private static PropertiesManager pm = PropertiesManager.getInstance();
-    private Connection connection;
 
     public JdbcVehicleManufacturerDao(Connection connection) {
         this.connection = connection;
-        pm.loadPropertyFile("query.properties");
     }
 
     @Override
@@ -58,19 +53,12 @@ public class JdbcVehicleManufacturerDao implements VehicleManufacturerDao {
         } catch (SQLException e) {
             log.error("Error while SQL query update", e);
         }
-
-        // test connection close
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return vehicleManufacturer;
     }
 
     @Override
     public List<VehicleManufacturer> getAll() {
-        log.trace("manufacterer getAll");
+        log.trace("manufacturer getAll");
         String query = pm.get("vehicleManufacturer.getAll");
         List<VehicleManufacturer> manufacturerList = new ArrayList();
         Statement statement = null;

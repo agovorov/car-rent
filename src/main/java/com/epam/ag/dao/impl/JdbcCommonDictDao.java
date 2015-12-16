@@ -26,12 +26,6 @@ public class JdbcCommonDictDao {
             log.error("Unable to query SQL {}", entity);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
-
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return clazz.cast(entity);
     }
 
@@ -52,12 +46,6 @@ public class JdbcCommonDictDao {
         } catch (SQLException e) {
             log.error("Unable to query SQL {}", entity);
             throw new JdbcDaoException("Unable to query SQL", e);
-        }
-
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return clazz.cast(entity);
     }
@@ -86,12 +74,6 @@ public class JdbcCommonDictDao {
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException | IllegalAccessException e) {
             throw new JdbcDaoException("Unable to query SQL", e);
         }
-
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return clazz.cast(entity);
     }
 
@@ -106,12 +88,6 @@ public class JdbcCommonDictDao {
         } catch (SQLException e) {
             log.error("Unable to query SQL {} {}", entity, e);
             throw new JdbcDaoException("Unable to query SQL", e);
-        }
-
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return isDeleted;
     }
@@ -144,13 +120,6 @@ public class JdbcCommonDictDao {
         } catch (InstantiationException | ClassNotFoundException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             log.error("Error while SQL query select", e);
             throw new JdbcDaoException("Unable to query SQL", e);
-        }
-
-        // test connection close
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return dictionaryList;
     }

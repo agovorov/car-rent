@@ -2,9 +2,7 @@ package com.epam.ag.action;
 
 import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.VehicleBodyColorDao;
-import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.model.dict.VehicleBodyColor;
-import com.epam.ag.model.dict.VehicleManufacturer;
 import com.epam.ag.utils.SystemMessage;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Govorov Andrey
  */
-public class ColorUpdateAction implements Action {
+public class UpdateColorAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Long colorId = Long.valueOf(req.getParameter("id"));
@@ -31,6 +29,7 @@ public class ColorUpdateAction implements Action {
 
         if (vehicleBodyColor == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/color-list";
         }
 
@@ -40,6 +39,7 @@ public class ColorUpdateAction implements Action {
             if (colorRu.isEmpty() || colorEn.isEmpty()) {
                 req.setAttribute("vehicleColor", vehicleBodyColor);
                 req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
+                daoFactory.close();
                 return "admin/color-form";
             }
 
@@ -48,7 +48,8 @@ public class ColorUpdateAction implements Action {
             dao.save(vehicleBodyColor);
             req.setAttribute("systemMessage", "Record successfully saved.");
             req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
-            return "redirect:controller?action=color-update&id=" +vehicleBodyColor.getId();
+            daoFactory.close();
+            return "redirect:controller?action=color-update&id=" + vehicleBodyColor.getId();
         }
 
         req.setAttribute("vehicleColor", vehicleBodyColor);

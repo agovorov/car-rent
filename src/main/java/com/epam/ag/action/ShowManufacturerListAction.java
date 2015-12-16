@@ -25,6 +25,7 @@ public class ShowManufacturerListAction implements Action {
         DaoFactory daoFactory = DaoFactory.getInstance();
         VehicleManufacturerDao dao = daoFactory.getDao(VehicleManufacturerDao.class);
         List<VehicleManufacturer> manufacturers = dao.getAll();
+        daoFactory.close();
 
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());

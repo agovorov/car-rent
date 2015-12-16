@@ -28,12 +28,14 @@ public class VehicleTypeDeleteAction implements Action {
 
         if (vehicleBodyType == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-type-list";
         }
 
         // Show confirm page
         if (req.getMethod().equalsIgnoreCase("GET")) {
             req.setAttribute("model", vehicleBodyType);
+            daoFactory.close();
             return "admin/vehicle-type-delete";
         }
 
@@ -41,9 +43,11 @@ public class VehicleTypeDeleteAction implements Action {
         boolean isDeleted = dao.delete(vehicleBodyType);
         if (!isDeleted) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-type-list";
         }
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.SUCCESS));
+        daoFactory.close();
         return "redirect:controller?action=vehicle-type-list";
     }
 }

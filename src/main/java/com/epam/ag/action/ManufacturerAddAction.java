@@ -25,6 +25,7 @@ public class ManufacturerAddAction implements Action {
         VehicleManufacturerDao dao = daoFactory.getDao(VehicleManufacturerDao.class);
         VehicleManufacturer vehicleManufacturer = new VehicleManufacturer(manufacturer);
         dao.save(vehicleManufacturer);
+        daoFactory.close();
 
         // It`s ok
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));

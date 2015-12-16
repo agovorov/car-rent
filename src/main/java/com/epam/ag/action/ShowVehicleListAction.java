@@ -30,6 +30,7 @@ public class ShowVehicleListAction implements Action {
         VehicleDao dao = daoFactory.getDao(VehicleDao.class);
         List<Vehicle> vehicles = dao.getAll();
         req.setAttribute("vehicles", vehicles);
+        daoFactory.close();
 
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());

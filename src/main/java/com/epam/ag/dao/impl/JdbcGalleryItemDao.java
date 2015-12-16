@@ -14,11 +14,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcGalleryItemDao implements GalleryItemDao {
+public class JdbcGalleryItemDao  extends JdbcAbstractDao implements GalleryItemDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcGalleryItemDao.class);
-    private Connection connection;
-    private PropertiesManager pm = PropertiesManager.getInstance();
+//    private Connection connection;
+//    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcGalleryItemDao(Connection connection) {
         this.connection = connection;

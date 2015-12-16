@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Govorov Andrey
  */
-public class ColorCreateAction implements Action {
+public class AddColorAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String colorRu = req.getParameter("color-name-ru");
@@ -26,6 +26,7 @@ public class ColorCreateAction implements Action {
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
         VehicleBodyColor vehicleBodyColor = new VehicleBodyColor(colorRu, colorEn);
         dao.save(vehicleBodyColor);
+        daoFactory.close();
 
         // It`s ok
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));

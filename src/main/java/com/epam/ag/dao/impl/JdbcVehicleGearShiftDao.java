@@ -10,10 +10,9 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.util.List;
 
-public class JdbcVehicleGearShiftDao implements VehicleGearShiftDao {
+public class JdbcVehicleGearShiftDao extends JdbcAbstractDao implements VehicleGearShiftDao {
+
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleGearShiftDao.class);
-    private static PropertiesManager pm = PropertiesManager.getInstance();
-    private Connection connection;
 
     public JdbcVehicleGearShiftDao(Connection connection) {
         this.connection = connection;

@@ -26,6 +26,7 @@ public class VehicleTypeCreateAction implements Action {
         VehicleBodyTypeDao dao = daoFactory.getDao(VehicleBodyTypeDao.class);
         VehicleBodyType vehicleBodyType = new VehicleBodyType(typeRu, typeEn);
         dao.save(vehicleBodyType);
+        daoFactory.close();
 
         // It`s ok
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));

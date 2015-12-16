@@ -20,7 +20,7 @@ public class ShowVehicleFuelListAction implements Action {
         DaoFactory daoFactory = DaoFactory.getInstance();
         VehicleFuelTypeDao dao = daoFactory.getDao(VehicleFuelTypeDao.class);
         List<VehicleFuelType> fuels = dao.getAll();
-
+        daoFactory.close();
         req.setAttribute("fuels", fuels);
         return "admin/vehicle-fuel-list";
     }

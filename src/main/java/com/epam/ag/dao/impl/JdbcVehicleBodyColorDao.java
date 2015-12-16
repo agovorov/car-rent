@@ -9,11 +9,9 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.util.List;
 
-public class JdbcVehicleBodyColorDao implements VehicleBodyColorDao {
+public class JdbcVehicleBodyColorDao extends JdbcAbstractDao implements VehicleBodyColorDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleBodyColorDao.class);
-    private static PropertiesManager pm = PropertiesManager.getInstance();
-    private Connection connection;
 
     public JdbcVehicleBodyColorDao(Connection connection) {
         this.connection = connection;

@@ -13,11 +13,9 @@ import java.util.List;
 /**
  * @author Govorov Andrey
  */
-public class JdbcIDDocumentDao implements IDDocumentDao {
+public class JdbcIDDocumentDao extends JdbcAbstractDao implements IDDocumentDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcIDDocumentDao.class);
-    private Connection connection;
-    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcIDDocumentDao(Connection connection) {
         this.connection = connection;

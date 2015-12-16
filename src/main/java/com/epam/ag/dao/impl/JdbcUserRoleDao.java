@@ -12,11 +12,9 @@ import java.util.List;
 /**
  * @author Govorov Andrey
  */
-public class JdbcUserRoleDao implements UserRoleDao {
+public class JdbcUserRoleDao  extends JdbcAbstractDao implements UserRoleDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcUserRoleDao.class);
-    private static PropertiesManager pm = PropertiesManager.getInstance();
-    private Connection connection;
 
     public JdbcUserRoleDao(Connection connection) {
         this.connection = connection;

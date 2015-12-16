@@ -28,6 +28,7 @@ public class VehicleGearShiftCreateAction implements Action {
         VehicleGearShiftDao dao = daoFactory.getDao(VehicleGearShiftDao.class);
         VehicleGearShift vehicleGearShift = new VehicleGearShift(gearRu, gearEn);
         dao.save(vehicleGearShift);
+        daoFactory.close();
 
         // It`s ok
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));

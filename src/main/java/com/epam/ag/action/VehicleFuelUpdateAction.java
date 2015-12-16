@@ -28,6 +28,7 @@ public class VehicleFuelUpdateAction implements Action {
         vehicleFuelType = dao.getById(vehicleFuelId);
 
         if (vehicleFuelType == null) {
+            daoFactory.close();
             req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
             return "admin/vehicle-fuel-list";
         }
@@ -38,6 +39,7 @@ public class VehicleFuelUpdateAction implements Action {
             if (fuelRu.isEmpty() || fuelEn.isEmpty()) {
                 req.setAttribute("vehicleFuelType", vehicleFuelType);
                 req.setAttribute("systemMessage", new SystemMessage("Please, enter vehicle`s type name in both languages!", SystemMessage.ERROR));
+                daoFactory.close();
                 return "admin/vehicle-fuel-form";
             }
 
@@ -45,9 +47,11 @@ public class VehicleFuelUpdateAction implements Action {
             vehicleFuelType.setValues(fuelRu, fuelEn);
             dao.save(vehicleFuelType);
             req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
+            daoFactory.close();
             return "redirect:controller?action=vehicle-fuel-update&id=" + vehicleFuelType.getId();
         }
 
+        daoFactory.close();
         req.setAttribute("vehicleFuelType", vehicleFuelType);
         return "admin/vehicle-fuel-form";
     }

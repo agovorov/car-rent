@@ -28,6 +28,7 @@ public class VehicleFuelCreateAction implements Action {
         VehicleFuelTypeDao dao = daoFactory.getDao(VehicleFuelTypeDao.class);
         VehicleFuelType vehicleFuelType = new VehicleFuelType(fuelRu, fuelEn);
         dao.save(vehicleFuelType);
+        daoFactory.close();
 
         // It`s ok
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));

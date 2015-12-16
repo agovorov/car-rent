@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * @author Govorov Andrey
  */
-public class JdbcAddressDao implements AddressDao {
+public class JdbcAddressDao extends JdbcAbstractDao implements AddressDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcAddressDao.class);
-    private Connection connection;
-    private PropertiesManager pm = PropertiesManager.getInstance();
+//    private Connection connection;
+//    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcAddressDao(Connection connection) {
         this.connection = connection;

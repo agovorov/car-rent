@@ -5,7 +5,6 @@ import com.epam.ag.model.BaseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,23 +16,17 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
 
     public static final String DAO_PACKAGE_PATH = "com.epam.ag.dao.impl";
     private static final Logger log = LoggerFactory.getLogger(JdbcDaoFactory.class);
-    Connection connection;
+    private final Connection connection;
 
-    // Here
-//    private final ConnectionPool connectionPool = ConnectionPool.getInstance(
-//            propertyManager.getProperty("driverName"),
-//            propertyManager.getProperty("url"),
-//            propertyManager.getProperty("login"),
-//            propertyManager.getProperty("password"),
-//            Integer.parseInt(propertyManager.getProperty("maxConnections")));
-
-    // Add ConnectionPoll here
-    // and call
-
+    /**
+     * Create connection for whole factory
+     */
     public JdbcDaoFactory() {
-        log.trace("Get free connection from Connection pool.");
-        ConnectionPool instance = ConnectionPool.getInstance();
-        connection = instance.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.getConnection();
+        log.trace("Connection pool: {}", connectionPool);
+        log.trace("Connect: {}", connection);
+        log.trace("JdbcDao factory ready.");
     }
 
     @SuppressWarnings("unchecked")
@@ -42,25 +35,27 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
         //
         // TODO пакет можно положить в пропертя и читать оттуда
         //
-        String DaoClassName = DAO_PACKAGE_PATH + ".Jdbc" + clazz.getSimpleName();
+        String daoClassName = DAO_PACKAGE_PATH + ".Jdbc" + clazz.getSimpleName();
         GenericDao dao = null;
         try {
-            log.trace("Trying to create DAO instance ({})", DaoClassName);
-            Class c = Class.forName(DaoClassName);
+            log.trace("Trying to create DAO instance ({})", daoClassName);
+            Class c = Class.forName(daoClassName);
 
             // Looking for constructor with 'Connection' class as parameter
             dao = (T) c.getDeclaredConstructor(Connection.class).newInstance(connection);
+            log.trace("Created DAO: {}", dao);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            log.error("Unable to create DAO instance ({}, {})", DaoClassName, e);
+            log.error("Unable to create DAO instance {}", daoClassName, e);
             throw new RuntimeException("Unable to create/find DAO instance", e);
         }
 
-        log.trace("DAO successfully created ({})", DaoClassName);
+        log.trace("DAO successfully created ({})", daoClassName);
         return (T) dao;
     }
 
     @Override
     public void beginTransaction() {
+        log.trace("Begin TX method");
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
@@ -70,6 +65,7 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
 
     @Override
     public void commit() {
+        log.trace("Commit method");
         try {
             connection.commit();
         } catch (SQLException e) {
@@ -79,6 +75,7 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
 
     @Override
     public void rollback() {
+        log.trace("Rollback method");
         try {
             connection.rollback();
         } catch (SQLException e) {
@@ -88,6 +85,11 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
 
     @Override
     public void close() {
-        log.trace("close method");
+        log.trace("Close method");
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

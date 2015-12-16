@@ -38,5 +38,7 @@ public class DictionaryLoader {
         VehicleFuelTypeDao vehicleFuelTypeDao = daoFactory.getDao(VehicleFuelTypeDao.class);
         List<VehicleFuelType> fuelList = vehicleFuelTypeDao.getAll();
         session.setAttribute("fuels", fuelList);
+
+        daoFactory.close();
     }
 }

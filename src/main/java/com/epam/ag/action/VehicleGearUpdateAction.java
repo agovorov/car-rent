@@ -31,6 +31,7 @@ public class VehicleGearUpdateAction implements Action {
 
         if (vehicleGearShift == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/vehicle-gear-list";
         }
 
@@ -40,6 +41,7 @@ public class VehicleGearUpdateAction implements Action {
             if (gearRu.isEmpty() || gearEn.isEmpty()) {
                 req.setAttribute("vehicleGearShift", vehicleGearShift);
                 req.setAttribute("systemMessage", new SystemMessage("Please, enter vehicle`s type name in both languages!", SystemMessage.ERROR));
+                daoFactory.close();
                 return "admin/vehicle-gear-form";
             }
 
@@ -47,9 +49,11 @@ public class VehicleGearUpdateAction implements Action {
             vehicleGearShift.setValues(gearRu, gearEn);
             dao.save(vehicleGearShift);
             req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
+            daoFactory.close();
             return "redirect:controller?action=vehicle-gear-update&id=" +vehicleGearShift.getId();
         }
 
+        daoFactory.close();
         req.setAttribute("vehicleGearShift", vehicleGearShift);
         return "admin/vehicle-gear-form";
     }

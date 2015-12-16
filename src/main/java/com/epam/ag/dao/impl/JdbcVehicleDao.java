@@ -15,16 +15,12 @@ import java.util.List;
 /**
  * @author Govorov Andrey
  */
-public class JdbcVehicleDao implements VehicleDao {
+public class JdbcVehicleDao  extends JdbcAbstractDao implements VehicleDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleDao.class);
-    private Connection connection;
-    private PropertiesManager pm;
 
     public JdbcVehicleDao(Connection connection) {
         this.connection = connection;
-        pm = PropertiesManager.getInstance();
-        pm.loadPropertyFile("query.properties");
     }
 
     @Override
@@ -56,6 +52,7 @@ public class JdbcVehicleDao implements VehicleDao {
         } catch (SQLException e) {
             log.error("Error while SQL query update", e);
         }
+
         return vehicle;
     }
 
@@ -98,14 +95,6 @@ public class JdbcVehicleDao implements VehicleDao {
         }
 
         log.trace("Vehicle saved {}", vehicle);
-
-        // test connection close
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            log.trace("Unable to close connection: {}", e);
-        }
-
         return vehicle;
     }
 
@@ -239,47 +228,11 @@ public class JdbcVehicleDao implements VehicleDao {
             log.error("Error while SQL query select", e);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
-
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return vehicleList;
     }
 
     @Override
     public boolean delete(Vehicle entity) {
         return false;
-    }
-
-    @Override
-    public void beginTransaction() {
-        try {
-            connection.setAutoCommit(false);
-        } catch (SQLException e) {
-            log.error("begin transaction");
-            throw new JdbcDaoException("Unable to begin transaction", e);
-        }
-    }
-
-    @Override
-    public void commit() {
-        try {
-            connection.commit();
-        } catch (SQLException e) {
-            log.error("commit transaction");
-            throw new JdbcDaoException("Unable to commit transaction", e);
-        }
-    }
-
-    @Override
-    public void rollback() {
-        try {
-            connection.rollback();
-        } catch (SQLException e) {
-            log.error("rollback transaction");
-            throw new JdbcDaoException("Unable to rollback transaction", e);
-        }
     }
 }

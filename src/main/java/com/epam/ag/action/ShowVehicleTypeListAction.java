@@ -18,7 +18,7 @@ public class ShowVehicleTypeListAction implements Action {
         DaoFactory daoFactory = DaoFactory.getInstance();
         VehicleBodyTypeDao dao = daoFactory.getDao(VehicleBodyTypeDao.class);
         List<VehicleBodyType> types = dao.getAll();
-
+        daoFactory.close();
         req.setAttribute("types", types);
         return "admin/vehicle-type-list";
     }

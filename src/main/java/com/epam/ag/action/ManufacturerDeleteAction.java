@@ -28,12 +28,14 @@ public class ManufacturerDeleteAction implements Action {
 
         if (vehicleManufacturer == null) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry. Record not found!", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/manufacturers-list";
         }
 
         if (req.getMethod().equalsIgnoreCase("GET")) {
             // Show confirm page
             req.setAttribute("model", vehicleManufacturer);
+            daoFactory.close();
             return "admin/manufacturer-delete";
         }
 
@@ -41,8 +43,10 @@ public class ManufacturerDeleteAction implements Action {
         boolean isDeleted = dao.delete(vehicleManufacturer);
         if (!isDeleted) {
             req.setAttribute("systemMessage", new SystemMessage("Sorry, unable to delete.", SystemMessage.ERROR));
+            daoFactory.close();
             return "admin/manufacturers-list";
         }
+        daoFactory.close();
         req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully deleted!", SystemMessage.SUCCESS));
         return "redirect:controller?action=manufacturers-list";
     }
