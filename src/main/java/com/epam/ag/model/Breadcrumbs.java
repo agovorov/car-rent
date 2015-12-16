@@ -16,7 +16,7 @@ public class Breadcrumbs {
         // TODO Ужас!!!! Надо убрать эти case
         //
         switch (className) {
-            case "ShowManufacturerListAction":
+            case "ListManufacturerAction":
                 items.add(new BreadcrumbsItem("/", "Index", false));
                 items.add(new BreadcrumbsItem("manufacturer-create", "Add manufacturer", false));
                 items.add(new BreadcrumbsItem(null, "Manufacturer`s list", true));

@@ -19,32 +19,33 @@ public class ActionFactory {
         actions = new HashMap<>();
         actions.put("GET/index", new ShowPageAction("index"));
 
-        // Manufacturer
-        actions.put("GET/manufacturers-list", new ShowManufacturerListAction());
-        actions.put("GET/manufacturer-create", new ShowPageAction("/admin/manufacturer-form"));
-        actions.put("POST/manufacturer-create", new ManufacturerAddAction());
-        actions.put("GET/manufacturer-update", new ManufacturerUpdateAction());
-        actions.put("POST/manufacturer-update", new ManufacturerUpdateAction());
-        actions.put("GET/manufacturer-delete", new ManufacturerDeleteAction());
-        actions.put("POST/manufacturer-delete", new ManufacturerDeleteAction());
-
         // Colors
-        actions.put("GET/color-list", new ShowColorListAction());
+        actions.put("GET/color-list", new ListColorAction());
         actions.put("GET/color-create", new ShowPageAction("/admin/color-form"));
         actions.put("POST/color-create", new AddColorAction());
-        actions.put("GET/color-update", new UpdateColorAction());
+        actions.put("GET/color-update", new ShowUpdateColorAction());
         actions.put("POST/color-update", new UpdateColorAction());
         actions.put("GET/color-delete", new DeleteColorAction());
-        actions.put("POST/color-delete", new DeleteColorAction());
+
+        // Manufacturer
+        actions.put("GET/manufacturer-list", new ListManufacturerAction());
+        actions.put("GET/manufacturer-create", new ShowPageAction("/admin/manufacturer-form"));
+        actions.put("POST/manufacturer-create", new AddManufacturAction());
+        actions.put("GET/manufacturer-update", new ShowUpdateManufacturAction());
+        actions.put("POST/manufacturer-update", new UpdateManufacturAction());
+        actions.put("GET/manufacturer-delete", new DeleteManufacturAction());
 
         // Body types
         actions.put("GET/vehicle-type-list", new ShowVehicleTypeListAction());
+
         actions.put("GET/vehicle-type-create", new ShowPageAction("/admin/vehicle-type-form"));
         actions.put("POST/vehicle-type-create", new VehicleTypeCreateAction());
         actions.put("GET/vehicle-type-update", new VehicleTypeUpdateAction());
         actions.put("POST/vehicle-type-update", new VehicleTypeUpdateAction());
         actions.put("GET/vehicle-type-delete", new VehicleTypeDeleteAction());
         actions.put("POST/vehicle-type-delete", new VehicleTypeDeleteAction());
+
+
 
         // Fuel type
         actions.put("GET/vehicle-fuel-list", new ShowVehicleFuelListAction());

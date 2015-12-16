@@ -59,7 +59,7 @@ public class VehicleUpdateAction implements Action {
         if (req.getMethod().equals("POST")) {
             // Run validation
             FormValidator validator = new FormValidator();
-            SystemMessage systemMessage = validator.validateForm(req);
+            SystemMessage systemMessage = validator.validateForm("vehicle", req);
             // If form has error show them
             //if (systemMessage.hasErrors()) {
 

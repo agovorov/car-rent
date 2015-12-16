@@ -1,9 +1,9 @@
 package com.epam.ag.action;
 
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleBodyColorDao;
 import com.epam.ag.model.dict.VehicleBodyColor;
+import com.epam.ag.service.ColorService;
 import com.epam.ag.utils.SystemMessage;
+import com.epam.ag.validator.FormValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,45 +14,39 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateColorAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        Long colorId = Long.valueOf(req.getParameter("id"));
-
-        if (colorId <= 0) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, wrong ID parameter!", SystemMessage.ERROR));
-            return "admin/color-list";
+        Long colorId;
+        try {
+            colorId = Long.valueOf(req.getParameter("id"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("systemMessage", new SystemMessage("color.form.wrong.id", SystemMessage.ERROR));
+            return "admin/color-form";
         }
 
-        // Loading model
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
-        VehicleBodyColor vehicleBodyColor = new VehicleBodyColor();
-        vehicleBodyColor = dao.getById(colorId);
-
+        // Get data for showing record
+        ColorService colorService = new ColorService();
+        VehicleBodyColor vehicleBodyColor = colorService.getColor(colorId);
         if (vehicleBodyColor == null) {
-            req.setAttribute("systemMessage", new SystemMessage("Sorry, no data.", SystemMessage.ERROR));
-            daoFactory.close();
-            return "admin/color-list";
+            req.getSession().setAttribute("systemMessage", new SystemMessage("color.form.no.data", SystemMessage.ERROR));
+            return "redirect:controller?action=color-list";
         }
 
-        if (req.getMethod().equals("POST")) {
-            String colorRu = req.getParameter("color-name-ru");
-            String colorEn = req.getParameter("color-name-en");
-            if (colorRu.isEmpty() || colorEn.isEmpty()) {
-                req.setAttribute("vehicleColor", vehicleBodyColor);
-                req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
-                daoFactory.close();
-                return "admin/color-form";
-            }
-
-            // Save
-            vehicleBodyColor.setValues(colorRu, colorEn);
-            dao.save(vehicleBodyColor);
-            req.setAttribute("systemMessage", "Record successfully saved.");
-            req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully updated!", SystemMessage.SUCCESS));
-            daoFactory.close();
-            return "redirect:controller?action=color-update&id=" + vehicleBodyColor.getId();
+        //Validation
+        FormValidator validator = new FormValidator();
+        SystemMessage systemMessage = validator.validateForm("color", req);
+        if (systemMessage.hasErrors()) {
+            req.setAttribute("systemMessage", systemMessage);
+            return "admin/color-form";
         }
 
-        req.setAttribute("vehicleColor", vehicleBodyColor);
-        return "admin/color-form";
+        String colorRu = req.getParameter("color_ru");
+        String colorEn = req.getParameter("color_en");
+        boolean isSaved = colorService.updateColor(colorId, colorRu, colorEn);
+        if (!isSaved) {
+            req.setAttribute("systemMessage", new SystemMessage("color.save.fail", SystemMessage.ERROR));
+            return "admin/color-form";
+        }
+
+        req.getSession().setAttribute("systemMessage", new SystemMessage("color.save.success", SystemMessage.SUCCESS));
+        return "redirect:controller?action=color-update&id=" + vehicleBodyColor.getId();
     }
 }

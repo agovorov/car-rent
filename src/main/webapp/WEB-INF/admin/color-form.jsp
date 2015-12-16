@@ -6,20 +6,25 @@
 <fmt:message key="dict.color.pageheader" var="pageHeader"/>
 <fmt:message key="dict.color.form.colorname.placeholder-ru" var="enterColorRu"/>
 <fmt:message key="dict.color.form.colorname.placeholder-en" var="enterColorEn"/>
+
+<c:set var="color_ru" value='${not empty param.color_ru ? param.color_ru : model.getValue("ru") }'/>
+<c:set var="color_en" value='${not empty param.color_en ? param.color_en : model.getValue("en") }'/>
+
 <a:page title="Main">
     <h1><fmt:message key="dict.color.form.title"/></h1>
+    <a:breadcrumbs items="${breadcrumbItems}"/>
     <a:alert/>
     <form method="post">
         <div class="form-group">
-            <label for="fColorRu"><fmt:message key="vehicle.form.model-name"/></label>
-            <input type="text" class="form-control" id="fColorRu" name="color-name-ru" maxlength="50"
-                   placeholder="${enterColorRu}" value="${vehicleColor.getValue("ru")}" autofocus="true">
+            <label for="fColorRu"><fmt:message key="color.form.ru.colorname"/></label>
+            <input type="text" class="form-control" id="fColorRu" name="color_ru" maxlength="50"
+                   placeholder="${enterColorRu}" value="${color_ru}" autofocus="true">
         </div>
 
         <div class="form-group">
-            <label for="fColorEn"><fmt:message key="vehicle.form.model-name"/></label>
-            <input type="text" class="form-control" id="fColorEn" name="color-name-en" maxlength="50"
-                   placeholder="${enterColorEn}" value="${vehicleColor.getValue("en")}">
+            <label for="fColorEn"><fmt:message key="color.form.en.colorname"/></label>
+            <input type="text" class="form-control" id="fColorEn" name="color_en" maxlength="50"
+                   placeholder="${enterColorEn}" value="${color_en}">
         </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>

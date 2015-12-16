@@ -3,7 +3,7 @@
 <fmt:setBundle basename="messages/messages"/>
 <h3>ADMIN`s</h3>
 <ul class="nav nav-sidebar">
-    <li><a href="/controller?action=manufacturers-list"><fmt:message key="manufacturer.table.list"/></a></li>
+    <li><a href="/controller?action=manufacturer-list"><fmt:message key="manufacturer.table.list"/></a></li>
     <li><a href="/controller?action=manufacturer-create"><fmt:message key="manufacturer.table.create"/></a></li>
     <li role="separator" class="divider"></li>
     <li><a href="/controller?action=color-list"><fmt:message key="color.list.title"/></a></li>

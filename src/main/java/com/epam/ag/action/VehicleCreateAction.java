@@ -37,7 +37,7 @@ public class VehicleCreateAction implements Action {
 
             // Run validation
             FormValidator validator = new FormValidator();
-            SystemMessage systemMessage = validator.validateForm(req);
+            SystemMessage systemMessage = validator.validateForm("vehicle", req);
             if (systemMessage.hasErrors()) {
                 req.setAttribute("systemMessage", systemMessage);
                 return "admin/vehicle-form";

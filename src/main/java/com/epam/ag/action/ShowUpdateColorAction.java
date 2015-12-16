@@ -1,5 +1,6 @@
 package com.epam.ag.action;
 
+import com.epam.ag.model.dict.VehicleBodyColor;
 import com.epam.ag.service.ColorService;
 import com.epam.ag.utils.SystemMessage;
 
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Govorov Andrey
  */
-public class DeleteColorAction implements Action {
+public class ShowUpdateColorAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Long colorId;
@@ -20,13 +21,14 @@ public class DeleteColorAction implements Action {
             return "redirect:controller?action=color-list";
         }
 
+        // Get data for showing record
         ColorService colorService = new ColorService();
-        boolean isDeleted = colorService.deleteColorById(colorId);
-        if (!isDeleted) {
-            req.getSession().setAttribute("systemMessage", new SystemMessage("color.form.delete.fail", SystemMessage.ERROR));
+        VehicleBodyColor vehicleBodyColor = colorService.getColor(colorId);
+        if (vehicleBodyColor == null) {
+            req.getSession().setAttribute("systemMessage", new SystemMessage("color.form.no.data", SystemMessage.ERROR));
             return "redirect:controller?action=color-list";
         }
-        req.getSession().setAttribute("systemMessage", new SystemMessage("color.delete.success", SystemMessage.SUCCESS));
-        return "redirect:controller?action=color-list";
+        req.setAttribute("model", vehicleBodyColor);
+        return "admin/color-form";
     }
 }

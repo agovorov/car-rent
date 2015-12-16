@@ -18,8 +18,8 @@ public class VehicleService extends BaseService {
         gallery = gs.save(gallery, false);
 
         // Now save vehicle model
-        VehicleDao dao = daoFactory.getDao(VehicleDao.class);
-        vehicle = dao.save(vehicle);
+//        VehicleDao dao = daoFactory.getDao(VehicleDao.class);
+//        vehicle = dao.save(vehicle);
 
         return vehicle;
     }

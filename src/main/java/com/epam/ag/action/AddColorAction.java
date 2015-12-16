@@ -1,9 +1,8 @@
 package com.epam.ag.action;
 
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleBodyColorDao;
-import com.epam.ag.model.dict.VehicleBodyColor;
+import com.epam.ag.service.ColorService;
 import com.epam.ag.utils.SystemMessage;
+import com.epam.ag.validator.FormValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,22 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 public class AddColorAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        String colorRu = req.getParameter("color-name-ru");
-        String colorEn = req.getParameter("color-name-en");
-        if (colorRu.isEmpty() || colorEn.isEmpty()) {
-            req.setAttribute("systemMessage", new SystemMessage("Please, enter color`s name in both languages!", SystemMessage.ERROR));
+        FormValidator validator = new FormValidator();
+        SystemMessage systemMessage = validator.validateForm("color", req);
+        if (systemMessage.hasErrors()) {
+            req.setAttribute("systemMessage", systemMessage);
             return "admin/color-form";
         }
 
         // It`s ok save it and redirect to list
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
-        VehicleBodyColor vehicleBodyColor = new VehicleBodyColor(colorRu, colorEn);
-        dao.save(vehicleBodyColor);
-        daoFactory.close();
+        String colorRu = req.getParameter("color_ru");
+        String colorEn = req.getParameter("color_en");
+        ColorService colorService = new ColorService();
+        boolean isAdded = colorService.addNewColor(colorRu, colorEn);
+        if (!isAdded) {
+            req.setAttribute("systemMessage", new SystemMessage("color.save.fail", SystemMessage.ERROR));
+            return "admin/color-form";
+        }
 
         // It`s ok
-        req.getSession().setAttribute("systemMessage", new SystemMessage("Record successfully created!", SystemMessage.SUCCESS));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("color.save.success", SystemMessage.SUCCESS));
         return "redirect:controller?action=color-list";
     }
 }

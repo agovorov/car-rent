@@ -12,11 +12,10 @@ import org.slf4j.LoggerFactory;
 public abstract class DaoFactory implements AutoCloseable {
 
     private static final Logger log = LoggerFactory.getLogger(DaoFactory.class);
-    //    private static Locale locale;
-    private static DaoFactory instance;
+//    private static DaoFactory instance;
 
     /**
-     * Creating or returning base class
+     * Creating base class
      *
      * @return instance of DAO factory
      */

@@ -23,7 +23,7 @@ public class JdbcDaoFactory<E extends BaseEntity> extends DaoFactory {
      */
     public JdbcDaoFactory() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        connection = connectionPool.getConnection();
+        connection = connectionPool.getConnect();
         log.trace("Connection pool: {}", connectionPool);
         log.trace("Connect: {}", connection);
         log.trace("JdbcDao factory ready.");

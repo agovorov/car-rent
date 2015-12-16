@@ -15,7 +15,7 @@ public class JdbcVehicleBodyColorDao extends JdbcAbstractDao implements VehicleB
 
     public JdbcVehicleBodyColorDao(Connection connection) {
         this.connection = connection;
-        pm.loadPropertyFile("query.properties");
+        //pm.loadPropertyFile("query.properties");
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.epam.ag.dao.impl;
 
+import com.epam.ag.dao.impl.exception.DaoException;
+import com.epam.ag.dao.impl.exception.DaoFactoryException;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.BaseEntity;
 import com.epam.ag.model.dict.DictionaryBase;
@@ -59,11 +61,15 @@ public class JdbcCommonDictDao {
             ps = connection.prepareStatement(query);
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
+
+            int i = 0;
             while (rs.next()) {
+                i++;
                 value_ru = rs.getString("value_ru");
                 value_en = rs.getString("value_en");
             }
 
+            if (i == 0) return null;
             log.trace("value ru {}, value en {}", value_ru, value_en);
 
             Class c = Class.forName(clazz.getName());

@@ -67,7 +67,7 @@ public class ConnectionPool {
         return conn;
     }
 
-    public synchronized Connection getConnection() {
+    public synchronized Connection getConnect() {
         log.trace("Get connection...");
         log.trace("Connection`s count: {}", connectionList.size());
         if (connectionList.isEmpty()) {
@@ -95,10 +95,13 @@ public class ConnectionPool {
 
     // TODO Кол-во коннектов расте после возврата
     public synchronized void putBack(Connection connection) {
-        if (connection != null) {
-            connectionList.add(connection);
-            log.trace("Connection returned to pool. Connections count: {}", connectionList.size());
+        if (connection == null) {
+            // Dead connection. Create new one...
+            connection = createConnection();
+            log.trace("Returned connection was dead. Create new on");
         }
+        connectionList.add(connection);
+        log.trace("Connection returned to pool. Connections count: {}", connectionList.size());
     }
 
     // Implementing Connection class for overriding close() method

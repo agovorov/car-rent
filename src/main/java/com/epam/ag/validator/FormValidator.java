@@ -30,14 +30,14 @@ public class FormValidator {
         validatorRules = PropertiesManager.getInstance().getProperties();
     }
 
-    public SystemMessage validateForm(HttpServletRequest req) {
+    public SystemMessage validateForm(String formName, HttpServletRequest req) {
         msg = new SystemMessage();
-        String formName = "vehicle.";
+        formName = formName + ".";
         Enumeration<String> attributes = req.getParameterNames();
         while (attributes.hasMoreElements()) {
             String paramName = attributes.nextElement();
             String value = req.getParameter(paramName);
-            log.trace("Validate parameter: {} => {}", paramName, value);
+            log.trace("Validate parameter: {}.{} => {}", formName, paramName, value);
 
             // Get rules for current parameter
             Map validateRules = getValidatorRules(formName + paramName);
@@ -62,7 +62,7 @@ public class FormValidator {
             String paramName = entry.getKey();
             String value = entry.getValue();
 
-            Map validateRules = getValidatorRules(formName + paramName);
+            Map validateRules = getValidatorRules(formName + "." + paramName);
             if (validateRules == null) {
                 continue;
             }
