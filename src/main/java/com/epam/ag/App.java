@@ -1,7 +1,9 @@
 package com.epam.ag;
 
-import com.epam.ag.dao.*;
-import com.epam.ag.model.User;
+import com.epam.ag.dao.DaoFactory;
+import com.epam.ag.dao.VehicleBodyColorDao;
+import com.epam.ag.dao.VehicleDao;
+import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.model.Vehicle;
 import com.epam.ag.model.dict.VehicleBodyColor;
 import com.epam.ag.model.dict.VehicleManufacturer;
@@ -116,30 +118,30 @@ public class App {
         Vehicle vehicle = dao.getById(55L);
 
         // DAO 3
-//        VehicleBodyColorDao cdao = daoFactory.getDao(VehicleBodyColorDao.class);
-//        VehicleBodyColor e1 = cdao.getById(1L);
-//        System.out.println(e1);
-
-        daoFactory.close();
+        VehicleBodyColorDao cdao = daoFactory.getDao(VehicleBodyColorDao.class);
+        VehicleBodyColor e1 = cdao.getById(1L);
 
 
-//        DaoFactory daoFactory2 = DaoFactory.getInstance();
-//        VehicleBodyColorDao cdao2 = daoFactory2.getDao(VehicleBodyColorDao.class);
-//        VehicleBodyColor e12 = cdao2.getById(1L);
-//        System.out.println(e12);
-//
-//        DaoFactory daoFactory3 = DaoFactory.getInstance();
-//        VehicleBodyColorDao cdao3 = daoFactory3.getDao(VehicleBodyColorDao.class);
-//        VehicleBodyColor e13 = cdao3.getById(1L);
-//        System.out.println(e13);
-//        daoFactory3.close();
+        DaoFactory daoFactory2 = DaoFactory.getInstance();
+        VehicleBodyColorDao cdao2 = daoFactory2.getDao(VehicleBodyColorDao.class);
+        VehicleBodyColor e12 = cdao2.getById(1L);
+        System.out.println(e12);
+
+        daoFactory2.close();
+
+        DaoFactory daoFactory3 = DaoFactory.getInstance();
+        VehicleBodyColorDao cdao3 = daoFactory3.getDao(VehicleBodyColorDao.class);
+        VehicleBodyColor e13 = cdao3.getById(1L);
+        System.out.println(e13);
+        daoFactory3.close();
 //
 //        DAO 4
 //        UserDao udao = daoFactory.getDao(UserDao.class);
 //        User e2 = udao.getById(1L);
 //        System.out.println(e2);
 
-//       daoFactory2.close();
+
+        daoFactory.close();
     }
 }
 

@@ -96,7 +96,7 @@ public class ConnectionPool {
     // TODO Кол-во коннектов расте после возврата
     public synchronized void putBack(Connection connection) {
         if (connection != null) {
-            //connectionList.add(connection);
+            connectionList.add(connection);
             log.trace("Connection returned to pool. Connections count: {}", connectionList.size());
         }
     }

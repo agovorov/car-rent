@@ -21,11 +21,13 @@ public abstract class DaoFactory implements AutoCloseable {
      * @return instance of DAO factory
      */
     public static DaoFactory getInstance() {
-        if (instance == null) {
+        /*if (instance == null) {
             log.trace("Creating new JDBC DAO.");
             instance = new JdbcDaoFactory();
         }
-        return instance;
+        return instance;*/
+
+        return new JdbcDaoFactory();
     }
 
     public abstract <T extends GenericDao> T getDao(Class<T> clazz);
