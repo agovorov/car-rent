@@ -36,14 +36,12 @@ public class ActionFactory {
         actions.put("GET/manufacturer-delete", new DeleteManufacturAction());
 
         // Body types
-        actions.put("GET/vehicle-type-list", new ShowVehicleTypeListAction());
-
+        actions.put("GET/vehicle-type-list", new ListVehicleTypeAction());
         actions.put("GET/vehicle-type-create", new ShowPageAction("/admin/vehicle-type-form"));
-        actions.put("POST/vehicle-type-create", new VehicleTypeCreateAction());
-        actions.put("GET/vehicle-type-update", new VehicleTypeUpdateAction());
-        actions.put("POST/vehicle-type-update", new VehicleTypeUpdateAction());
-        actions.put("GET/vehicle-type-delete", new VehicleTypeDeleteAction());
-        actions.put("POST/vehicle-type-delete", new VehicleTypeDeleteAction());
+        actions.put("POST/vehicle-type-create", new AddVehicleTypeAction());
+        actions.put("GET/vehicle-type-update", new ShowUpdateVehicleTypeAction());
+        actions.put("POST/vehicle-type-update", new UpdateVehicleTypeAction());
+        actions.put("GET/vehicle-type-delete", new DeleteVehicleTypeAction());
 
 
 
