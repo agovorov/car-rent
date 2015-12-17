@@ -1,7 +1,5 @@
 package com.epam.ag.model.dict;
 
-import com.epam.ag.model.Vehicle;
-
 public class VehicleGearShift extends DictionaryBase{
 
     public VehicleGearShift(String value) {

@@ -43,25 +43,24 @@ public class ActionFactory {
         actions.put("POST/vehicle-type-update", new UpdateVehicleTypeAction());
         actions.put("GET/vehicle-type-delete", new DeleteVehicleTypeAction());
 
-
-
         // Fuel type
-        actions.put("GET/vehicle-fuel-list", new ShowVehicleFuelListAction());
+        actions.put("GET/vehicle-fuel-list", new ListVehicleFuelAction());
         actions.put("GET/vehicle-fuel-create", new ShowPageAction("/admin/vehicle-fuel-form"));
-        actions.put("POST/vehicle-fuel-create", new VehicleFuelCreateAction());
-        actions.put("GET/vehicle-fuel-update", new VehicleFuelUpdateAction());
-        actions.put("POST/vehicle-fuel-update", new VehicleFuelUpdateAction());
-        actions.put("GET/vehicle-fuel-delete", new VehicleFuelDeleteAction());
-        actions.put("POST/vehicle-fuel-delete", new VehicleFuelDeleteAction());
+        actions.put("POST/vehicle-fuel-create", new AddVehicleFuelAction());
+        actions.put("GET/vehicle-fuel-update", new ShowUpdateVehicleFuelAction());
+        actions.put("POST/vehicle-fuel-update", new UpdateVehicleFuelAction());
+        actions.put("GET/vehicle-fuel-delete", new DeleteVehicleFuelAction());
 
         // Gearshift type
-        actions.put("GET/vehicle-gear-list", new ShowVehicleGearListAction());
+        actions.put("GET/vehicle-gear-list", new ListVehicleGearAction());
         actions.put("GET/vehicle-gear-create", new ShowPageAction("/admin/vehicle-gear-form"));
-        actions.put("POST/vehicle-gear-create", new VehicleGearShiftCreateAction());
-        actions.put("GET/vehicle-gear-update", new VehicleGearUpdateAction());
-        actions.put("POST/vehicle-gear-update", new VehicleGearUpdateAction());
-        actions.put("GET/vehicle-gear-delete", new VehicleGearDeleteAction());
-        actions.put("POST/vehicle-gear-delete", new VehicleGearDeleteAction());
+        actions.put("POST/vehicle-gear-create", new AddVehicleGearShiftAction());
+        actions.put("GET/vehicle-gear-update", new ShowUpdateVehicleGearAction());
+        actions.put("POST/vehicle-gear-update", new UpdateVehicleGearAction());
+        actions.put("GET/vehicle-gear-delete", new DeleteVehicleGearAction());
+
+
+
 
 
         // Vehicle
