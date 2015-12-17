@@ -1,9 +1,5 @@
 package com.epam.ag.action;
 
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleGearShiftDao;
-import com.epam.ag.model.dict.VehicleGearShift;
-import com.epam.ag.service.ColorService;
 import com.epam.ag.service.GearshiftService;
 import com.epam.ag.utils.SystemMessage;
 
