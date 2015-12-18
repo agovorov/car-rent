@@ -32,13 +32,6 @@ public class LocaleFilter implements Filter {
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws ServletException, IOException {
         // Read from session
         HttpSession session = req.getSession(false);
-        // это убрать в авторизацию
-//        String userLocaleName = null;
-//        try {
-//            userLocaleName = (String) session.getAttribute("locale");
-//        } catch (NullPointerException e) {
-//            // No locale in session
-//        }
 
         // Read from cookie
         String locale = null;

@@ -22,4 +22,6 @@ public interface UserDao extends GenericDao<User> {
 
     @Override
     boolean delete(User entity);
+
+    User getByEmail(String login);
 }

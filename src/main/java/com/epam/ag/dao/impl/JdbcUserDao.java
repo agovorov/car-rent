@@ -2,11 +2,8 @@ package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.UserDao;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
-import com.epam.ag.dao.impl.exception.JdbcDictionaryDaoException;
-import com.epam.ag.dao.impl.exception.JdbcUserDaoException;
 import com.epam.ag.model.User;
 import com.epam.ag.model.user.UserRole;
-import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +83,28 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
     }
 
     @Override
+    public User getByEmail(String email) {
+        log.trace("User statement: {}", email);
+        String query = pm.get("user.getByEmail");
+
+        PreparedStatement ps;
+        User user = null;
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new User();
+                user = fillFromSet(user, rs);
+            }
+        } catch (SQLException e) {
+            log.error("Unable to query SQL {}, {} ", user, e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+        return user;
+    }
+
+    @Override
     public User getById(Long id) {
         log.trace("User statement: {}", id);
         String query = pm.get("user.getById");
@@ -98,17 +117,7 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 user = new User();
-                user.setId(rs.getLong("id"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
-                user.setPhone(rs.getString("phone"));
-                user.setRole(new UserRole(
-                        rs.getLong("role_id"),
-                        rs.getString("value_ru"),
-                        rs.getString("value_en")
-                ));
+                user = fillFromSet(user, rs);
             }
         } catch (SQLException e) {
             log.error("Unable to query SQL {}, {} ", user, e);
@@ -142,7 +151,7 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
                 ));
                 userList.add(user);
             }
-            log.trace("{}",userList);
+            log.trace("{}", userList);
         } catch (SQLException e) {
             log.error("Error while SQL query select", e);
             throw new JdbcDaoException("Unable to query SQL", e);
@@ -155,5 +164,25 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
         log.trace("JdbcUserDao delete");
         String query = pm.get("user.delete");
         return JdbcCommonDictDao.delete(query, connection, entity);
+    }
+
+    private User fillFromSet(User user, ResultSet recordSet) {
+        try {
+            user.setEmail(recordSet.getString("email"));
+            user.setPassword(recordSet.getString("password"));
+            user.setFirstName(recordSet.getString("first_name"));
+            user.setLastName(recordSet.getString("last_name"));
+            user.setPhone(recordSet.getString("phone"));
+            user.setRole(new UserRole(
+                    recordSet.getLong("role_id"),
+                    recordSet.getString("value_ru"),
+                    recordSet.getString("value_en")
+            ));
+            user.setId(recordSet.getLong("id"));
+        } catch (SQLException e) {
+            log.error("Error while SQL query select", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+        return user;
     }
 }

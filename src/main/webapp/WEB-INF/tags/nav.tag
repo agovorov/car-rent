@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag %>
 <%@attribute name="title" type="java.lang.String" required="false" %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -13,11 +14,19 @@
             <a class="navbar-brand" href="#">Project name</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
+                <c:if test="${sessionScope.user != null}">
+                    <li>
+                        <a href="/controller?action=logout">${sessionScope.user.getFirstName()}, logout</a>
+                    </li>
+                </c:if>
+
+                <c:if test="${sessionScope.user == null}">
+                    <li><a href="/controller?action=login">Log in</a></li>
+                </c:if>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">

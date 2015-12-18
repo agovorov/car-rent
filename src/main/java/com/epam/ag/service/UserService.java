@@ -2,10 +2,8 @@ package com.epam.ag.service;
 
 import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.UserDao;
-import com.epam.ag.dao.VehicleBodyColorDao;
 import com.epam.ag.dao.impl.exception.DaoException;
 import com.epam.ag.model.User;
-import com.epam.ag.model.dict.VehicleBodyColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,5 +63,13 @@ public class UserService extends BaseService {
         boolean isDeleted = dao.delete(user);
         daoFactory.close();
         return isDeleted;
+    }
+
+    public User getUserByEmail(String email) {
+        daoFactory = DaoFactory.getInstance();
+        UserDao dao = daoFactory.getDao(UserDao.class);
+        User user = dao.getByEmail(email);
+        daoFactory.close();
+        return user;
     }
 }

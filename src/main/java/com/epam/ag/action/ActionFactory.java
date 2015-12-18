@@ -76,12 +76,21 @@ public class ActionFactory {
         actions.put("POST/user-update", new UpdateUserAction());
         actions.put("GET/user-delete", new DeleteUserAction());
 
+        // Login
+        actions.put("GET/login", new ShowLoginAction());
+        actions.put("POST/login", new LoginAction());
+        actions.put("GET/logout", new LogoutAction());
         /*
         actions.put("GET/register", new DisplayPageAction());
         actions.put("POST/register", new RegisterAction());
-        actions.put("POST/login", new LoginAction());
+
         actions.put("GET/logout", new LogoutAction());
         */
+
+        // Cabinet
+        actions.put("GET/cabinet", new ShowPageAction("cabinet"));
+
+
     }
 
     public Action getAction(HttpServletRequest request) {
