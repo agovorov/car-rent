@@ -21,7 +21,6 @@ import java.io.IOException;
 public class ControllerServlet extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(ControllerServlet.class);
-
     private ActionFactory actionFactory;
 
     @Override

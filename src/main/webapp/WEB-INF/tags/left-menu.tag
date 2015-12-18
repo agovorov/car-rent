@@ -20,6 +20,10 @@
     <li role="separator" class="divider"></li>
     <li><a href="/controller?action=vehicle-list"><fmt:message key="vehicle.list.href"/></a></li>
     <li><a href="/controller?action=vehicle-create"><fmt:message key="vehicle.create.href"/></a></li>
+
+    <li role="separator" class="divider"></li>
+    <li><a href="/controller?action=user-list"><fmt:message key="user.list.href"/></a></li>
+    <li><a href="/controller?action=user-create"><fmt:message key="user.create.href"/></a></li>
 </ul>
 <hr>
 <h3>CLIENT`s</h3>

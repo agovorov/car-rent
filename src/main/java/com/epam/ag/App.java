@@ -7,6 +7,7 @@ import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.model.Vehicle;
 import com.epam.ag.model.dict.VehicleBodyColor;
 import com.epam.ag.model.dict.VehicleManufacturer;
+import com.epam.ag.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,8 @@ public class App {
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-
-        Map<String, String> map = new TreeMap<>();
+//
+//        Map<String, String> map = new TreeMap<>();
 
 //        map.put("v-manufactor", "3434343");
 //        map.put("v-model", "bs");
@@ -106,34 +107,34 @@ public class App {
 //        VehicleService vehicleService = new VehicleService();
 //        vehicle = vehicleService.save(vehicle, true);
 
-        // Get factory
-        DaoFactory daoFactory = DaoFactory.getInstance();
-
-        // DAO 1
-        VehicleManufacturerDao mdao = daoFactory.getDao(VehicleManufacturerDao.class);
-        VehicleManufacturer man = mdao.getById(1L);
-
-        // DAO 2
-        VehicleDao dao = daoFactory.getDao(VehicleDao.class);
-        Vehicle vehicle = dao.getById(55L);
-
-        // DAO 3
-        VehicleBodyColorDao cdao = daoFactory.getDao(VehicleBodyColorDao.class);
-        VehicleBodyColor e1 = cdao.getById(1L);
-
-
-        DaoFactory daoFactory2 = DaoFactory.getInstance();
-        VehicleBodyColorDao cdao2 = daoFactory2.getDao(VehicleBodyColorDao.class);
-        VehicleBodyColor e12 = cdao2.getById(1L);
-        System.out.println(e12);
-
-        daoFactory2.close();
-
-        DaoFactory daoFactory3 = DaoFactory.getInstance();
-        VehicleBodyColorDao cdao3 = daoFactory3.getDao(VehicleBodyColorDao.class);
-        VehicleBodyColor e13 = cdao3.getById(1L);
-        System.out.println(e13);
-        daoFactory3.close();
+//        // Get factory
+//        DaoFactory daoFactory = DaoFactory.getInstance();
+//
+//        // DAO 1
+//        VehicleManufacturerDao mdao = daoFactory.getDao(VehicleManufacturerDao.class);
+//        VehicleManufacturer man = mdao.getById(1L);
+//
+//        // DAO 2
+//        VehicleDao dao = daoFactory.getDao(VehicleDao.class);
+//        Vehicle vehicle = dao.getById(55L);
+//
+//        // DAO 3
+//        VehicleBodyColorDao cdao = daoFactory.getDao(VehicleBodyColorDao.class);
+//        VehicleBodyColor e1 = cdao.getById(1L);
+//
+//
+//        DaoFactory daoFactory2 = DaoFactory.getInstance();
+//        VehicleBodyColorDao cdao2 = daoFactory2.getDao(VehicleBodyColorDao.class);
+//        VehicleBodyColor e12 = cdao2.getById(1L);
+//        System.out.println(e12);
+//
+//        daoFactory2.close();
+//
+//        DaoFactory daoFactory3 = DaoFactory.getInstance();
+//        VehicleBodyColorDao cdao3 = daoFactory3.getDao(VehicleBodyColorDao.class);
+//        VehicleBodyColor e13 = cdao3.getById(1L);
+//        System.out.println(e13);
+//        daoFactory3.close();
 //
 //        DAO 4
 //        UserDao udao = daoFactory.getDao(UserDao.class);
@@ -141,7 +142,15 @@ public class App {
 //        System.out.println(e2);
 
 
-        daoFactory.close();
+        VehicleService service = new VehicleService();
+        //Vehicle vehicle = service.getVehicle(52L);
+        //Vehicle vehicle = service.getVehicle(61L);
+        Vehicle vehicle = service.getVehicle(72L);
+
+        boolean isSaved = service.updateVehicle(vehicle);
+        System.out.println(isSaved);
+        System.out.println(vehicle);
+
     }
 }
 

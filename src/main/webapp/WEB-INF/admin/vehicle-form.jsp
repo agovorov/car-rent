@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -15,22 +15,18 @@
 
 <c:set var="max_year" value="2015"/>
 
-<c:set var="manufactur_id2" value="${vehicle.getManufactorId()}"/>
-<c:set var="manufactur_id" value="${param.manufactor}"/>
+<c:set var="manufactur_id" value="${not empty param.manufactor ? param.manufactor : vehicle.getManufactorId() }"/>
 <c:set var="model" value="${not empty param.model ? param.model : vehicle.getModel() }"/>
 <c:set var="year" value="${not empty param.year ? param.year : vehicle.getYear() }"/>
-
 <c:set var="volume" value="${not empty param.volume ? param.volume : vehicle.getVolume() }"/>
 <c:if test="${not empty vehicle.getVolume()}">
     <fmt:formatNumber var="volume" value="${volume}" maxFractionDigits="2" />
 </c:if>
-
 <c:set var="consumption" value="${not empty param.consumption ? param.consumption : vehicle.getConsumption() }"/>
 <c:set var="price" value="${not empty param.price ? param.price : vehicle.getPrice() }"/>
 <c:if test="${not empty vehicle.getPrice()}">
     <fmt:formatNumber var="price" value="${price}" groupingUsed="" maxFractionDigits="0" />
 </c:if>
-
 <c:set var="bodytype_id" value="${not empty param.bodytype ? param.bodytype : vehicle.getBodyType() }"/>
 <c:set var="color_id" value="${not empty param.color ? param.color : vehicle.getColorId() }"/>
 <c:set var="gear_id" value="${not empty param.gear ? param.gear : vehicle.getGearShift() }"/>
@@ -121,6 +117,7 @@
             <div class="form-group">
                 <label for="fGallery"><fmt:message key="vehicle.form.gallery"/></label>
                 <input type="file" id="fGallery" name="gallery">
+                <a:gallery gallery="${vehicle.getVehicleImages()}" />
             </div>
 
             <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>

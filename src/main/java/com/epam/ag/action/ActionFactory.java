@@ -60,15 +60,21 @@ public class ActionFactory {
         actions.put("GET/vehicle-gear-delete", new DeleteVehicleGearAction());
 
 
-
-
-
         // Vehicle
-        actions.put("GET/vehicle-list", new ShowVehicleListAction());
-        actions.put("GET/vehicle-create", new VehicleCreateAction());
-        actions.put("POST/vehicle-create", new VehicleCreateAction());
-        actions.put("GET/vehicle-update", new VehicleUpdateAction());
-        actions.put("POST/vehicle-update", new VehicleUpdateAction());
+        actions.put("GET/vehicle-list", new ListVehicleAction());
+        actions.put("GET/vehicle-create", new AddVehicleFormAction());
+        actions.put("POST/vehicle-create", new AddVehicleAction());
+        actions.put("GET/vehicle-update", new ShowUpdateVehicleAction());
+        actions.put("POST/vehicle-update", new UpdateVehicleAction());
+        actions.put("GET/vehicle-delete", new DeleteVehicleAction());
+
+        // User
+        actions.put("GET/user-list", new ListUserAction());
+        actions.put("GET/user-create", new AddUserFormAction());
+        actions.put("POST/user-create", new AddUserAction());
+        actions.put("GET/user-update", new ShowUpdateUserAction());
+        actions.put("POST/user-update", new UpdateUserAction());
+        actions.put("GET/user-delete", new DeleteUserAction());
 
         /*
         actions.put("GET/register", new DisplayPageAction());

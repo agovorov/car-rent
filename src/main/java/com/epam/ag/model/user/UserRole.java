@@ -8,8 +8,6 @@ import com.epam.ag.model.dict.DictionaryBase;
  */
 public class UserRole extends DictionaryBase {
 
-    private String value;
-    
     public UserRole(String value) {
         super(value);
     }
@@ -28,5 +26,9 @@ public class UserRole extends DictionaryBase {
 
     public UserRole() {
 
+    }
+
+    public UserRole(Long roleId) {
+        super(roleId);
     }
 }

@@ -52,7 +52,7 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
             Long newId = JdbcHelper.getReturningID(ps);
             user.setId(newId);
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}, {} ", user, e);
+            log.error("Unable to query SQL", e);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return user;
@@ -98,23 +98,17 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 user = new User();
-                user.setId(id);
+                user.setId(rs.getLong("id"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("email"));
-                user.setLastName(rs.getString("email"));
-                user.setPhone(rs.getString("email"));
-
-                // TEMPORARY !!!
-                user.setRole(new UserRole(rs.getLong("role_id"), "ADMIN"));
-
-                // TODO Подгружаем роль UserRole
-                // Тут надо UserRoleDAO, а можно ли...
-                /*
-                UserRole role = new UserRole();
-                role = dao.getById( rs.getLong("role_id") );
-                user.setRole( role );
-                */
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setPhone(rs.getString("phone"));
+                user.setRole(new UserRole(
+                        rs.getLong("role_id"),
+                        rs.getString("value_ru"),
+                        rs.getString("value_en")
+                ));
             }
         } catch (SQLException e) {
             log.error("Unable to query SQL {}, {} ", user, e);
@@ -127,14 +121,9 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
     public List<User> getAll() {
         log.trace("getAll");
         String query = pm.get("user.getAll");
-        List<User> userList = new ArrayList();
+        List<User> userList = new ArrayList<>();
         Statement statement = null;
-        Long id;
-        String value_ru;
-        String value_en;
-
         User user;
-
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -143,16 +132,19 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
                 user.setId(rs.getLong("id"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("email"));
-                user.setLastName(rs.getString("email"));
-                user.setPhone(rs.getString("email"));
-
-                // TEMPORARY creating role !!!
-                user.setRole(new UserRole(rs.getLong("role_id"), "ADMIN"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setPhone(rs.getString("phone"));
+                user.setRole(new UserRole(
+                        rs.getLong("role_id"),
+                        rs.getString("value_ru"),
+                        rs.getString("value_en")
+                ));
                 userList.add(user);
             }
+            log.trace("{}",userList);
         } catch (SQLException e) {
-            log.error("Error while SQL query select {}", e);
+            log.error("Error while SQL query select", e);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return userList;

@@ -17,7 +17,7 @@ public class Vehicle extends BaseEntity {
     private double volume;
     //private List<GalleryItem> vehicleImages;
     //private Gallery<GalleryItem> vehicleImages = new Gallery<>();
-    private Gallery vehicleImages = new Gallery();
+    private Gallery vehicleImages = null;//new Gallery();
 
     public double getPrice() {
         return price;
@@ -162,6 +162,9 @@ public class Vehicle extends BaseEntity {
     }
 
     public long getGalleryId() {
+        if (vehicleImages == null) {
+            return 0;
+        }
         return vehicleImages.getId();
     }
 }

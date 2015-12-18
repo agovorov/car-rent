@@ -22,19 +22,19 @@ public class Breadcrumbs {
                 items.add(new BreadcrumbsItem(null, "Manufacturer`s list", true));
                 break;
 
-            case "VehicleCreateAction":
+            case "AddVehicleFormAction":
                 items.add(new BreadcrumbsItem("/", "Index", false));
                 items.add(new BreadcrumbsItem("vehicle-list", "List of vehicle`s", false));
                 items.add(new BreadcrumbsItem(null, "Vehicle`s form", true));
                 break;
 
-            case "ShowVehicleListAction":
+            case "ListVehicleAction":
                 items.add(new BreadcrumbsItem("/", "Index", false));
                 items.add(new BreadcrumbsItem("vehicle-create", "Add vehicle", false));
                 items.add(new BreadcrumbsItem(null, "Vehicle`s list", true));
                 break;
 
-            case "VehicleUpdateAction":
+            case "UpdateVehicleAction":
                 items.add(new BreadcrumbsItem("/", "Index", false));
                 items.add(new BreadcrumbsItem("vehicle-create", "Add vehicle", false));
                 items.add(new BreadcrumbsItem("vehicle-list", "List of vehicle`s", false));

@@ -2,9 +2,10 @@ package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.VehicleDao;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
+import com.epam.ag.model.Gallery;
+import com.epam.ag.model.GalleryItem;
 import com.epam.ag.model.Vehicle;
 import com.epam.ag.model.dict.*;
-import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * @author Govorov Andrey
  */
-public class JdbcVehicleDao  extends JdbcAbstractDao implements VehicleDao {
+public class JdbcVehicleDao extends JdbcAbstractDao implements VehicleDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleDao.class);
 
@@ -46,7 +47,13 @@ public class JdbcVehicleDao  extends JdbcAbstractDao implements VehicleDao {
             ps.setDouble(8, vehicle.getConsumption());
             ps.setDouble(9, vehicle.getVolume());
             ps.setDouble(10, vehicle.getPrice());
-            ps.setLong(11, vehicle.getGalleryId());
+
+            Long galleryId = vehicle.getGalleryId();
+            if (galleryId == 0) {
+                ps.setNull(11, Types.INTEGER);
+            } else {
+                ps.setLong(11, galleryId);
+            }
             ps.setLong(12, vehicle.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -73,11 +80,12 @@ public class JdbcVehicleDao  extends JdbcAbstractDao implements VehicleDao {
             ps.setDouble(8, vehicle.getConsumption());
             ps.setDouble(9, vehicle.getVolume());
             ps.setDouble(10, vehicle.getPrice());
-
-            // TODO help!!!
-            ps.setLong(11, vehicle.getGalleryId());
-//            ps.setNull(11, java.sql.Types.INTEGER);
-
+            Long galleryId = vehicle.getGalleryId();
+            if (galleryId == 0) {
+                ps.setNull(11, Types.INTEGER);
+            } else {
+                ps.setLong(11, galleryId);
+            }
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 log.trace("Creating fail, no rows affected.");
@@ -156,7 +164,21 @@ public class JdbcVehicleDao  extends JdbcAbstractDao implements VehicleDao {
                         rs.getString("gearshift_ru"),
                         rs.getString("gearshift_en")
                 ));
-//                        gallery
+
+                // Gallery
+                //vehicle.setGallery(null);
+                Long galleryId = rs.getLong("gallery_id");
+                Long galleryItemId = rs.getLong("gallery_item_id");
+                if (galleryId > 0 && galleryItemId > 0) {
+                    Gallery gallery = new Gallery(galleryId);
+                    GalleryItem item = new GalleryItem(
+                            galleryItemId,
+                            rs.getBoolean("gallery_is_main"),
+                            galleryId
+                    );
+                    gallery.addImage(item);
+                    vehicle.setGallery(gallery);
+                }
             }
         } catch (SQLException e) {
             log.error("getById: {}", id);
@@ -168,7 +190,7 @@ public class JdbcVehicleDao  extends JdbcAbstractDao implements VehicleDao {
     @Override
     public List<Vehicle> getAll() {
         log.trace("JdbcVehicleDao getAll");
-        List<Vehicle> vehicleList = new ArrayList();
+        List<Vehicle> vehicleList = new ArrayList<>();
         Statement statement = null;
         String query = pm.get("vehicle.getAllFull");
 
@@ -233,6 +255,8 @@ public class JdbcVehicleDao  extends JdbcAbstractDao implements VehicleDao {
 
     @Override
     public boolean delete(Vehicle entity) {
-        return false;
+        String query = pm.get("vehicle.delete");
+        log.trace("SQL delete statement: {}", entity);
+        return JdbcCommonDictDao.delete(query, connection, entity);
     }
 }
