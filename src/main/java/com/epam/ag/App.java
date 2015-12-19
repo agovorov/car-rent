@@ -4,9 +4,12 @@ import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.VehicleBodyColorDao;
 import com.epam.ag.dao.VehicleDao;
 import com.epam.ag.dao.VehicleManufacturerDao;
+import com.epam.ag.model.User;
 import com.epam.ag.model.Vehicle;
 import com.epam.ag.model.dict.VehicleBodyColor;
 import com.epam.ag.model.dict.VehicleManufacturer;
+import com.epam.ag.model.user.UserRole;
+import com.epam.ag.service.UserService;
 import com.epam.ag.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,15 +145,13 @@ public class App {
 //        System.out.println(e2);
 
 
-        VehicleService service = new VehicleService();
-        //Vehicle vehicle = service.getVehicle(52L);
-        //Vehicle vehicle = service.getVehicle(61L);
-        Vehicle vehicle = service.getVehicle(72L);
+        UserService service = new UserService();
+        User user = service.getUserByEmail("admin@admin.ru");
+        if (user != null) {
+            log.trace("Role: {}", user.getRole());
+            log.trace("User: {}", user.getRole().equals(UserRole.CLIENT));
 
-        boolean isSaved = service.updateVehicle(vehicle);
-        System.out.println(isSaved);
-        System.out.println(vehicle);
-
+        }
     }
 }
 
