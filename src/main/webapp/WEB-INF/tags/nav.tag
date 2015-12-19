@@ -16,9 +16,8 @@
         <div id="navbar" class="navbar-collapse collapse">
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
                 <c:if test="${sessionScope.user != null}">
+                    <li><a href="/controller?action=cabinet">Cabinet</a></li>
                     <li>
                         <a href="/controller?action=logout">${sessionScope.user.getFirstName()}, logout</a>
                     </li>
