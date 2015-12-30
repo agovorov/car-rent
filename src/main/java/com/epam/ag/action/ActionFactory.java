@@ -1,5 +1,6 @@
 package com.epam.ag.action;
 
+import com.epam.ag.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,17 +81,52 @@ public class ActionFactory {
         actions.put("GET/login", new ShowLoginAction());
         actions.put("POST/login", new LoginAction());
         actions.put("GET/logout", new LogoutAction());
-        /*
-        actions.put("GET/register", new DisplayPageAction());
+        actions.put("GET/register", new ShowRegisterPageAction());
         actions.put("POST/register", new RegisterAction());
 
-        actions.put("GET/logout", new LogoutAction());
-        */
+
+        // Admin order
+        actions.put("GET/order-confirm", new ListOrdersAction(Order.OrderStatus.WAITING.name()));
+        actions.put("GET/order-list", new ListOrdersAction(null));
+        actions.put("GET/order-payed", new ListOrdersAction(Order.OrderStatus.PAYED.name()));
+        actions.put("GET/order-finished", new ListOrdersAction(Order.OrderStatus.CLOSED.name()));
+        actions.put("GET/order-detail", new ShowOrderDetailAction());
+        actions.put("GET/order-confirm-detail", new ShowConfirmOrderDetailAction());
+        actions.put("POST/order-confirm-detail", new ConfirmOrderDetailAction());
+        actions.put("GET/order-issue", new ShowIssueVehicleAction());
+        actions.put("POST/order-issue", new IssueVehicleAction());
+        actions.put("GET/order-received", new ShowReceivedVehicleAction());
+        actions.put("POST/order-received", new ReceivedVehicleAction());
+
+        //vehicle return
+        actions.put("GET/order-return", new ListOrdersAction("return"));
+
 
         // Cabinet
-        actions.put("GET/cabinet", new ShowPageAction("cabinet"));
+        actions.put("GET/cabinet", new ShowCabinetAction());
 
+        // -----------------
+        // Client
+        actions.put("GET/user-tmp", new TempAction("user"));
+        actions.put("GET/admin-tmp", new TempAction("admin"));
+        actions.put("GET/orders", new ShowOrdersAction());
+        actions.put("POST/profile", new UpdateProfileAction());
 
+        actions.put("GET/order", new ShowPageAction("/client/date_select"));
+        actions.put("POST/order", new OrderSetDateAction());
+        actions.put("GET/order-vehicle", new SelectVehicleAction());
+        actions.put("GET/order-verify", new ShowVerifyOrderAction());
+        actions.put("POST/order-verify", new VerifyOrderAction());
+//        actions.put("GET/order-confirm", new ShowConfirmOrderAction());
+        actions.put("GET/order-pay", new ShowPayOrderAction());
+        actions.put("POST/order-pay", new PayOrderAction());
+
+        actions.put("GET/order-refund", new ShowRefundOrderAction());
+        actions.put("POST/order-refund", new RefundOrderAction());
+
+        // Common pages
+        actions.put("GET/rules", new ShowPageAction("rules"));
+        actions.put("GET/contact", new ShowPageAction("contact"));
     }
 
     public Action getAction(HttpServletRequest request) {

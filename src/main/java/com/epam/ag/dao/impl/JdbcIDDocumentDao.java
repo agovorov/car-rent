@@ -3,7 +3,6 @@ package com.epam.ag.dao.impl;
 import com.epam.ag.dao.IDDocumentDao;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.user.IDDocument;
-import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +36,13 @@ public class JdbcIDDocumentDao extends JdbcAbstractDao implements IDDocumentDao 
             ps.setDate(2, JdbcHelper.convertToSQLDate(document.getIssueDate()));
             ps.setDate(3, JdbcHelper.convertToSQLDate(document.getExpirationDate()));
             ps.setString(4, document.getIssuePlace());
-            ps.setLong(5, document.getLivingAddressId());
+
+            Long livingAddress = document.getLivingAddressId();
+            if (livingAddress == null) {
+                ps.setNull(5, Types.INTEGER);
+            } else {
+                ps.setLong(5, livingAddress);
+            }
             ps.setString(6, document.getDocumentNumber());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
@@ -64,7 +69,12 @@ public class JdbcIDDocumentDao extends JdbcAbstractDao implements IDDocumentDao 
             ps.setDate(2, (Date) document.getIssueDate());
             ps.setDate(3, (Date) document.getExpirationDate());
             ps.setString(4, document.getIssuePlace());
-            ps.setLong(5, document.getLivingAddressId());
+            Long livingAddress = document.getLivingAddressId();
+            if (livingAddress == null) {
+                ps.setNull(5, Types.INTEGER);
+            } else {
+                ps.setLong(5, livingAddress);
+            }
             ps.setString(6, document.getDocumentNumber());
             ps.setLong(7, document.getId());
             ps.executeUpdate();

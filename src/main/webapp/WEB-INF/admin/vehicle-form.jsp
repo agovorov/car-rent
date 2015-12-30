@@ -3,8 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@page import="java.text.DecimalFormat" %>
-
 <fmt:setBundle basename="messages/messages"/>
 <fmt:message key="vehicle.pageheader" var="pageHeader"/>
 <fmt:message key="vehicle.form.model.placeholder" var="enterModelPlaceholder"/>

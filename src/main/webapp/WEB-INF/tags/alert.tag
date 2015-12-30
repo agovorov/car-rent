@@ -1,6 +1,6 @@
 <%@tag %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="type" type="java.lang.String" required="false" %>
 <fmt:setBundle basename="messages/messages"/>
 <c:if test="${not empty systemMessage}">
@@ -11,7 +11,7 @@
             <c:if test="${not empty errorMap}">
                 <ul class="alerts-list">
                     <c:forEach items="${errorMap}" var="map">
-                        <li>${map.value}</li>
+                        <li><fmt:message key="${map.value}"/></li>
                     </c:forEach>
                 </ul>
             </c:if>

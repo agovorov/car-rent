@@ -1,13 +1,12 @@
 package com.epam.ag.action;
 
 import com.epam.ag.action.helpers.AuthManager;
-import com.epam.ag.utils.SystemMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author by Govorov Andrey.
+ * @author Govorov Andrey.
  */
 public class LogoutAction implements Action {
     @Override
@@ -15,6 +14,6 @@ public class LogoutAction implements Action {
         // Remove session
         AuthManager.logout(req);
 
-        return "redirect:controller?action=index";
+        return "redirect:";
     }
 }

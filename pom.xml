@@ -69,5 +69,11 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.6</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery-mask-plugin</artifactId>
+            <version>1.13.4</version>
+        </dependency>
     </dependencies>
 </project>

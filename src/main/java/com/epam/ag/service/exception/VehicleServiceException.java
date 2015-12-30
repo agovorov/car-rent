@@ -1,4 +1,4 @@
-package com.epam.ag.service;
+package com.epam.ag.service.exception;
 
 /**
  * @author by Govorov Andrey.

@@ -40,7 +40,7 @@ public class UpdateVehicleAction implements Action {
 
         // Get data for showing
         VehicleService service = new VehicleService();
-        Vehicle vehicle = service.getVehicle(vehicleId);
+        Vehicle vehicle = service.getVehicleById(vehicleId);
         if (vehicle == null) {
             req.getSession().setAttribute("systemMessage", new SystemMessage("vehicle.form.no.data", SystemMessage.ERROR));
             return "redirect:controller?action=vehicle-list";

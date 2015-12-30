@@ -15,12 +15,12 @@
     </servlet-mapping>
 
 
-    <filter>
+    <!--<filter>
         <filter-name>UserRoleFilter</filter-name>
         <filter-class>com.epam.ag.filter.UserRoleFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>UserRoleFilter</filter-name>
         <url-pattern>/controller</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 </web-app>

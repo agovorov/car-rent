@@ -15,7 +15,6 @@ import java.util.List;
 public class TypeService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(TypeService.class);
-    private DaoFactory daoFactory;
 
     public List<VehicleBodyType> getBodyTypeList() {
         daoFactory = DaoFactory.getInstance();

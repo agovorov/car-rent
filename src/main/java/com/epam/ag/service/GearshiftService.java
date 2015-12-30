@@ -15,7 +15,6 @@ import java.util.List;
 public class GearshiftService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(GearshiftService.class);
-    private DaoFactory daoFactory;
 
     public List<VehicleGearShift> getFuelTypeList() {
         daoFactory = DaoFactory.getInstance();

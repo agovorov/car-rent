@@ -19,6 +19,14 @@ public class Vehicle extends BaseEntity {
     //private Gallery<GalleryItem> vehicleImages = new Gallery<>();
     private Gallery vehicleImages = null;//new Gallery();
 
+    public Vehicle() {
+        super();
+    }
+
+    public Vehicle(long vehicleId) {
+        super(vehicleId);
+    }
+
     public double getPrice() {
         return price;
     }
@@ -166,5 +174,9 @@ public class Vehicle extends BaseEntity {
             return 0;
         }
         return vehicleImages.getId();
+    }
+
+    public String getFullName() {
+        return manufacturer.getValue() + " " + model;
     }
 }

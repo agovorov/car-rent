@@ -42,7 +42,7 @@
 
             <div class="form-group">
                 <label for="fPhone"><fmt:message key="user.form.phone"/></label>
-                <input type="text" class="form-control" id="fPhone" name="phone"
+                <input type="text" class="form-control phone" id="fPhone" name="phone"
                        placeholder="${phonePlaceholder}" value="${phone}">
             </div>
 

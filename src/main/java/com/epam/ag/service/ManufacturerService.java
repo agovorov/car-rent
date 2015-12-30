@@ -15,7 +15,6 @@ import java.util.List;
 public class ManufacturerService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(ManufacturerService.class);
-    private DaoFactory daoFactory;
 
     public List<VehicleManufacturer> getManufacturerList() {
         daoFactory = DaoFactory.getInstance();

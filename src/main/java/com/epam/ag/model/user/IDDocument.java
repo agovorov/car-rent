@@ -5,8 +5,6 @@ import com.epam.ag.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,47 +14,59 @@ public abstract class IDDocument extends BaseEntity {
 
     private static final Logger log = LoggerFactory.getLogger(IDDocument.class);
 
-    private User owner;
-    private String documentNumber;
-    private Date dateOfIssue;
-    private Date expirationDate;
-    private String placeOfIssue;
-    private Address livingAddress;
+    protected User owner;
+    protected String documentNumber;
+    protected Date dateOfIssue;
+    protected Date expirationDate;
+    protected String placeOfIssue;
+    protected Address livingAddress;
 
-    public long getOwnerId() {
-        return owner.getId();
+    public IDDocument() {
+        super();
+    }
+
+    public IDDocument(Long documentId) {
+        super(documentId);
+    }
+
+    public Address getLivingAddress() {
+        return livingAddress;
+    }
+
+    public Long getOwnerId() {
+        return owner == null ? null : owner.getId();
     }
 
     public Date getIssueDate() {
         return dateOfIssue;
     }
 
+    public void setIssueDate(Date date) {
+        dateOfIssue = date;
+    }
+
     public Date getExpirationDate() {
         return expirationDate;
+    }
+
+    public void setExpirationDate(Date date) {
+        expirationDate = date;
     }
 
     public String getIssuePlace() {
         return placeOfIssue;
     }
 
-    public long getLivingAddressId() {
-        return livingAddress.getId();
+    public void setIssuePlace(String place) {
+        placeOfIssue = place;
+    }
+
+    public Long getLivingAddressId() {
+        return livingAddress == null ? null : livingAddress.getId();
     }
 
     public void setOwner(User user) {
         owner = user;
-    }
-
-    public void setIssueDate(String date) {
-        dateOfIssue = convertDate(date);
-    }
-
-    public void setExpirationDate(String date) {
-        expirationDate = convertDate(date);
-    }
-
-    public void setIssuePlace(String place) {
-        placeOfIssue = place;
     }
 
     public void setAddress(Address address) {
@@ -67,7 +77,7 @@ public abstract class IDDocument extends BaseEntity {
     public String toString() {
         return "IDDocument{" +
                 "id=" + getId() +
-                ", owner=" + owner +
+//                ", ownerID=" + owner.getId() +
                 ", documentNumber=" + documentNumber +
                 ", dateOfIssue=" + dateOfIssue +
                 ", expirationDate=" + expirationDate +
@@ -76,24 +86,11 @@ public abstract class IDDocument extends BaseEntity {
                 '}';
     }
 
-    // TODO Не место тут этой функции, но пока так...
-    private Date convertDate(String stringDate) {
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-mm-dd");
-        Date date = null;
-        try {
-            date =  formater.parse(stringDate);
-        } catch (ParseException e) {
-            log.trace("Wrong date format: {} {}", date, stringDate);
-            throw new RuntimeException("Wrong date to format", e);
-        }
-        return date;
+    public String getDocumentNumber() {
+        return (documentNumber);
     }
 
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
-    }
-
-    public String getDocumentNumber() {
-        return(documentNumber);
     }
 }

@@ -12,11 +12,22 @@ public class User extends BaseEntity {
     private String password;
     private String firstName;
     private String lastName;
-    private String phone;
-
-    // Ох и намучаюсь я с иерархией таблиц...
     private IDDocument passport;
     private UserRole role;
+
+    private String phone;
+
+    public User(long userId) {
+        super(userId);
+    }
+
+    public IDDocument getPassport() {
+        return passport;
+    }
+
+    public void setPassport(IDDocument passport) {
+        this.passport = passport;
+    }
 
     public User() {
         this.role = new UserRole();
@@ -35,7 +46,6 @@ public class User extends BaseEntity {
     }
 
     public void setPassword(String password) {
-        // TODO Тут необходимо добавить функция шифрования пароля
         this.password = password;
     }
 
@@ -73,6 +83,10 @@ public class User extends BaseEntity {
 
     public UserRole getRole() {
         return role;
+    }
+
+    public String getFullName() {
+        return lastName + " " + firstName;
     }
 
     @Override

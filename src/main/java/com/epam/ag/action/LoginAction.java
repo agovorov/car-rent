@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class LoginAction implements Action {
 
@@ -46,8 +47,25 @@ public class LoginAction implements Action {
 
         AuthManager.authorize(user, req);
 
+        // Back to return url
+        String returnUrl = sendUserBack(req, resp);
+        if (returnUrl != null) {
+            return "redirect:controller?action=" + returnUrl;
+        }
+
         // It`s ok
-        req.getSession().setAttribute("systemMessage", new SystemMessage("auth.success", SystemMessage.ERROR));
+        req.getSession().setAttribute("systemMessage", new SystemMessage("auth.success", SystemMessage.SUCCESS));
         return "redirect:controller?action=cabinet";
+    }
+
+    /**
+     * Trying to send user back
+     * @param req
+     * @param resp
+     */
+    private String sendUserBack(HttpServletRequest req, HttpServletResponse resp) {
+        String returnUrl = (String) req.getSession(false).getAttribute("returnUrl");
+        log.trace("Going to send user to... here `{}`", returnUrl);
+        return returnUrl;
     }
 }

@@ -1,9 +1,13 @@
 package com.epam.ag.service;
 
+import com.epam.ag.dao.AddressDao;
 import com.epam.ag.dao.DaoFactory;
+import com.epam.ag.dao.IDDocumentDao;
 import com.epam.ag.dao.UserDao;
 import com.epam.ag.dao.impl.exception.DaoException;
 import com.epam.ag.model.User;
+import com.epam.ag.model.user.Address;
+import com.epam.ag.model.user.Passport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +19,6 @@ import java.util.List;
 public class UserService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
-    private DaoFactory daoFactory;
 
     public List<User> getUsersList() {
         daoFactory = DaoFactory.getInstance();
@@ -27,19 +30,53 @@ public class UserService extends BaseService {
 
     public boolean saveUser(User user) {
         daoFactory = DaoFactory.getInstance();
-        UserDao dao = daoFactory.getDao(UserDao.class);
-        return save(user, dao);
-    }
+        daoFactory.beginTransaction();
+        UserDao userDao = daoFactory.getDao(UserDao.class);
 
-    private boolean save(User entity, UserDao dao) {
+        // Save passport if exists
+        if (user.getPassport() != null) {
+            // Looking for a new
+            Passport passport = (Passport) user.getPassport();
+            passport.setOwner(user);
+
+            // Save address if exists
+            if (passport.getLivingAddress() != null) {
+                Address address = passport.getLivingAddress();
+                AddressDao addressDao = daoFactory.getDao(AddressDao.class);
+                try {
+                    addressDao.save(address);
+                } catch (Exception e) {
+                    log.error("Unable to save address model", e);
+                    daoFactory.rollback();
+                    daoFactory.close();
+                    return false;
+                }
+            }
+
+            // Save passport
+            IDDocumentDao documentDao = daoFactory.getDao(IDDocumentDao.class);
+            try {
+                documentDao.save(passport);
+            } catch (Exception e) {
+                log.error("Unable to save passport model", e);
+                daoFactory.rollback();
+                daoFactory.close();
+                return false;
+            }
+
+        }
+
+        // Save user
         try {
-            dao.save(entity);
+            //userDao.save(user);
         } catch (DaoException e) {
             log.error("Unable to save user", e);
-            return false;
-        } finally {
+            daoFactory.rollback();
             daoFactory.close();
+            return false;
         }
+        daoFactory.commit();
+        daoFactory.close();
         return true;
     }
 

@@ -17,7 +17,6 @@ import java.util.List;
 public class VehicleService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(VehicleService.class);
-    private DaoFactory daoFactory;
 
     public List<Vehicle> getVehicleList() {
         daoFactory = DaoFactory.getInstance();
@@ -41,6 +40,7 @@ public class VehicleService extends BaseService {
             vehicle = dao.save(vehicle);
 
         } catch (Exception e) {
+            log.error("Unable to save model Vehicle: {}", vehicle, e);
             return false;
         } finally {
             daoFactory.close();
@@ -48,7 +48,7 @@ public class VehicleService extends BaseService {
         return true;
     }
 
-    public Vehicle getVehicle(Long vehicleId) {
+    public Vehicle getVehicleById(Long vehicleId) {
         daoFactory = DaoFactory.getInstance();
         VehicleDao dao = daoFactory.getDao(VehicleDao.class);
         Vehicle vehicle = dao.getById(vehicleId);

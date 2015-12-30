@@ -17,7 +17,7 @@ public class ColorService extends BaseService {
     private static final Logger log = LoggerFactory.getLogger(ColorService.class);
 
     public List<VehicleBodyColor> getColorsList() {
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        daoFactory = DaoFactory.getInstance();
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
         List<VehicleBodyColor> colors = dao.getAll();
         daoFactory.close();
@@ -26,7 +26,7 @@ public class ColorService extends BaseService {
     }
 
     public boolean addNewColor(String colorRu, String colorEn) {
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        daoFactory = DaoFactory.getInstance();
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
         VehicleBodyColor vehicleBodyColor = new VehicleBodyColor(colorRu, colorEn);
         // TODO вынестси, убрать дубль
@@ -42,7 +42,7 @@ public class ColorService extends BaseService {
     }
 
     public VehicleBodyColor getColor(Long colorId) {
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        daoFactory = DaoFactory.getInstance();
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
         VehicleBodyColor vehicleBodyColor = dao.getById(colorId);
         daoFactory.close();
@@ -52,7 +52,7 @@ public class ColorService extends BaseService {
     }
 
     public boolean updateColor(Long colorId, String colorRu, String colorEn) {
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        daoFactory = DaoFactory.getInstance();
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
         VehicleBodyColor vehicleBodyColor = dao.getById(colorId);
         if (vehicleBodyColor == null) return false;
@@ -70,7 +70,7 @@ public class ColorService extends BaseService {
     }
 
     public boolean deleteColorById(Long colorId) {
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        daoFactory = DaoFactory.getInstance();
         VehicleBodyColorDao dao = daoFactory.getDao(VehicleBodyColorDao.class);
         VehicleBodyColor vehicleBodyColor = dao.getById(colorId);
         if (vehicleBodyColor == null) {

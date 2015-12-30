@@ -1,10 +1,12 @@
 package com.epam.ag.action;
 
+import com.epam.ag.model.User;
 import com.epam.ag.service.UserService;
 import com.epam.ag.utils.SystemMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Govorov Andrey.
@@ -18,6 +20,17 @@ public class DeleteUserAction implements Action {
         } catch (NumberFormatException e) {
             req.getSession().setAttribute("systemMessage", new SystemMessage("user.form.wrong.id", SystemMessage.ERROR));
             return "redirect:controller?action=user-list";
+        }
+
+        // If I try to delete myself
+        HttpSession session = req.getSession(false);
+        if (session != null) {
+            User user = (User)session.getAttribute("user");
+            long currentUserId = user.getId();
+            if (currentUserId == userId) {
+                req.getSession().setAttribute("systemMessage", new SystemMessage("user.form.error.delete.yourself", SystemMessage.ERROR));
+                return "redirect:controller?action=user-list";
+            }
         }
 
         UserService service = new UserService();

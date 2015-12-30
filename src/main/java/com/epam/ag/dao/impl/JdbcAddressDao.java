@@ -3,7 +3,6 @@ package com.epam.ag.dao.impl;
 import com.epam.ag.dao.AddressDao;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.user.Address;
-import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +15,6 @@ import java.util.List;
 public class JdbcAddressDao extends JdbcAbstractDao implements AddressDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcAddressDao.class);
-//    private Connection connection;
-//    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcAddressDao(Connection connection) {
         this.connection = connection;
@@ -30,7 +27,7 @@ public class JdbcAddressDao extends JdbcAbstractDao implements AddressDao {
     }
 
     private Address insert(Address address) {
-        log.trace("User insert statement: {}", address);
+        log.trace("Address insert statement: {}", address);
         String query = pm.get("address.insert");
         PreparedStatement ps = null;
         try {
@@ -69,7 +66,7 @@ public class JdbcAddressDao extends JdbcAbstractDao implements AddressDao {
             ps.setLong(6, address.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}, {}", address, e);
+            log.error("Unable to query SQL", e);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return address;

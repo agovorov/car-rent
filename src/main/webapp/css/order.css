@@ -1,0 +1,128 @@
+.vehicle-block {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 204px;
+    height: 255px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: #fff;
+    -webkit-box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);
+    box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);
+}
+
+.vehicle-block h2 {
+    margin: 10px 0;
+    padding: 2px 5px;
+    font-size: 12pt;
+    font-family: 'Roboto', sans-serif;
+}
+
+.vehicle-block .price-a-day {
+    margin-top: -14px;
+    background: #df0226;
+    width: auto;
+    max-width: 100px;
+    min-width: 130px;
+    height: 25px;
+    color: #fff;
+    font-size: 14pt;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.vehicle-block img {
+    width: 204px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+.vehicle-block .price-a-day > .currency {
+    font-size: 10pt;
+}
+
+.vehicle-options {
+    text-align: center;
+    margin: 15px 0 5px 0;
+    padding: 0;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+}
+
+.vehicle-options div.option-block {
+    /*border: 1px solid red;*/
+    height: 35px;
+}
+
+.vehicle-options div.option-label {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    font-size: 7pt;
+    text-align: center;
+    width: 100%;
+}
+
+.vehicle-block .bottom-block {
+    height: 38px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid #01b1ea;
+}
+
+.vehicle-block .bottom-block > div {
+    text-align: center;
+    line-height: 36px;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+}
+
+.vehicle-block .bottom-block a:active,
+.vehicle-block .bottom-block a:visited,
+.vehicle-block .bottom-block a {
+    color: #fff;
+}
+
+.vehicle-block .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.vehicle-block .total-price {
+    font-size: 14pt;
+}
+
+.vehicle-block .order-block {
+    background: #01b1ea;
+    font-size: 10pt;
+    cursor: pointer;
+}
+
+.price-info-row {
+    height: 25px;
+}
+.price-info-row .labels {
+    text-align: right;
+}
+
+.order-block .values {
+    background: #7bbeea;
+}
+
+.order-block .values2 {
+    background: #01b1ea;
+}
+
+.vehicle-big-block {
+    padding: 10px;
+}
+
+.actions-href a{
+    display: block;
+}

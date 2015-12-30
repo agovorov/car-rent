@@ -16,6 +16,10 @@ public class PositiveIntegerValidator extends BaseValidator implements Validator
     public boolean isValid(String param) {
         // Пробуем привести к Int
         log.trace("StrToInt: {}", param);
+        if (param == null) {
+            log.trace("Null value");
+            return false;
+        }
         int i;
         try {
             i = Integer.parseInt(param);

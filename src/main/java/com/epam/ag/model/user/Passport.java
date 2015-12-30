@@ -6,4 +6,27 @@ package com.epam.ag.model.user;
 public class Passport extends IDDocument {
 
     private String passportSeries;
+
+    public Passport() {
+        super();
+    }
+
+    public Passport(Long passportId) {
+        super(passportId);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Passport{" +
+                "id=" + getId() +
+                "passportSeries='" + passportSeries + '\'' +
+//                ", ownerID=" + owner.getId() +
+                ", documentNumber=" + documentNumber +
+                ", dateOfIssue=" + dateOfIssue +
+                ", expirationDate=" + expirationDate +
+                ", placeOfIssue='" + placeOfIssue + '\'' +
+                ", livingAddress=" + livingAddress +
+                '}';
+    }
 }

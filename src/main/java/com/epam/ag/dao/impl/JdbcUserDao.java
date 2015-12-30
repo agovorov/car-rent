@@ -3,6 +3,7 @@ package com.epam.ag.dao.impl;
 import com.epam.ag.dao.UserDao;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.User;
+import com.epam.ag.model.user.Passport;
 import com.epam.ag.model.user.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,7 +99,7 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
                 user = fillFromSet(user, rs);
             }
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}, {} ", user, e);
+            log.error("Unable to query SQL", e);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return user;
@@ -120,7 +121,7 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
                 user = fillFromSet(user, rs);
             }
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}, {} ", user, e);
+            log.error("Unable to query SQL", e);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return user;
@@ -178,6 +179,14 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
                     recordSet.getString("value_ru"),
                     recordSet.getString("value_en")
             ));
+
+            int passportColumIndex = recordSet.findColumn("passport_id");
+            if (passportColumIndex > 0) {
+                Long passportId = recordSet.getLong("passport_id");
+                if (passportId != null) {
+                    user.setPassport(new Passport(passportId));
+                }
+            }
             user.setId(recordSet.getLong("id"));
         } catch (SQLException e) {
             log.error("Error while SQL query select", e);

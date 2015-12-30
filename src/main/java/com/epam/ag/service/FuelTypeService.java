@@ -17,7 +17,6 @@ import java.util.List;
 public class FuelTypeService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(FuelTypeService.class);
-    private DaoFactory daoFactory;
 
     public List<VehicleFuelType> getFuelTypeList() {
         daoFactory = DaoFactory.getInstance();

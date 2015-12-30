@@ -23,8 +23,6 @@ public class GalleryService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(GalleryService.class);
 
-    private static final DaoFactory daoFactory = DaoFactory.getInstance();
-
     // Транзакция
     // Save gallery
     // save galleryItem

@@ -1,21 +1,19 @@
 package com.epam.ag;
 
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleBodyColorDao;
-import com.epam.ag.dao.VehicleDao;
-import com.epam.ag.dao.VehicleManufacturerDao;
+import com.epam.ag.model.Order;
 import com.epam.ag.model.User;
-import com.epam.ag.model.Vehicle;
-import com.epam.ag.model.dict.VehicleBodyColor;
-import com.epam.ag.model.dict.VehicleManufacturer;
-import com.epam.ag.model.user.UserRole;
+import com.epam.ag.model.user.Address;
+import com.epam.ag.model.user.IDDocument;
+import com.epam.ag.model.user.Passport;
+import com.epam.ag.service.OrderService;
 import com.epam.ag.service.UserService;
-import com.epam.ag.service.VehicleService;
+import com.epam.ag.utils.DateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * 15.	Система Прокат автомобилей. Клиент выбирает Автомобиль из списка доступных. Заполняет
@@ -130,35 +128,62 @@ public class App {
 //        VehicleBodyColorDao cdao2 = daoFactory2.getDao(VehicleBodyColorDao.class);
 //        VehicleBodyColor e12 = cdao2.getById(1L);
 //        System.out.println(e12);
-//
+
 //        daoFactory2.close();
-//
+
 //        DaoFactory daoFactory3 = DaoFactory.getInstance();
 //        VehicleBodyColorDao cdao3 = daoFactory3.getDao(VehicleBodyColorDao.class);
 //        VehicleBodyColor e13 = cdao3.getById(1L);
 //        System.out.println(e13);
 //        daoFactory3.close();
-//
+
 //        DAO 4
 //        UserDao udao = daoFactory.getDao(UserDao.class);
 //        User e2 = udao.getById(1L);
 //        System.out.println(e2);
 
+//        VehicleService vehicleService = new VehicleService();
+//        Vehicle vehicle = vehicleService.getVehicleById(71L);
 
-        UserService service = new UserService();
-        User user = service.getUserByEmail("admin@admin.ru");
-        if (user != null) {
-            log.trace("Role: {}", user.getRole());
-            log.trace("User: {}", user.getRole().equals(UserRole.CLIENT));
+//        Order order = new Order();
+//        order.setStartDate(DateConverter.strToDate("10.12.2015"));
+//        order.setEndDate(DateConverter.strToDate("10.12.2015"));
+//        order.setDateOfOrder(DateConverter.strToDate("24.12.2015"));
+//        order.setCustomer(user);
+//        order.setVehicle(vehicle);
+//        order.setStatus(Order.OrderStatus.WAITING);
 
+//        Address address = new Address();
+//        address.setCountry("KZ");
+//        address.setCity("Karaganda");
+//        address.setStreet("Nurken Abdirov");
+//        address.setStreetNumber("2");
+//        address.setAppartmentNumber(21);
+//
+//        IDDocument passport = new Passport();
+//        passport.setDocumentNumber("12345678");
+//        passport.setIssuePlace("МЮ РК");
+//        passport.setExpirationDate(DateConverter.strToDate("15.12.2015"));
+//        passport.setIssueDate(DateConverter.strToDate("01.12.2015"));
+//        passport.setAddress(address);
+
+//        UserService userService = new UserService();
+//        User user = userService.getUserByEmail("thegovorovs@gmail.com");
+//        User user = userService.getUserByEmail("admin@admin.ru");
+
+        OrderService orderService = new OrderService();
+//        List<Order> orderList = orderService.getUsersOrderList(user);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("status", Order.OrderStatus.CONFIRMED);
+        params.put("user_id", 1);
+        List<Order> orderList = orderService.getOrdersList(params);
+
+        //user.getPassword().toLowerCase()
+        if (!orderList.isEmpty()) {
+            for(Order order : orderList) {
+                log.warn("Order {} {}", order.getId(), order.getStatus());
+            }
         }
     }
 }
-
-/*
-[17:37:09] Timofey Balashov: фабрика = даоФабрика.дайФабрику(); // тут вытянется коннекшн из бд
-[17:37:50] Timofey Balashov: юзерДао = фабрика.дайЮзерДао(); // получим юзерДао с тем коннекшном
-[17:38:15] Timofey Balashov: шмузерДао = фабрика.дайШмузерДао(); // получим шмузерДао всё с тем же коннекшном
-[17:38:42] Timofey Balashov: юзерДао.сделайТо(); шмузерДао.сделайСё();
-[17:39:04] Timofey Balashov: фабрика.закройся(); // вот тут отдаем коннекш обратно в пул
- */
