@@ -6,7 +6,9 @@ import com.epam.ag.dao.impl.exception.DaoException;
 import com.epam.ag.model.Order;
 import com.epam.ag.model.User;
 import com.epam.ag.model.Vehicle;
+import com.epam.ag.model.dict.VehicleManufacturer;
 import com.epam.ag.service.exception.OrderServiceException;
+import com.epam.ag.utils.SqlParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +88,7 @@ public class OrderService extends BaseService {
 
         UserService userService = new UserService();
         User user = userService.getUserById(userId);
+        userService.loadPassportData(user);
         if (user == null) {
             log.trace("Unable to load data for order. User not found: {}", order);
             throw new OrderServiceException("Unable to load data for order. User not found!");
@@ -117,7 +120,7 @@ public class OrderService extends BaseService {
         return orderList;
     }
 
-    public List<Order> getUsersOrderList(User user) {
+    public List<Order> getUsersOrderList(User user, Map<String, SqlParams> params) {
         List orderList = new ArrayList();
         if (user == null) {
             return orderList;
@@ -126,11 +129,14 @@ public class OrderService extends BaseService {
         daoFactory = DaoFactory.getInstance();
         OrderDao dao = daoFactory.getDao(OrderDao.class);
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_id", user.getId());
+        if (params == null) {
+            params = new HashMap<>();
+        }
+        params.put("user_id", new SqlParams(user.getId()));
         orderList = dao.getAllByParameters(params);
         daoFactory.close();
 
         return orderList;
     }
+
 }

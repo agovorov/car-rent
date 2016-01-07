@@ -1,14 +1,18 @@
 package com.epam.ag.service;
 
+import com.epam.ag.action.FilterVehicleAction;
 import com.epam.ag.dao.DaoFactory;
 import com.epam.ag.dao.VehicleBodyTypeDao;
 import com.epam.ag.dao.VehicleDao;
 import com.epam.ag.model.Gallery;
 import com.epam.ag.model.Vehicle;
 import com.epam.ag.model.dict.VehicleBodyType;
+import com.epam.ag.utils.SqlParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -89,5 +93,44 @@ public class VehicleService extends BaseService {
             daoFactory.close();
         }
         return true;
+    }
+
+    public List<Vehicle> getVehicleList(Map params) {
+        daoFactory = DaoFactory.getInstance();
+        VehicleDao dao = daoFactory.getDao(VehicleDao.class);
+
+        List<Vehicle> list = dao.getAllByParameters(params);
+        daoFactory.close();
+        return list;
+    }
+
+    public List<Vehicle> getAvailableVehicles(Date startDate, Date endDate, FilterVehicleAction.VehicleFilter filter) {
+        Map<String, Object> map = new HashMap<>();
+
+        if (filter !=null) {
+            map.put("manufacturer_id", new SqlParams(filter.manufacturers));
+            map.put("price", new SqlParams(filter.minPrice, filter.maxPrice));
+        }
+
+        List<Vehicle> vehicleList = getVehicleList(map);
+
+        // We need short list for ajax response
+        List rootList = new ArrayList();
+        if (vehicleList.isEmpty()) {
+            return rootList;
+        }
+
+        for (Vehicle vehicle : vehicleList) {
+            Map<String, Object> childList = new HashMap<>();
+            childList.put("id", vehicle.getId());
+            childList.put("name", vehicle.getFullName());
+            childList.put("price", vehicle.getPrice());
+            childList.put("gearshift", vehicle.getVehicleGearShift().getValue());
+            childList.put("consumption", vehicle.getConsumption());
+            childList.put("volume", vehicle.getVolume());
+            childList.put("img", vehicle.getGalleryId());
+            rootList.add(childList);
+        }
+        return rootList;
     }
 }

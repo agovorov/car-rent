@@ -23,7 +23,7 @@ $(document).ready(function () {
         placeholder: "____ ____ ____ ____",
     });
 
-    $('.currency').mask('0000000', {
+    $('.currency').mask('00000000000', {
         reverse: true
     });
 

@@ -20,6 +20,7 @@ public abstract class IDDocument extends BaseEntity {
     protected Date expirationDate;
     protected String placeOfIssue;
     protected Address livingAddress;
+    protected String passportSeries;
 
     public IDDocument() {
         super();
@@ -73,6 +74,14 @@ public abstract class IDDocument extends BaseEntity {
         livingAddress = address;
     }
 
+    public void setSeries(String series) {
+        passportSeries = series;
+    }
+
+    public String getSeries() {
+        return passportSeries;
+    }
+
     @Override
     public String toString() {
         return "IDDocument{" +
@@ -93,4 +102,5 @@ public abstract class IDDocument extends BaseEntity {
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
     }
+
 }

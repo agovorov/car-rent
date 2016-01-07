@@ -1,6 +1,7 @@
 package com.epam.ag.dao;
 
 import com.epam.ag.model.Order;
+import com.epam.ag.utils.SqlParams;
 
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,5 @@ public interface OrderDao extends GenericDao<Order> {
     @Override
     boolean delete(Order entity);
 
-    List<Order> getAllByParameters(Map<String, Object> mapParams);
+    List<Order> getAllByParameters(Map<String, SqlParams> mapParams);
 }

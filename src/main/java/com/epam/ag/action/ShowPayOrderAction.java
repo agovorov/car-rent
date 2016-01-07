@@ -38,17 +38,20 @@ public class ShowPayOrderAction extends UserAction implements Action {
 
         OrderService orderService = new OrderService();
         Order order = orderService.getOrderById(orderId);
+        orderService.loadCustomerData(order);
+        orderService.loadVehicleData(order);
         if (order == null) {
             req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.no.data", SystemMessage.ERROR));
             return "redirect:controller?action=orders";
         }
 
-        if (!Objects.equals(order.getCustomer().getId(), user.getId())) {
+        if (order.getCustomer().getId() != user.getId()) {
             req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.not.your.order", SystemMessage.ERROR));
             return "redirect:controller?action=orders";
         }
 
         req.setAttribute("orders", order);
+        req.setAttribute("price", order.countDays() * order.getVehicle().getPrice());
 
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());

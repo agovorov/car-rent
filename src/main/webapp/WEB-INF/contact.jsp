@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <fmt:setBundle basename="messages/messages"/>
-<fmt:message key="common.contact.title" var="pageHeader"/>
+<fmt:message key="common.contact.title" var="title"/>
 
 <a:genericpage title="${title}" jsitems="${jsitems}" cssitems="${cssitem}">
     <jsp:attribute name="header"><a:nav/></jsp:attribute>
@@ -15,6 +15,13 @@
     <jsp:body>
         <a:breadcrumbs items="${breadcrumbItems}"/>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus massa, tincidunt eu nulla quis, dictum efficitur orci. Donec pulvinar, orci quis vehicula fringilla, nisl mi dictum lorem, et vestibulum dui libero id tellus. Nam condimentum scelerisque justo. Etiam blandit, felis at auctor ullamcorper, dui turpis aliquam velit, commodo fringilla metus libero ac nulla. Donec id metus ut mauris sodales faucibus. Sed eu elit elementum, sagittis turpis non, sagittis mauris. Vestibulum lobortis dui magna, at venenatis tellus lobortis eget. Vivamus non euismod nunc. Integer tellus nisi, iaculis a laoreet et, bibendum eget mi. Suspendisse a sollicitudin lacus, nec molestie felis. Sed sit amet suscipit purus. Vivamus ut mi nisl. Donec volutpat est quis magna imperdiet maximus.</p>
-        <p>karaganda, Lenina 3a, Phone: 555-213-123</p>
+        <p>Karaganda, Lenin 3a st., Phone: 555-213-123</p>
+
+        <address>
+            <strong>Car Rent, Inc.</strong><br>
+            1355 Market Street, Suite 900<br>
+            San Francisco, CA 94103<br>
+            <abbr title="Phone">P:</abbr> (123) 456-7890
+        </address>
     </jsp:body>
 </a:genericpage>

@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <fmt:setBundle basename="messages/messages"/>
-<fmt:message key="common.rules.title" var="pageHeader"/>
+<fmt:message key="common.rules.title" var="title"/>
 
 <a:genericpage title="${title}" jsitems="${jsitems}" cssitems="${cssitem}">
     <jsp:attribute name="header"><a:nav/></jsp:attribute>

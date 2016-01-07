@@ -37,6 +37,7 @@ public class TempAction implements Action {
 
         UserService us = new UserService();
         User user = us.getUserByEmail(email);
+        us.loadPassportData(user);
 
         if (user == null) {
             log.info("User with email {} is not found", email);

@@ -1,5 +1,6 @@
 package com.epam.ag.dao;
 
+import com.epam.ag.model.User;
 import com.epam.ag.model.user.IDDocument;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface IDDocumentDao extends GenericDao<IDDocument> {
 
     @Override
     boolean delete(IDDocument entity);
+
+    IDDocument getByUser(User user);
 }

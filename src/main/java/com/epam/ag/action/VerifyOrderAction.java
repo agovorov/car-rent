@@ -57,6 +57,6 @@ public class VerifyOrderAction implements Action {
         // It`s ok
         log.trace("Order successfully created: {}", order);
         req.getSession().setAttribute("systemMessage", new SystemMessage("order.confirm.success", SystemMessage.SUCCESS));
-        return "redirect:controller?action=order-vehicle";
+        return "redirect:";
     }
 }

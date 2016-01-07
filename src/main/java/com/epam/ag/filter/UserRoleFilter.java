@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,15 +29,34 @@ public class UserRoleFilter implements Filter {
         // TODO Can be loaded from database later
         anonymousPage.add("index");
         anonymousPage.add("login");
-        anonymousPage.add("manufacturer-list");
+        anonymousPage.add("rules");
+        anonymousPage.add("contact");
+        anonymousPage.add("register");
+        anonymousPage.add("login");
+        anonymousPage.add("order");
+        anonymousPage.add("order-vehicle");
+        anonymousPage.add("order-vehicle-filter");
+        anonymousPage.add("order-verify");
 
-        clientPage.add("index");
+        // TODO remove after debug
+        anonymousPage.add("user-tmp");
+        anonymousPage.add("admin-tmp");
+
+        // Client`s rule
+//        clientPage.add("index");
         clientPage.add("logout");
-        clientPage.add("manufacturer-list");
+        clientPage.add("cabinet");
+        clientPage.add("profile");
+        clientPage.add("history");
+        clientPage.add("orders");
+        clientPage.add("order-detail");
+        clientPage.add("order-pay");
+        clientPage.add("order-refund");
 
+        // Admin
         adminPage.add("index");
         adminPage.add("logout");
-        adminPage.add("cabinet");
+
         adminPage.add("manufacturer-list");
         adminPage.add("manufacturer-create");
         adminPage.add("manufacturer-update");
@@ -73,11 +93,13 @@ public class UserRoleFilter implements Filter {
 
         if (user.getRole().equals(UserRole.ADMIN)) {
             log.trace("Admin found");
+            adminPage.addAll(anonymousPage);
             return adminPage;
         }
 
         if (user.getRole().equals(UserRole.CLIENT)) {
             log.trace("Client found");
+            clientPage.addAll(anonymousPage);
             return clientPage;
         }
 

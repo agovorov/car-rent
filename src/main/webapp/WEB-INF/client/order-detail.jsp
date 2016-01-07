@@ -10,8 +10,6 @@
 
 <%--<c:set var="reason" value="${not empty param.reason ? param.reason : '' }"/>--%>
 
-<a:two_column title="${pageHeader}"
-    cssitems="/css/order.css"
-    breadcrumbItems="${breadcrumbItems}">
+<a:client_page title="${pageHeader}">
     <a:orderDisplay entity="${order}" />
-</a:two_column>
+</a:client_page>

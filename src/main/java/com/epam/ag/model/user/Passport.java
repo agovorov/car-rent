@@ -5,8 +5,6 @@ package com.epam.ag.model.user;
  */
 public class Passport extends IDDocument {
 
-    private String passportSeries;
-
     public Passport() {
         super();
     }
@@ -14,7 +12,6 @@ public class Passport extends IDDocument {
     public Passport(Long passportId) {
         super(passportId);
     }
-
 
     @Override
     public String toString() {

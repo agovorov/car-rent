@@ -12,6 +12,10 @@ public class Address extends BaseEntity {
     private int appartmentNumber;
     private String streetNumber;
 
+    public Address(long id) {
+        super(id);
+    }
+
     public int getAppartmentNumber() {
         return appartmentNumber;
     }

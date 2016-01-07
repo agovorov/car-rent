@@ -1,14 +1,16 @@
 <%@ page import="com.epam.ag.model.Order" %>
-<%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setBundle basename="messages/messages"/>
 <fmt:message key="dict.vehicle.pageheader" var="pageHeader"/>
+
 <c:set var="ORDER_CONFIRMED" value="<%=Order.OrderStatus.CONFIRMED%>"/>
 <c:set var="ORDER_DAMAGED" value="<%=Order.OrderStatus.DAMAGED%>"/>
 
-<a:client_page title="${pageHeader}">
+
+<a:client_page title="${pageHeader}" cssitems="/css/cabinet-client.css" breadcrumbItems="${breadcrumbItems}">
     <c:if test="${not empty orders}">
         <table class="table table-striped">
             <tr>
@@ -37,7 +39,7 @@
 
                         <c:if test="${order.getStatus() == ORDER_CONFIRMED}">
                             <a href="/controller?action=order-pay&id=${order.getId()}"><fmt:message
-                                key="order.pay.for.it"/></a>
+                                    key="order.pay.for.it"/></a>
                         </c:if>
 
                         <c:if test="${order.getStatus() == ORDER_DAMAGED}">

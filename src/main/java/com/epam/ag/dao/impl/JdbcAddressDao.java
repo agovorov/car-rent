@@ -88,8 +88,7 @@ public class JdbcAddressDao extends JdbcAbstractDao implements AddressDao {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                address = new Address();
-                address.setId(id);
+                address = new Address(id);
                 address.setCountry(rs.getString("country"));
                 address.setCity(rs.getString("city"));
                 address.setStreet(rs.getString("street"));

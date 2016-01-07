@@ -15,7 +15,7 @@
 <fmt:formatNumber var="damage_price" type="currency" currencySymbol="${currency_label}"
                   value="${order.getDamagePrice()}"/>
 
-<a:admin_page title="${pageHeader}">
+<a:client_page title="${pageHeader}">
     <a:orderDisplay entity="${order}"/>
     <div class="row">
         <div class="col-md-12">
@@ -59,4 +59,4 @@
             </form>
         </div>
     </div>
-</a:admin_page>
+</a:client_page>

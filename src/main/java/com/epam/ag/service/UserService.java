@@ -7,6 +7,7 @@ import com.epam.ag.dao.UserDao;
 import com.epam.ag.dao.impl.exception.DaoException;
 import com.epam.ag.model.User;
 import com.epam.ag.model.user.Address;
+import com.epam.ag.model.user.IDDocument;
 import com.epam.ag.model.user.Passport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,5 +109,12 @@ public class UserService extends BaseService {
         User user = dao.getByEmail(email);
         daoFactory.close();
         return user;
+    }
+
+    public void loadPassportData(User user) {
+        daoFactory = DaoFactory.getInstance();
+        IDDocumentDao documentDao = daoFactory.getDao(IDDocumentDao.class);
+        IDDocument passport = documentDao.getByUser(user);
+        daoFactory.close();
     }
 }

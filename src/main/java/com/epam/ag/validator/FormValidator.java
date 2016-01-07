@@ -53,6 +53,36 @@ public class FormValidator {
         return msg;
     }
 
+
+    /**
+     * Validate form field by specified rule
+     *
+     * @param rulesList Map of object: form_field_name => validator_name (from validator.properties)
+     * @param req       HttpServletRequest object
+     * @return
+     */
+    public SystemMessage validateForm(Map<String, String> rulesList, HttpServletRequest req) {
+        msg = new SystemMessage();
+        for (Map.Entry<String, String> entry : rulesList.entrySet()) {
+            String formFieldName = entry.getKey();
+            String ruleName = entry.getValue();
+            String value = req.getParameter(formFieldName);
+
+            // Get form name
+            // Little hack
+            String formName = ruleName.replace(formFieldName, "");
+            Map validateRules = getValidatorRules(ruleName);
+            if (!validateRules.isEmpty()) {
+                // We found rules for parameter
+                // Check validation on each rule
+                msg = validateFromFilteredMap(validateRules, formName, formFieldName, value);
+            } else {
+                log.trace("No rules for param {}", formFieldName);
+            }
+        }
+        return msg;
+    }
+
     public SystemMessage validateMap(Map<String, String> map) {
         msg = new SystemMessage();
         msg.setType(SystemMessage.ERROR);
@@ -81,9 +111,8 @@ public class FormValidator {
             String k = (String) key;
             String v = (String) validateRules.get(k);
 
-            // Вырезаем путь из ключа
             String param = k.substring(fullName.length() + 1);
-
+            log.trace("validate `{}` => `{}`", k, param);
             // Если осталось просто число, значит там указан класс
             if (param.matches("[0-9]{1,2}")) {
                 String classParameter = fullName + "." + param + ".";

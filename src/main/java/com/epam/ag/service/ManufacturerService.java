@@ -1,8 +1,10 @@
 package com.epam.ag.service;
 
 import com.epam.ag.dao.DaoFactory;
+import com.epam.ag.dao.VehicleDao;
 import com.epam.ag.dao.VehicleManufacturerDao;
 import com.epam.ag.dao.impl.exception.DaoException;
+import com.epam.ag.model.Vehicle;
 import com.epam.ag.model.dict.VehicleManufacturer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

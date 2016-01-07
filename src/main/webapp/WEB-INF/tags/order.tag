@@ -30,7 +30,7 @@
         </c:forEach>
     </c:if>
 </head>
-<body>
+<body> KILLED!!
 <a:nav/>
 <div class="container">
     <div class="nav-steps row">

@@ -16,7 +16,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${prefix}/">Car Rent</a>
+            <a class="navbar-brand" rel="home" href="${prefix}/" title="Car rent service">
+                <img style="max-width:100px;"
+                     src="${prefix}/img/logo2.png">
+            </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -46,7 +49,7 @@
                 </c:if>
 
                 <c:if test="${sessionScope.user == null}">
-                    <li><a href="${prefix}/controller?action=register"><fmt:message key="nav.register"/></a></li>
+                    <li class="${current_action == 'register' ? 'active' : ''}"><a href="${prefix}/controller?action=register"><fmt:message key="nav.register"/></a></li>
                     <li class="login-block"><a href="${prefix}/controller?action=login"><fmt:message
                             key="nav.login"/></a></li>
                 </c:if>

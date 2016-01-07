@@ -5,7 +5,7 @@
 <fmt:setBundle basename="messages/messages"/>
 <c:if test="${not empty systemMessage}">
     <div class="alert alert-${systemMessage.getType()}" role="alert">
-        ${systemMessage.getMessage()}
+            ${systemMessage.getMessage()}
         <c:if test="${systemMessage.isShowErrorsList()}">
             <c:set var="errorMap" value="${systemMessage.getErrors()}"/>
             <c:if test="${not empty errorMap}">

@@ -43,10 +43,10 @@ public class ShowRefundOrderAction extends UserAction implements Action {
             return "redirect:controller?action=orders";
         }
 
-//        if (order.getCustomer().getId() != user.getId()) {
-//            req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.not.your.order", SystemMessage.ERROR));
-//            return "redirect:controller?action=orders";
-//        }
+        if (order.getCustomer().getId() != user.getId()) {
+            req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.not.your.order", SystemMessage.ERROR));
+            return "redirect:controller?action=orders";
+        }
 
         // Check status if status equals
         if (order.getStatus() != Order.OrderStatus.DAMAGED) {

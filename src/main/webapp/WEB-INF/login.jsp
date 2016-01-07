@@ -13,17 +13,21 @@
 
 <a:genericpage title="${title}" jsitems="${jsitems}" cssitems="${prefix}/css/auth.css">
     <jsp:attribute name="header"><a:nav/></jsp:attribute>
-    <jsp:attribute name="menu">
-        <h2 class="form-register-heading"><fmt:message key="auth.header"/></h2>
-    </jsp:attribute>
     <jsp:body>
-        <a:alert/>
-        <form class="form-register" method="post">
-            <label for="inputEmail" class="sr-only"><fmt:message key="auth.login"/></label>
-            <input type="email" name="login" id="inputEmail" class="form-control" placeholder="${loginPlaceholder}" required autofocus value="${login}">
-            <label for="inputPassword" class="sr-only"><fmt:message key="auth.password"/></label>
-            <input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="${passwdPlaceholder}" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="auth.button.login"/></button>
-        </form>
+        <div class="row center_div">
+            <div class="col-md-6 col-md-offset-3">
+                <a:alert/>
+                <form class="form-register" method="post">
+                    <label for="inputEmail" class="sr-only"><fmt:message key="auth.login"/></label>
+                    <input type="email" name="login" id="inputEmail" class="form-control"
+                           placeholder="${loginPlaceholder}" required autofocus value="${login}">
+                    <label for="inputPassword" class="sr-only"><fmt:message key="auth.password"/></label>
+                    <input type="password" name="passwd" id="inputPassword" class="form-control"
+                           placeholder="${passwdPlaceholder}" required>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message
+                            key="auth.button.login"/></button>
+                </form>
+            </div>
+        </div>
     </jsp:body>
 </a:genericpage>

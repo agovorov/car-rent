@@ -86,11 +86,12 @@ public class ActionFactory {
 
 
         // Admin order
+        // TODO Use another action
+        actions.put("GET/order-detail-adm", new ShowOrderDetailAction());
         actions.put("GET/order-confirm", new ListOrdersAction(Order.OrderStatus.WAITING.name()));
         actions.put("GET/order-list", new ListOrdersAction(null));
         actions.put("GET/order-payed", new ListOrdersAction(Order.OrderStatus.PAYED.name()));
         actions.put("GET/order-finished", new ListOrdersAction(Order.OrderStatus.CLOSED.name()));
-        actions.put("GET/order-detail", new ShowOrderDetailAction());
         actions.put("GET/order-confirm-detail", new ShowConfirmOrderDetailAction());
         actions.put("POST/order-confirm-detail", new ConfirmOrderDetailAction());
         actions.put("GET/order-issue", new ShowIssueVehicleAction());
@@ -110,14 +111,17 @@ public class ActionFactory {
         actions.put("GET/user-tmp", new TempAction("user"));
         actions.put("GET/admin-tmp", new TempAction("admin"));
         actions.put("GET/orders", new ShowOrdersAction());
+        actions.put("GET/history", new ShowHistoryAction());
+        actions.put("GET/profile", new ShowProfileAction());
         actions.put("POST/profile", new UpdateProfileAction());
 
-        actions.put("GET/order", new ShowPageAction("/client/date_select"));
+        actions.put("GET/order", new ShowPageAction("index"));
         actions.put("POST/order", new OrderSetDateAction());
+        actions.put("GET/order-detail", new ShowOrderDetailAction());
         actions.put("GET/order-vehicle", new SelectVehicleAction());
         actions.put("GET/order-verify", new ShowVerifyOrderAction());
         actions.put("POST/order-verify", new VerifyOrderAction());
-//        actions.put("GET/order-confirm", new ShowConfirmOrderAction());
+        actions.put("POST/order-vehicle-filter", new FilterVehicleAction());
         actions.put("GET/order-pay", new ShowPayOrderAction());
         actions.put("POST/order-pay", new PayOrderAction());
 

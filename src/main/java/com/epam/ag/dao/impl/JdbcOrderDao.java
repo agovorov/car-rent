@@ -5,6 +5,7 @@ import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.Order;
 import com.epam.ag.model.User;
 import com.epam.ag.model.Vehicle;
+import com.epam.ag.utils.SqlParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +92,7 @@ public class JdbcOrderDao extends JdbcAbstractDao implements OrderDao {
     }
 
     @Override
-    public List<Order> getAllByParameters(Map<String, Object> mapParams) {
+    public List<Order> getAllByParameters(Map<String, SqlParams> mapParams) {
         log.trace("Order getAllByParameters");
         StringBuilder query = new StringBuilder();
         query.append(pm.get("order.getAll"));
@@ -102,15 +103,31 @@ public class JdbcOrderDao extends JdbcAbstractDao implements OrderDao {
         if (paramsCount > 0) {
             query.append("WHERE ");
             int i = 0;
-            for (Map.Entry<String, Object> entry : mapParams.entrySet()) {
+            for (Map.Entry<String, SqlParams> entry : mapParams.entrySet()) {
                 i++;
                 String paramName = entry.getKey();
-                Object value = entry.getValue();
-                query.append(paramName);
-                query.append("=");
-                query.append("'" + value + "'");
+                SqlParams sqlParams = entry.getValue();
+
+                // TODO It`s better to use some query builder this case
+                // If List then using
+                if (sqlParams.list != null && !sqlParams.list.isEmpty()) {
+                    // SQL IN statement
+                    query.append(paramName);
+                    String result = sqlParams.list.toString()
+                            .replaceAll("(^\\[|\\]$)", "")
+                            .replace(", ", "','");
+                    query.append(" IN ('" + result + "')");
+                } else {
+                    query.append(paramName);
+                    query.append('=');
+                    query.append("'" + sqlParams.value + "'");
+                }
                 if (i < paramsCount) {
-                    query.append(" AND ");
+                    if (sqlParams.expr != null) {
+                        query.append(" " + sqlParams.expr + " ");
+                    } else {
+                        query.append(" AND ");
+                    }
                 }
             }
         }

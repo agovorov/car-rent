@@ -1,7 +1,6 @@
 package com.epam.ag.utils;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -17,7 +16,8 @@ public class SystemMessage {
 
     private String type;
     private String message;
-    private Map<String, String> errorMap = new HashMap<>();
+    private Map<String, String> errorMap = new LinkedHashMap<>();
+
     public SystemMessage(String message) {
         this.message = message;
     }
@@ -43,6 +43,10 @@ public class SystemMessage {
         return type;
     }
 
+    public void setType(String messageType) {
+        type = messageType;
+    }
+
     public void addError(String parameter, String error) {
         errorMap.put(parameter, error);
     }
@@ -57,10 +61,6 @@ public class SystemMessage {
 
     public void setShowErrorsList(boolean showErrorsList) {
         this.showErrorsList = showErrorsList;
-    }
-
-    public void setType(String messageType) {
-        type = messageType;
     }
 
     @Override

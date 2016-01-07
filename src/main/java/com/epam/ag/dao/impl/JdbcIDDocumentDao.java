@@ -2,7 +2,10 @@ package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.IDDocumentDao;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
+import com.epam.ag.model.User;
+import com.epam.ag.model.user.Address;
 import com.epam.ag.model.user.IDDocument;
+import com.epam.ag.model.user.Passport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -103,5 +106,52 @@ public class JdbcIDDocumentDao extends JdbcAbstractDao implements IDDocumentDao 
     @Override
     public boolean delete(IDDocument entity) {
         return false;
+    }
+
+    @Override
+    public IDDocument getByUser(User user) {
+        Long userId = user.getId();
+        log.trace("Document getByUser statement: {}", userId);
+        String query = pm.get("idDocument.getByUserId");
+        PreparedStatement ps;
+        IDDocument document = null;
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setLong(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                document = fillFromSet(document, rs);
+                user.setPassport(document);
+            }
+        } catch (SQLException e) {
+            log.error("getByUser: {}", userId);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+        return document;
+    }
+
+    private IDDocument fillFromSet(IDDocument document, ResultSet rs) {
+        try {
+            document = new Passport();
+            document.setId(rs.getLong("id"));
+            document.setSeries(rs.getString("series"));
+            document.setDocumentNumber(rs.getString("doc_number"));
+            document.setIssuePlace(rs.getString("place_of_issue"));
+            document.setIssueDate(rs.getDate("date_of_issue"));
+            document.setExpirationDate(rs.getDate("expiration_date"));
+            document.setOwner(new User(rs.getLong("owner_id")));
+
+            Address address = new Address(rs.getLong("address_id"));
+            address.setCountry(rs.getString("country"));
+            address.setCity(rs.getString("city"));
+            address.setStreet(rs.getString("street"));
+            address.setStreetNumber(rs.getString("appartment_number"));
+            address.setAppartmentNumber(rs.getInt("street_number"));
+            document.setAddress(address);
+        } catch (SQLException e) {
+            log.error("Error while SQL query select", e);
+            throw new JdbcDaoException("Unable to query SQL", e);
+        }
+        return document;
     }
 }

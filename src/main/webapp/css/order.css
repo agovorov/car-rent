@@ -41,7 +41,7 @@
     padding: 0;
 }
 
-.vehicle-block .price-a-day > .currency {
+.vehicle-block .price-a-day > span.currency-class {
     font-size: 10pt;
 }
 
@@ -94,8 +94,12 @@
     margin-right: 0;
 }
 
-.vehicle-block .total-price {
-    font-size: 14pt;
+.vehicle-block .total-price-class {
+    font-size: 13pt;
+}
+
+.vehicle-block .gearshift {
+    background: url('/img/gear.png') 50% 0 no-repeat;
 }
 
 .vehicle-block .order-block {
@@ -125,4 +129,8 @@
 
 .actions-href a{
     display: block;
+}
+
+.filter-block {
+    display: inline;
 }

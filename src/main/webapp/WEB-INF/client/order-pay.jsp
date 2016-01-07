@@ -1,4 +1,3 @@
-<%@ page import="com.epam.ag.model.Order" %>
 <%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,12 +10,17 @@
 <c:set var="card_year" value="${not empty param.card_year ? param.card_year : '' }"/>
 <c:set var="card_holder" value="${not empty param.card_holder ? param.card_holder : '' }"/>
 
+<fmt:message key="common.currency.short" var="currency_label"/>
+<fmt:formatNumber var="price" type="currency" currencySymbol="${currency_label}"
+                  value="${price}"/>
 
 <a:client_page title="${pageHeader}">
+    <h2><fmt:message key="order.pay.price"/>: ${price}</h2>
     <form method="post">
         <div class="form-group">
             <label for="cardNumber"><fmt:message key="order.pay.card.number"/></label>
-            <input type="text" name="card_number" id="cardNumber" value="${card_number}" class="form-control card-number"
+            <input type="text" name="card_number" id="cardNumber" value="${card_number}"
+                   class="form-control card-number"
                    placeholder="<fmt:message key="order.pay.card.number.placeholder"/>">
         </div>
         <div class="form-group">
@@ -34,7 +38,8 @@
         <div class="form-group">
             <label for="cardHolder"><fmt:message key="order.card.holder"/></label>
             <input type="text" name="card_holder" id="cardHolder" value="${card_holder}"
-                   class="form-control card-holder" placeholder="<fmt:message key="order.pay.card.holder.placeholder"/>">
+                   class="form-control card-holder"
+                   placeholder="<fmt:message key="order.pay.card.holder.placeholder"/>">
         </div>
 
         <div class="form-group">

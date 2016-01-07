@@ -6,22 +6,26 @@
 <fmt:setBundle basename="messages/messages"/>
 
 <c:set var="consumption" value="${vehicle.getConsumption()}"/>
-<c:set var="price" value="${vehicle.getPrice()}"/>
-<c:if test="${not empty price}">
-    <fmt:formatNumber var="price" value="${price}" groupingUsed=" " maxFractionDigits="0"/>
-</c:if>
+<%--<c:set var="price" value="${vehicle.getPrice()}"/>--%>
+<%--<c:if test="${not empty price}">--%>
+    <%--<fmt:formatNumber var="price" value="${price}" groupingUsed=" " maxFractionDigits="0"/>--%>
+<%--</c:if>--%>
 
-<fmt:formatNumber var="total_price" value="${price * order.countDays()}" groupingUsed=" " maxFractionDigits="2"/>
+<fmt:message key="common.currency.short" var="currency_label"/>
+<fmt:formatNumber var="price" type="currency" currencySymbol="" value="${vehicle.getPrice()}"/>
+<fmt:formatNumber var="total_price" type="currency" currencySymbol=""
+                  value="${vehicle.getPrice() * order.countDays()}"/>
+
 <div class="vehicle-block">
     <h2>${vehicle.getFullName()}</h2>
     <img src="/img/img.png" width="204" height="101" alt="Car"/>
     <div class="price-a-day">
         <span class="money">${price}</span>
-        <span class="currency"><fmt:message key="order.tenge.a.day"/></span>
+        <span class="currency-class"><fmt:message key="order.tenge.a.day"/></span>
     </div>
 
     <div class="vehicle-options row">
-        <div class="col-xs-4 option-block">
+        <div class="col-xs-4 option-block gearshift">
             <div class="option-label">${vehicle.getVehicleGearShift().getValue()}</div>
         </div>
         <div class="col-xs-4 option-block">
@@ -35,7 +39,7 @@
     </div>
 
     <div class="bottom-block row">
-        <div class="col-xs-6 total-price">${total_price}</div>
+        <div class="col-xs-6 total-price-class">${total_price}</div>
         <div class="col-xs-6 order-block"><a href="/controller?action=order-verify&id=${vehicle.getId()}"><fmt:message
                 key="order.vehicle.choose"/></a></div>
     </div>

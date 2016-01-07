@@ -11,6 +11,7 @@
 <%@attribute name="cssitems" %>
 <%@attribute name="jsitems" %>
 <%@attribute name="header" fragment="true" %>
+<%@attribute name="footer" fragment="true" %>
 <%@attribute name="menu" fragment="true" %>
 <html lang="en">
 <head>
@@ -29,9 +30,9 @@
     <!-- Custom styles for this template -->
     <link href="${prefix}/css/main.css" rel="stylesheet">
     <c:if test="${not empty cssitems}">
-        <c:forEach items="${cssitems}" var="css">
-            <link href="${prefix}${css}" rel="stylesheet">
-        </c:forEach>
+        <c:forTokens items="${cssitems}" delims=";" var="css">
+            <link href="${css}" rel="stylesheet">
+        </c:forTokens>
     </c:if>
 </head>
 <body>
@@ -39,33 +40,22 @@
 <jsp:invoke fragment="header"/>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-4 sidebar">
-            <jsp:invoke fragment="menu"/>
-        </div>
-
-        <div class="col-sm-8 main">
-            <jsp:doBody/>
-        </div>
-    </div>
+    <jsp:doBody/>
 </div>
 
 <footer>
-        <ul class="dropdown-menu">
-            <li><a href="/controller?action=user-tmp">LOGIN AS USER!</a></li>
-            <li><a href="/controller?action=admin-tmp">LOGIN AS ADMIN!</a></li>
-        </ul>
+    <%--Car rent 2015 - 2016 C--%>
+    <jsp:invoke fragment="footer"/>
 </footer>
-
 
 <script type='text/javascript' src='${prefix}/webjars/jquery/1.11.1/jquery.min.js'></script>
 <script type='text/javascript' src='${prefix}/webjars/bootstrap/3.3.6/js/bootstrap.min.js'></script>
 <script type='text/javascript' src='${prefix}/webjars/jquery-mask-plugin/1.13.4/dist/jquery.mask.min.js'></script>
 <script type='text/javascript' src='${prefix}/js/mask.js'></script>
 <c:if test="${not empty jsitems}">
-    <c:forEach items="${jsitems}" var="js">
-        <script type='text/javascript' src='${prefix}${js}'></script>
-    </c:forEach>
+    <c:forTokens items="${jsitems}" delims=";" var="js">
+        <script type='text/javascript' src='${js}'></script>
+    </c:forTokens>
 </c:if>
 </body>
 </html>

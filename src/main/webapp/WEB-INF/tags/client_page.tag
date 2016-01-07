@@ -2,14 +2,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@ attribute name="left" fragment="true" %>
+<%@ attribute name="jsitems" %>
+<%@ attribute name="cssitems" %>
+<%@ attribute name="breadcrumbItems" type="java.util.List" %>
 <%@attribute name="title" type="java.lang.String" required="true" %>
 <fmt:setBundle basename="messages/messages"/>
 
-
-
-<a:genericpage title="${title}">
-    <jsp:attribute name="header"><a:nav/></jsp:attribute>
-    <jsp:attribute name="menu">
+<a:two_column title="${title}"
+              jsitems="${jsitems}"
+              cssitems="${cssitems}"
+              breadcrumbItems="${breadcrumbItems}">
+    <jsp:attribute name="left">
         <h3><fmt:message key="order.menu.orders"/></h3>
         <ul class="nav nav-sidebar">
             <li><a href="/controller?action=order"><fmt:message key="order.create.href"/></a></li>
@@ -25,11 +29,9 @@
     </jsp:attribute>
 
     <jsp:body>
-        <a:breadcrumbs items="${breadcrumbItems}"/>
-        <a:alert/>
         <jsp:doBody/>
     </jsp:body>
-</a:genericpage>
+</a:two_column>
 
 
 

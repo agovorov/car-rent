@@ -1,24 +1,59 @@
 package com.epam.ag.action;
 
-import com.epam.ag.model.User;
-import com.epam.ag.model.user.Address;
-import com.epam.ag.model.user.Passport;
-import com.epam.ag.service.UserService;
-import com.epam.ag.utils.DateConverter;
-import com.epam.ag.utils.SystemMessage;
+import com.epam.ag.model.user.UserRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * @author Govorov Andrey.
  */
-public class UpdateProfileAction implements Action {
+public class UpdateProfileAction extends UserAction implements Action {
+
+    private static final Logger log = LoggerFactory.getLogger(UpdateProfileAction.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        if (!checkUser(req, UserRole.CLIENT)) {
+            log.warn("WRONG user role");
+            return "redirect:controller?action=login";
+        }
 
+        log.trace("user: {}", user);
+        req.setAttribute("user", user);
+        return "client/profile";
 
+//        Map<String, String> validatorRules = new LinkedHashMap<>();
+//        // Personal users
+//        validatorRules.put("lastname", "user.lastname");
+//        validatorRules.put("firstname", "user.firstname");
+//        validatorRules.put("email", "user.email");
+//        validatorRules.put("phone", "user.phone");
+//
+//        // Address rules
+//        validatorRules.put("adr_country", "confirm.adr_country");
+//        validatorRules.put("adr_city", "confirm.adr_city");
+//        validatorRules.put("adr_street", "confirm.adr_street");
+//        validatorRules.put("adr_street_number", "confirm.adr_street_number");
+//        validatorRules.put("adr_flat", "confirm.adr_flat");
+//
+//        // Document`s rules
+//        validatorRules.put("pass_series", "confirm.pass_series");
+//        validatorRules.put("pass_number", "confirm.pass_number");
+//        validatorRules.put("pass_issue", "confirm.pass_issue");
+//        validatorRules.put("pass_expire", "confirm.pass_expire");
+//        validatorRules.put("pass_place", "confirm.pass_place");
+//
+//        // Address
+//        FormValidator validator = new FormValidator();
+//        SystemMessage systemMessage = validator.validateForm(validatorRules, req);
+//        if (systemMessage.hasErrors()) {
+//            log.trace("Validator fail");
+//            req.setAttribute("systemMessage", systemMessage);
+//            return "client/profile";
+//        }
         // Add address
 //        int flatNumber = Integer.parseInt(req.getParameter("adr_flat"));
 //        Address livingAddress = new Address();
@@ -52,6 +87,8 @@ public class UpdateProfileAction implements Action {
 //        }
 //
 //
-        return null;
+//        log.trace("Profile successfully saved");
+//        req.getSession().setAttribute("systemMessage", new SystemMessage("profile.save.success", SystemMessage.SUCCESS));
+//        return "redirect:controller?action=profile";
     }
 }

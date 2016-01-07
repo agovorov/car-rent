@@ -21,28 +21,31 @@
 
 <a:genericpage title="${title}" jsitems="${jsitems}" cssitems="${prefix}/css/auth.css">
     <jsp:attribute name="header"><a:nav/></jsp:attribute>
-    <jsp:attribute name="menu">
-        <h2 class="form-register-heading"><fmt:message key="register.pageheader"/></h2>
-    </jsp:attribute>
     <jsp:body>
-        <a:alert/>
-        <form class="form-register" method="post">
-            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="${emailPlaceholder}"
-                   required1 autofocus value="${email}">
-            <input type="password" name="passwd" id="inputPassword" class="form-control"
-                   placeholder="${passwdPlaceholder}"
-                   required1 value="${passwd}">
-            <input type="text" name="firstname" id="inputFirstname" class="form-control"
-                   placeholder="${firstnamePlaceholder}" required1 value="${firstname}">
-            <input type="text" name="lastname" id="inputLastname" class="form-control"
-                   placeholder="${lastnamePlaceholder}"
-                   required1 value="${lastname}">
-            <input type="text" name="phone" id="inputPhone" class="form-control phone" placeholder="${phonePlaceholder}"
-                   required1
-                   value="${phone}">
+        <div class="row center_div">
+            <div class="col-md-6 col-md-offset-3">
+                <a:alert/>
+                <form class="form-register" method="post">
+                    <input type="email" name="email" id="inputEmail" class="form-control"
+                           placeholder="${emailPlaceholder}"
+                           required1 autofocus value="${email}">
+                    <input type="password" name="passwd" id="inputPassword" class="form-control"
+                           placeholder="${passwdPlaceholder}"
+                           required1 value="${passwd}">
+                    <input type="text" name="firstname" id="inputFirstname" class="form-control"
+                           placeholder="${firstnamePlaceholder}" required1 value="${firstname}">
+                    <input type="text" name="lastname" id="inputLastname" class="form-control"
+                           placeholder="${lastnamePlaceholder}"
+                           required1 value="${lastname}">
+                    <input type="text" name="phone" id="inputPhone" class="form-control phone"
+                           placeholder="${phonePlaceholder}"
+                           required1
+                           value="${phone}">
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message
-                    key="register.button.register"/></button>
-        </form>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message
+                            key="register.button.register"/></button>
+                </form>
+            </div>
+        </div>
     </jsp:body>
 </a:genericpage>

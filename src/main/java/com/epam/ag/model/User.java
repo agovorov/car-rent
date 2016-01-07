@@ -21,16 +21,16 @@ public class User extends BaseEntity {
         super(userId);
     }
 
+    public User() {
+        this.role = new UserRole();
+    }
+
     public IDDocument getPassport() {
         return passport;
     }
 
     public void setPassport(IDDocument passport) {
         this.passport = passport;
-    }
-
-    public User() {
-        this.role = new UserRole();
     }
 
     public String getEmail() {
@@ -77,12 +77,12 @@ public class User extends BaseEntity {
         return role.getId();
     }
 
-    public void setRole(UserRole userRole) {
-        this.role = userRole;
-    }
-
     public UserRole getRole() {
         return role;
+    }
+
+    public void setRole(UserRole userRole) {
+        this.role = userRole;
     }
 
     public String getFullName() {
