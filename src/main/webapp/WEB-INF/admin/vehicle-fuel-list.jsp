@@ -4,10 +4,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setBundle basename="messages/messages"/>
 <fmt:message key="dict.fuel.pageheader" var="pageHeader"/>
-<a:page title="${pageHeader}">
-    <fmt:message key="fuel.table.list"/>
-    <a:breadcrumbs items="${breadcrumbItems}"/>
-    <a:alert/>
+
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
+    <h1><fmt:message key="fuel.table.list"/></h1>
     <a:dtable list="${fuels}"
               actionname="vehicle-fuel"/>
-</a:page>
+</a:admin_page>

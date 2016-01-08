@@ -8,10 +8,6 @@
 <fmt:message key="user.form.firstname.placeholder" var="firstnamePlaceholder"/>
 <fmt:message key="common.currency.short" var="currency_label"/>
 
-<%--<c:set var="reason" value="${not empty param.reason ? param.reason : '' }"/>--%>
-
-<a:two_column title="${pageHeader}"
-    cssitems="/css/order.css"
-    breadcrumbItems="${breadcrumbItems}">
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <a:orderDisplay entity="${order}" />
-</a:two_column>
+</a:admin_page>

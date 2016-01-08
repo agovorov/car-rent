@@ -35,9 +35,11 @@ public class VehicleService extends BaseService {
         try {
             Gallery gallery = vehicle.getVehicleImages();
 
-            // Save gallery first and return it`s ID
-            GalleryService gs = new GalleryService();
-            gallery = gs.save(gallery, false);
+            if (gallery != null) {
+                // Save gallery first and return it`s ID
+                GalleryService gs = new GalleryService();
+                gallery = gs.save(gallery, false);
+            }
 
             // Now save vehicle model
             VehicleDao dao = daoFactory.getDao(VehicleDao.class);

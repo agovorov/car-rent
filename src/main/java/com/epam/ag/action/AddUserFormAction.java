@@ -22,14 +22,12 @@ public class AddUserFormAction implements Action {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         RoleService service = new RoleService();
         List<UserRole> roles = service.getRolesList();
-        req.setAttribute("roles", roles);
-
         log.trace("Roles: {}", roles);
+        req.setAttribute("roles", roles);
 
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());
         req.setAttribute("breadcrumbItems", breadcrumbItems);
-
         return "admin/user-form";
     }
 }

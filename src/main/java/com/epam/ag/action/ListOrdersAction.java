@@ -4,6 +4,7 @@ import com.epam.ag.model.Breadcrumbs;
 import com.epam.ag.model.BreadcrumbsItem;
 import com.epam.ag.model.Order;
 import com.epam.ag.service.OrderService;
+import com.epam.ag.utils.SqlParams;
 import com.epam.ag.utils.SystemMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,9 @@ public class ListOrdersAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        Map<String,Object> params = new HashMap<>();
+        Map<String,SqlParams> params = new HashMap<>();
         if (param != null) {
-            params.put("status", param);
+            params.put("status", new SqlParams(param));
         }
 
         OrderService orderService = new OrderService();

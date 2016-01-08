@@ -17,8 +17,7 @@ public class AuthManager {
 
     public static boolean authenticate(User user, String plainPassword) {
         // Comparing passwords
-        String hashedPassword = PasswordUtil.hashPassword(plainPassword);
-        if (!hashedPassword.equals(user.getPassword())) {
+        if (!PasswordUtil.validatePassword(plainPassword, user.getPassword())) {
             log.info("Wrong password for email {}", user.getEmail());
             return false;
         }

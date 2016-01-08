@@ -51,12 +51,13 @@ public class AddUserAction implements Action {
         user.setRole(new UserRole(userRoleId));
 
         // Generate random password
-        String password = PasswordUtil.generateRandomPassword();
+        String password = PasswordUtil.generateHashedRandomPassword();
         user.setPassword(password);
 
         UserService service = new UserService();
         boolean isAdded = service.saveUser(user);
         if (!isAdded) {
+            log.error("Unable to save user: {}", user);
             req.setAttribute("systemMessage", new SystemMessage("user.save.fail", SystemMessage.ERROR));
             return "admin/user-form";
         }

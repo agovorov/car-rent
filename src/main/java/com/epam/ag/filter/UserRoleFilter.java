@@ -43,7 +43,6 @@ public class UserRoleFilter implements Filter {
         anonymousPage.add("admin-tmp");
 
         // Client`s rule
-//        clientPage.add("index");
         clientPage.add("logout");
         clientPage.add("cabinet");
         clientPage.add("profile");
@@ -54,13 +53,49 @@ public class UserRoleFilter implements Filter {
         clientPage.add("order-refund");
 
         // Admin
-        adminPage.add("index");
+        adminPage.add("cabinet");
         adminPage.add("logout");
+        adminPage.add("order-list");
+        adminPage.add("order-detail-adm");
+        adminPage.add("order-confirm");
+        adminPage.add("order-confirm-detail");
+        adminPage.add("order-issue");
+        adminPage.add("order-received");
 
         adminPage.add("manufacturer-list");
         adminPage.add("manufacturer-create");
         adminPage.add("manufacturer-update");
         adminPage.add("manufacturer-delete");
+
+        adminPage.add("color-list");
+        adminPage.add("color-create");
+        adminPage.add("color-update");
+        adminPage.add("color-delete");
+
+        adminPage.add("vehicle-type-list");
+        adminPage.add("vehicle-type-create");
+        adminPage.add("vehicle-type-update");
+        adminPage.add("vehicle-type-delete");
+
+        adminPage.add("vehicle-fuel-list");
+        adminPage.add("vehicle-fuel-create");
+        adminPage.add("vehicle-fuel-update");
+        adminPage.add("vehicle-fuel-delete");
+
+        adminPage.add("vehicle-gear-list");
+        adminPage.add("vehicle-gear-create");
+        adminPage.add("vehicle-gear-update");
+        adminPage.add("vehicle-gear-delete");
+
+        adminPage.add("vehicle-list");
+        adminPage.add("vehicle-create");
+        adminPage.add("vehicle-update");
+        adminPage.add("vehicle-delete");
+
+        adminPage.add("user-list");
+        adminPage.add("user-create");
+        adminPage.add("user-update");
+        adminPage.add("user-delete");
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {

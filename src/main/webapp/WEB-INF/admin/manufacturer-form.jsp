@@ -7,10 +7,7 @@
 
 <c:set var="manufacturer" value='${not empty param.manufacturer ? param.manufacturer : model.getTitle() }'/>
 
-<a:page title="Main">
-    <h1><fmt:message key="manufacturer.table.create"/></h1>
-    <a:breadcrumbs items="${breadcrumbItems}"/>
-    <a:alert/>
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <form method="post">
         <div class="form-group">
             <label for="fManufacturer"><fmt:message key="vehicle.form.model-name"/></label>
@@ -19,4 +16,4 @@
         </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
-</a:page>
+</a:admin_page>

@@ -8,7 +8,6 @@
 <fmt:message key="user.form.firstname.placeholder" var="firstnamePlaceholder"/>
 <fmt:message key="common.currency.short" var="currency_label"/>
 
-<%--<c:set var="reason" value="${not empty param.reason ? param.reason : '' }"/>--%>
 
 <a:client_page title="${pageHeader}">
     <a:orderDisplay entity="${order}" />

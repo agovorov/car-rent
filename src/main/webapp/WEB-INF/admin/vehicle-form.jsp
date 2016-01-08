@@ -18,29 +18,27 @@
 <c:set var="year" value="${not empty param.year ? param.year : vehicle.getYear() }"/>
 <c:set var="volume" value="${not empty param.volume ? param.volume : vehicle.getVolume() }"/>
 <c:if test="${not empty vehicle.getVolume()}">
-    <fmt:formatNumber var="volume" value="${volume}" maxFractionDigits="2" />
+    <fmt:formatNumber var="volume" value="${volume}" maxFractionDigits="2"/>
 </c:if>
 <c:set var="consumption" value="${not empty param.consumption ? param.consumption : vehicle.getConsumption() }"/>
 <c:set var="price" value="${not empty param.price ? param.price : vehicle.getPrice() }"/>
 <c:if test="${not empty vehicle.getPrice()}">
-    <fmt:formatNumber var="price" value="${price}" groupingUsed="" maxFractionDigits="0" />
+    <fmt:formatNumber var="price" value="${price}" groupingUsed="" maxFractionDigits="0"/>
 </c:if>
 <c:set var="bodytype_id" value="${not empty param.bodytype ? param.bodytype : vehicle.getBodyType() }"/>
 <c:set var="color_id" value="${not empty param.color ? param.color : vehicle.getColorId() }"/>
 <c:set var="gear_id" value="${not empty param.gear ? param.gear : vehicle.getGearShift() }"/>
 <c:set var="fuel_id" value="${not empty param.fuel ? param.fuel : vehicle.getFuel() }"/>
 
-<a:page title="Main">
-    <a:breadcrumbs items="${breadcrumbItems}"/>
-    <a:alert/>
-
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <div class="row">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="fManufacturer"><fmt:message key="vehicle.form.manufactor"/></label>
                 <select class="form-control" id="fManufacturer" name="manufactor">
                     <c:forEach items="${manufactors}" var="manufactor">
-                        <option ${manufactor.getId() == manufactur_id ? 'selected' : ''} value="${manufactor.getId()}">${manufactor.getValue()}</option>
+                        <option ${manufactor.getId() == manufactur_id ? 'selected' : ''}
+                                value="${manufactor.getId()}">${manufactor.getValue()}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -66,7 +64,8 @@
 
             <div class="form-group">
                 <label for="fCompump"><fmt:message key="vehicle.form.consumption"/></label>
-                <input type="number" class="format-number form-control" id="fCompump" name="consumption" min="1" max="50"
+                <input type="number" class="format-number form-control" id="fCompump" name="consumption" min="1"
+                       max="50"
                        placeholder="${enterConsumptPlaceholder}" value="${consumption}">
             </div>
 
@@ -80,7 +79,8 @@
                 <label for="fBodytype"><fmt:message key="vehicle.form.bodytype"/></label>
                 <select class="form-control" id="fBodytype" name="bodytype">
                     <c:forEach items="${types}" var="type">
-                        <option ${type.getId() == bodytype_id ? 'selected' : ''} value="${type.getId()}">${type.getValue()}</option>
+                        <option ${type.getId() == bodytype_id ? 'selected' : ''}
+                                value="${type.getId()}">${type.getValue()}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -89,7 +89,8 @@
                 <label for="fColor"><fmt:message key="vehicle.form.color"/></label>
                 <select class="form-control" id="fColor" name="color">
                     <c:forEach items="${colors}" var="color">
-                        <option ${color.getId() == color_id ? 'selected' : ''} value="${color.getId()}">${color.getValue()}</option>
+                        <option ${color.getId() == color_id ? 'selected' : ''}
+                                value="${color.getId()}">${color.getValue()}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -98,7 +99,8 @@
                 <label for="fGearshift"><fmt:message key="vehicle.form.gearshift"/></label>
                 <select class="form-control" id="fGearshift" name="gear">
                     <c:forEach items="${gearShifts}" var="gearShift">
-                        <option ${gearShift.getId() == gear_id ? 'selected' : ''} value="${gearShift.getId()}">${gearShift.getValue()}</option>
+                        <option ${gearShift.getId() == gear_id ? 'selected' : ''}
+                                value="${gearShift.getId()}">${gearShift.getValue()}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -107,7 +109,8 @@
                 <label for="fFuel"><fmt:message key="vehicle.form.fuel"/></label>
                 <select class="form-control" id="fFuel" name="fuel">
                     <c:forEach items="${fuels}" var="fuel">
-                        <option ${fuel.getId() == fuel_id ? 'selected' : ''} value="${fuel.getId()}">${fuel.getValue()}</option>
+                        <option ${fuel.getId() == fuel_id ? 'selected' : ''}
+                                value="${fuel.getId()}">${fuel.getValue()}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -115,10 +118,10 @@
             <div class="form-group">
                 <label for="fGallery"><fmt:message key="vehicle.form.gallery"/></label>
                 <input type="file" id="fGallery" name="gallery">
-                <a:gallery gallery="${vehicle.getVehicleImages()}" />
+                <a:gallery gallery="${vehicle.getVehicleImages()}"/>
             </div>
 
             <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
         </form>
     </div>
-</a:page>
+</a:admin_page>

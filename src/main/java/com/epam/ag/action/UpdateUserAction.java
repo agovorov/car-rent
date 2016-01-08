@@ -3,17 +3,15 @@ package com.epam.ag.action;
 import com.epam.ag.model.Breadcrumbs;
 import com.epam.ag.model.BreadcrumbsItem;
 import com.epam.ag.model.User;
-import com.epam.ag.model.dict.VehicleGearShift;
 import com.epam.ag.model.user.UserRole;
-import com.epam.ag.service.GearshiftService;
 import com.epam.ag.service.RoleService;
 import com.epam.ag.service.UserService;
-import com.epam.ag.utils.PasswordUtil;
 import com.epam.ag.utils.SystemMessage;
 import com.epam.ag.validator.FormValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,6 +46,9 @@ public class UpdateUserAction implements Action {
 
         //Validation
         FormValidator validator = new FormValidator();
+        validator.ignoreRules(Arrays.asList(
+                "user.email.2"
+        ));
         SystemMessage systemMessage = validator.validateForm("user", req);
         if (systemMessage.hasErrors()) {
             req.setAttribute("systemMessage", systemMessage);

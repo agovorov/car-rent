@@ -3,14 +3,11 @@
 <%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <fmt:setBundle basename="messages/messages"/>
-<a:page title="manufacturer.table.list">
-    <a:breadcrumbs items="${breadcrumbItems}"/>
+<fmt:message key="manufacturer.table.list" var="pageHeader"/>
 
-    <a:alert />
-
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <h1><fmt:message key="manufacturer.table.list"/></h1>
-
     <a:dtable list="${manufacturerList}"
               actionname="manufacturer"/>
-</a:page>
+</a:admin_page>
 

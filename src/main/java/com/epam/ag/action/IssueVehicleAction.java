@@ -24,7 +24,7 @@ public class IssueVehicleAction extends UserAction implements Action {
         } catch (NumberFormatException e) {
             log.trace("Wrong id parameter", e);
             req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.wrong.id", SystemMessage.ERROR));
-            return "redirect:controller?action=order-payed";
+            return "redirect:controller?action=order-list";
         }
 
         // Load order model
@@ -34,12 +34,14 @@ public class IssueVehicleAction extends UserAction implements Action {
         if (order == null) {
             log.trace("Order not found");
             req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.no.data", SystemMessage.ERROR));
-            return "redirect:controller?action=order-payed";
+            return "redirect:controller?action=order-list";
         }
 
         // Loading all information about order
         service.loadVehicleData(order);
         service.loadCustomerData(order);
+
+        req.setAttribute("order", order);
 
         // Order is not payed
         if (!order.getStatus().equals(Order.OrderStatus.PAYED)) {

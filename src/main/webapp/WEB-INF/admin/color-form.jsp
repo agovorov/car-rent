@@ -10,10 +10,7 @@
 <c:set var="gear_ru" value='${not empty param.color_ru ? param.color_ru : model.getValue("ru") }'/>
 <c:set var="gear_en" value='${not empty param.color_en ? param.color_en : model.getValue("en") }'/>
 
-<a:page title="Main">
-    <h1><fmt:message key="dict.color.form.title"/></h1>
-    <a:breadcrumbs items="${breadcrumbItems}"/>
-    <a:alert/>
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <form method="post">
         <div class="form-group">
             <label for="fColorRu"><fmt:message key="color.form.ru.colorname"/></label>
@@ -28,4 +25,4 @@
         </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
-</a:page>
+</a:admin_page>

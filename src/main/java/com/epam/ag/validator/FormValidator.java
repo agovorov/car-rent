@@ -16,6 +16,7 @@ public class FormValidator {
     private static final Logger log = LoggerFactory.getLogger(FormValidator.class);
     private Properties validatorRules;
     private SystemMessage msg;
+    private List<String> ignoreRules = new ArrayList<>();
 
     public FormValidator() {
         if (validatorRules == null) {
@@ -37,7 +38,8 @@ public class FormValidator {
         while (attributes.hasMoreElements()) {
             String paramName = attributes.nextElement();
             String value = req.getParameter(paramName);
-            log.trace("Validate parameter: {}.{} => {}", formName, paramName, value);
+
+            log.trace("Validate parameter: {}{} => {}", formName, paramName, value);
 
             // Get rules for current parameter
             Map validateRules = getValidatorRules(formName + paramName);
@@ -111,6 +113,11 @@ public class FormValidator {
             String k = (String) key;
             String v = (String) validateRules.get(k);
 
+            if (!ignoreRules.isEmpty() && ignoreRules.contains(k)) {
+                log.trace("Ignore rule `{}`", k);
+                continue;
+            }
+
             String param = k.substring(fullName.length() + 1);
             log.trace("validate `{}` => `{}`", k, param);
             // Если осталось просто число, значит там указан класс
@@ -134,6 +141,7 @@ public class FormValidator {
                 // Нашли класс - создаем его инстанс
                 Validator validator = createValidator(v, validatorParameter);
                 String validationResult;
+
                 if (validator.isValid(value)) {
                     validationResult = "valid";
                 } else {
@@ -231,6 +239,15 @@ public class FormValidator {
         }
 
         return new ValidatorResult();
+    }
+
+    /**
+     * Ignore rules for validating
+     *
+     * @param rules
+     */
+    public void ignoreRules(List<String> rules) {
+        ignoreRules.addAll(rules);
     }
 
     private class ValidatorResult {

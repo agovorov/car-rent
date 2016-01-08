@@ -39,4 +39,7 @@ public class SqlParams {
         between.put("max", maxValue);
     }
 
+    public SqlParams(String param) {
+        value = param;
+    }
 }

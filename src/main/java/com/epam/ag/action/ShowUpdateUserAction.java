@@ -42,7 +42,7 @@ public class ShowUpdateUserAction implements Action {
 
         req.setAttribute("breadcrumbItems", breadcrumbItems);
         req.setAttribute("roles", roles);
-        req.setAttribute("user", user);
+        req.setAttribute("userModel", user);
         return "admin/user-form";
     }
 }

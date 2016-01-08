@@ -10,16 +10,13 @@
 <fmt:message key="user.form.email.placeholder" var="emailPlaceholder"/>
 <fmt:message key="user.form.phone.placeholder" var="phonePlaceholder"/>
 
-<c:set var="lastname" value="${not empty param.lastname ? param.lastname : user.getLastName() }"/>
-<c:set var="firstname" value="${not empty param.firstname ? param.firstname : user.getFirstName() }"/>
-<c:set var="email" value="${not empty param.email ? param.email : user.getEmail() }"/>
-<c:set var="phone" value="${not empty param.phone ? param.phone : user.getPhone() }"/>
-<c:set var="role_id" value="${not empty param.role ? param.role : user.getRoleId() }"/>
+<c:set var="lastname" value="${not empty param.lastname ? param.lastname : userModel.getLastName() }"/>
+<c:set var="firstname" value="${not empty param.firstname ? param.firstname : userModel.getFirstName() }"/>
+<c:set var="email" value="${not empty param.email ? param.email : userModel.getEmail() }"/>
+<c:set var="phone" value="${not empty param.phone ? param.phone : userModel.getPhone() }"/>
+<c:set var="role_id" value="${not empty param.role ? param.role : userModel.getRoleId() }"/>
 
-<a:page title="Main">
-    <a:breadcrumbs items="${breadcrumbItems}"/>
-    <a:alert/>
-
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <div class="row">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
@@ -58,4 +55,4 @@
             <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
         </form>
     </div>
-</a:page>
+</a:admin_page>

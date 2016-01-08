@@ -86,7 +86,7 @@ public class User extends BaseEntity {
     }
 
     public String getFullName() {
-        return lastName + " " + firstName;
+        return firstName + " " +lastName;
     }
 
     @Override

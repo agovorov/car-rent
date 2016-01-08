@@ -86,10 +86,9 @@ public class ActionFactory {
 
 
         // Admin order
-        // TODO Use another action
-        actions.put("GET/order-detail-adm", new ShowOrderDetailAction());
-        actions.put("GET/order-confirm", new ListOrdersAction(Order.OrderStatus.WAITING.name()));
+        actions.put("GET/order-detail-adm", new ShowOrderAdmDetailAction());
         actions.put("GET/order-list", new ListOrdersAction(null));
+        actions.put("GET/order-confirm", new ListOrdersAction(Order.OrderStatus.WAITING.name()));
         actions.put("GET/order-payed", new ListOrdersAction(Order.OrderStatus.PAYED.name()));
         actions.put("GET/order-finished", new ListOrdersAction(Order.OrderStatus.CLOSED.name()));
         actions.put("GET/order-confirm-detail", new ShowConfirmOrderDetailAction());

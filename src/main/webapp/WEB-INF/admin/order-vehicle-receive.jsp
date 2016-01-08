@@ -6,7 +6,7 @@
 
 <fmt:message key="order.status.${order.getStatus()}" var="ORDER_PAYED"/>
 
-<fmt:message key="user.pageheader" var="pageHeader"/>
+<fmt:message key="order.vehicle.receive.pageheader" var="pageHeader"/>
 <fmt:message key="user.form.firstname.placeholder" var="firstnamePlaceholder"/>
 <fmt:message key="common.currency.short" var="currency_label"/>
 
@@ -25,17 +25,17 @@
 <c:set var="damage_cost" value="${not empty param.damage_cost ? param.damage_cost : '' }"/>
 <c:set var="damage_found" value="${not empty param.damage_found ? 'checked' : '' }"/>
 
-<a:admin_page title="Main" jsitems="/js/order.js">
+<a:admin_page title="${pageHeader}" jsitems="/js/order.js">
     <a:orderDisplay entity="${order}"/>
 
     <div class="row">
         <div class="col-md-12">
             <h3><fmt:message key="order.result.info"/></h3>
 
-            <form method="post" enctype="multipart/form-data">
+            <form method="post">
                 <div class="checkbox">
                     <label class="has-damage">
-                        <input type="checkbox"> <fmt:message key="order.vehicle.result.has.damage"/>
+                        <input type="checkbox" ${damage_found}  name="damage_found" value="damage_found"> <fmt:message key="order.vehicle.result.has.damage"/>
                     </label>
                 </div>
 

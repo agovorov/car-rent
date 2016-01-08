@@ -1,7 +1,7 @@
 <%@ page import="com.epam.ag.model.Order" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setBundle basename="messages/messages"/>
 <fmt:message key="dict.vehicle.pageheader" var="pageHeader"/>

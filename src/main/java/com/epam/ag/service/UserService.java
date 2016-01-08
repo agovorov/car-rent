@@ -69,7 +69,7 @@ public class UserService extends BaseService {
 
         // Save user
         try {
-            //userDao.save(user);
+            userDao.save(user);
         } catch (DaoException e) {
             log.error("Unable to save user", e);
             daoFactory.rollback();

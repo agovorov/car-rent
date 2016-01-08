@@ -10,10 +10,8 @@
 <c:set var="gear_ru" value='${not empty param.fuel_ru ? param.fuel_ru : model.getValue("ru") }'/>
 <c:set var="gear_en" value='${not empty param.fuel_en ? param.fuel_en : model.getValue("en") }'/>
 
-<a:page title="Main">
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <h1><fmt:message key="dict.fuel.form.title"/></h1>
-    <a:breadcrumbs items="${breadcrumbItems}"/>
-    <a:alert/>
     <form method="post">
         <div class="form-group">
             <label for="fFuelRu"><fmt:message key="fuel.form.ru.fuelname"/></label>
@@ -28,4 +26,4 @@
         </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
-</a:page>
+</a:admin_page>

@@ -9,9 +9,9 @@
 
 <c:set var="gear_ru" value='${not empty param.gearshift_ru ? param.gearshift_ru : model.getValue("ru") }'/>
 <c:set var="gear_en" value='${not empty param.gearshift_en ? param.gearshift_en : model.getValue("en") }'/>
-<a:page title="Main">
+
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <h1><fmt:message key="dict.gear.form.title"/></h1>
-    <a:alert/>
     <form method="post">
         <div class="form-group">
             <label for="fGearRu"><fmt:message key="gear.form.ru.model-name"/></label>
@@ -26,4 +26,4 @@
         </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
-</a:page>
+</a:admin_page>

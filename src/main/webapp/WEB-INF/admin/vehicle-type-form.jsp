@@ -10,10 +10,8 @@
 <c:set var="type_ru" value='${not empty param.type_ru ? param.type_ru : model.getValue("ru") }'/>
 <c:set var="type_en" value='${not empty param.type_en ? param.type_en : model.getValue("en") }'/>
 
-<a:page title="Main">
+<a:admin_page title="${pageHeader}" breadcrumbItems="${breadcrumbItems}">
     <h1><fmt:message key="dict.type.form.title"/></h1>
-    <a:breadcrumbs items="${breadcrumbItems}"/>
-    <a:alert/>
     <form method="post">
         <div class="form-group">
             <label for="fTypeRu"><fmt:message key="type.form.ru.typename"/></label>
@@ -28,4 +26,4 @@
         </div>
         <button class="btn btn-default" type="submit"><fmt:message key="common.button.save"/></button>
     </form>
-</a:page>
+</a:admin_page>
