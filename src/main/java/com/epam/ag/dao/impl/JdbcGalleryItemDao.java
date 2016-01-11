@@ -203,30 +203,58 @@ public class JdbcGalleryItemDao  extends JdbcAbstractDao implements GalleryItemD
         return item;
     }
 
-
-    // THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!!
-    public void getImage(int id) {
+    @Override
+    public byte[] getBLOB(GalleryItem item) {
+        byte[] imgBytes = null;
         PreparedStatement ps = null;
         String query = PropertiesManager.getInstance().get("query.properties", "galleryItem.getBLOB");
         try {
             ps = connection.prepareStatement(query);
-            ps.setLong(1, id);
+            ps.setLong(1, item.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                byte[] imgBytes = rs.getBytes(1);
+                imgBytes = rs.getBytes(1);
 
                 // Save to
-                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
-                FileOutputStream fos = new FileOutputStream(path + "out.png");
-                fos.write(imgBytes);
-                fos.close();
+//                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
+//                FileOutputStream fos = new FileOutputStream(path + "out.png");
+//                fos.write(imgBytes);
+//                fos.close();
             }
             rs.close();
             ps.close();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             log.error("Unable to get resource", e);
-            throw new RuntimeException("Unable to get resource");
+            throw new RuntimeException("Unable to get resource", e);
         }
-
+        return imgBytes;
     }
+
+
+    // THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!!
+//    public byte[] getImage(int id) {
+//        byte[] imgBytes = null
+//        PreparedStatement ps = null;
+//        String query = PropertiesManager.getInstance().get("query.properties", "galleryItem.getBLOB");
+//        try {
+//            ps = connection.prepareStatement(query);
+//            ps.setLong(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                byte[] imgBytes = rs.getBytes(1);
+//
+//                // Save to
+////                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
+////                FileOutputStream fos = new FileOutputStream(path + "out.png");
+////                fos.write(imgBytes);
+////                fos.close();
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException | IOException e) {
+//            log.error("Unable to get resource", e);
+//            throw new RuntimeException("Unable to get resource");
+//        }
+//        return imgBytes;
+//    }
 }

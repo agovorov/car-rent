@@ -132,6 +132,9 @@ public class JdbcOrderDao extends JdbcAbstractDao implements OrderDao {
             }
         }
 
+        // TODO It`s no correct but I`ve no query builder now
+        query.append(" ORDER BY id DESC;");
+
         log.trace("SQL query: {}", query.toString());
         List<Order> orderList = new ArrayList<>();
         Statement statement = null;

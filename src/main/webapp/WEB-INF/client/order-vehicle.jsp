@@ -59,9 +59,9 @@
 
             <!-- vehicle template for filter -->
             <script type="text/template" id="vehicleBlockTmpl">
-                <div class="vehicle-block">
+                <div class="vehicle-block shadow_block">
                     <h2>{{item.name}}</h2>
-                    <img src="/img/img.png" width="204" height="101" alt="Car"/>
+                    <img src="/img/px.png" style="background-image: url({{item.img_src}});" width="204" height="101" />
                     <div class="price-a-day">
                         <span class="money">{{item.price}}</span>
                         <span class="currency-class"><fmt:message key="order.tenge.a.day"/></span>

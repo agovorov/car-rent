@@ -19,7 +19,7 @@ public class ConnectionPool {
 
     public static final String DB_USER = "postgres";
     public static final String DB_PASSWORD = "postgres";
-    public static final int MAX_CONNECTIONS = 2;
+    public static final int MAX_CONNECTIONS = 6;
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/car-rent";
     private static final Logger log = LoggerFactory.getLogger(ConnectionPool.class);
 

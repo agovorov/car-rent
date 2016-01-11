@@ -1,23 +1,9 @@
 package com.epam.ag;
 
-import com.epam.ag.action.FilterVehicleAction;
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.IDDocumentDao;
 import com.epam.ag.model.Order;
-import com.epam.ag.model.User;
-import com.epam.ag.model.Vehicle;
-import com.epam.ag.model.user.Address;
-import com.epam.ag.model.user.IDDocument;
-import com.epam.ag.model.user.Passport;
 import com.epam.ag.service.OrderService;
-import com.epam.ag.service.UserService;
-import com.epam.ag.service.VehicleService;
-import com.epam.ag.utils.DateConverter;
-import com.epam.ag.utils.SqlParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 /**
  * 15.	Система Прокат автомобилей. Клиент выбирает Автомобиль из списка доступных. Заполняет

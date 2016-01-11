@@ -13,23 +13,31 @@
     <jsp:body>
         <a:breadcrumbs items="${breadcrumbItems}"/>
         <a:alert/>
-        <div class="row center_div">
-            <div class="col-md-6 col-md-offset-3">
+        <div class="row center_div_block">
+            <div class="col-md-12 col-md-offset-2- main_page">
+                <h1><fmt:message key="index.best.service" /></h1>
+                <h1><fmt:message key="index.rent.car" /></h1>
+            </div>
+                <%--<div class="col-md-12 col-md-offset-2">--%>
+            <div class="col-md-12 col-md-offset-2- search-main-form">
                 <form class="form-inline" method="post" action="/controller?action=order">
                     <div class="form-group">
-                        <label class="sr-only" for="fDateStart"><fmt:message key="order.date.start"/></label>
-                        <input type="text" class="form-control datepicker date" id="fDateStart" name="date_start"
+                        <label for="fDateStart"><fmt:message key="order.i.want.order"/></label>
+                        <label for="fDateStart"><fmt:message key="order.from"/></label>
+                        <input type="text" class="form-control date" id="fDateStart" name="date_start"
                                maxlength="50"
+                               placeholder="<fmt:message key="order.start.date"/>"
                                value="${date_start}" autofocus="true">
                     </div>
 
                     <div class="form-group">
-                        <label class="sr-only" for="fDateEnd"><fmt:message key="order.data.end"/></label>
+                        <label for="fDateStart"><fmt:message key="order.until"/></label>
                         <input type="text" class="form-control date" id="fDateEnd" name="date_end" maxlength="50"
+                               placeholder="<fmt:message key="order.end.date"/>"
                                value="${date_end}">
                     </div>
 
-                    <button class="btn btn-default" type="submit"><fmt:message key="order.button.step2"/></button>
+                    <button class="btn btn-red" type="submit"><fmt:message key="order.find.car"/></button>
                 </form>
             </div>
         </div>

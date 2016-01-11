@@ -47,6 +47,7 @@ public class JdbcIDDocumentDao extends JdbcAbstractDao implements IDDocumentDao 
                 ps.setLong(5, livingAddress);
             }
             ps.setString(6, document.getDocumentNumber());
+            ps.setString(7, document.getSeries());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating fail, no rows affected.");
@@ -69,8 +70,8 @@ public class JdbcIDDocumentDao extends JdbcAbstractDao implements IDDocumentDao 
         try {
             ps = connection.prepareStatement(query);
             ps.setLong(1, document.getOwnerId());
-            ps.setDate(2, (Date) document.getIssueDate());
-            ps.setDate(3, (Date) document.getExpirationDate());
+            ps.setDate(2, JdbcHelper.convertToSQLDate(document.getIssueDate()));
+            ps.setDate(3, JdbcHelper.convertToSQLDate(document.getExpirationDate()));
             ps.setString(4, document.getIssuePlace());
             Long livingAddress = document.getLivingAddressId();
             if (livingAddress == null) {
@@ -79,7 +80,8 @@ public class JdbcIDDocumentDao extends JdbcAbstractDao implements IDDocumentDao 
                 ps.setLong(5, livingAddress);
             }
             ps.setString(6, document.getDocumentNumber());
-            ps.setLong(7, document.getId());
+            ps.setString(7, document.getSeries());
+            ps.setLong(8, document.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             log.error("Unable to query SQL {}, {}", document, e);

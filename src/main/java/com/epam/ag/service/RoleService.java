@@ -16,11 +16,10 @@ public class RoleService extends BaseService {
     private static final Logger log = LoggerFactory.getLogger(RoleService.class);
 
     public List<UserRole> getRolesList() {
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        daoFactory = DaoFactory.getInstance();
         UserRoleDao dao = daoFactory.getDao(UserRoleDao.class);
         List<UserRole> roles = dao.getAll();
         daoFactory.close();
-
         return roles;
     }
 }

@@ -7,7 +7,6 @@ body {
     /*background-color: #eee;*/
 }
 
-
 p {
     text-align: justify;
 }
@@ -16,6 +15,14 @@ p {
     background: #df0226;
 }
 
+
+.main_page {
+    text-align: center;
+}
+
+.main_page h1 {
+
+}
 
 .header-menu {
     margin: 0;
@@ -28,16 +35,33 @@ p {
     font-family: 'Roboto', sans-serif;
 }
 
+.center_div_block {
+    margin-top: 100px;
+}
+
 .header-menu > .inner-container {
     margin-top: 14px;
 }
 
-.header-menu a{
+.header-menu a {
     color: #616161
 }
 
 .login-block {
     background: #01b1e9;
+    color: #fff;
+    font-size: 12pt;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login-block a {
+    color: #fff !important;
+}
+
+.login-block a:active,
+.login-block a:hover {
+    color: #ababab !important;;
 }
 
 .vehicle-big-block {
@@ -47,4 +71,28 @@ p {
 
 .navbar-toggle {
     border: 1px solid #929292;
+}
+
+/** Button red */
+.btn-red {
+    background-color: #df0226;
+    border-color: #df0226;
+    color: #ffffff;
+}
+
+.btn-red:focus,
+.btn-red:hover {
+    background-color: #bd0100;
+    border-color: #df0226;
+    color: #ffffff;
+}
+
+input.date {
+    width: 100px !important;
+}
+
+.search-main-form form {
+    width: 550px;
+    margin: 0 auto;
+    margin-top: 40px;
 }

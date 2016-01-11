@@ -60,7 +60,6 @@ public class ActionFactory {
         actions.put("POST/vehicle-gear-update", new UpdateVehicleGearAction());
         actions.put("GET/vehicle-gear-delete", new DeleteVehicleGearAction());
 
-
         // Vehicle
         actions.put("GET/vehicle-list", new ListVehicleAction());
         actions.put("GET/vehicle-create", new AddVehicleFormAction());
@@ -83,7 +82,6 @@ public class ActionFactory {
         actions.put("GET/logout", new LogoutAction());
         actions.put("GET/register", new ShowRegisterPageAction());
         actions.put("POST/register", new RegisterAction());
-
 
         // Admin order
         actions.put("GET/order-detail-adm", new ShowOrderAdmDetailAction());
@@ -130,6 +128,14 @@ public class ActionFactory {
         // Common pages
         actions.put("GET/rules", new ShowPageAction("rules"));
         actions.put("GET/contact", new ShowPageAction("contact"));
+
+        // Language change
+        actions.put("GET/locale", new LocaleChangeAction());
+
+
+        //TEST
+        actions.put("GET/test", new TestAction());
+
     }
 
     public Action getAction(HttpServletRequest request) {

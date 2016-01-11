@@ -28,23 +28,33 @@
                        aria-expanded="false">! <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/controller?action=user-tmp">User login</a></li>
-                        <li><a href="/controller?action=admin-tmp">Admin login</a></li>
-                        <li class="divider" role="separator"></li>
-                        <li><a href="#">none</a></li>
+                        <li><a href="${prefix}/controller?action=user-tmp">User login</a></li>
+                        <li><a href="${prefix}/controller?action=admin-tmp">Admin login</a></li>
                     </ul>
                 </li>
+
                 <li class="${current_action == null ? 'active' : ''}"><a href="${prefix}/"><fmt:message
                         key="nav.main"/></a></li>
                 <li class="${current_action == 'rules' ? 'active' : ''}"><a
                         href="${prefix}/controller?action=rules"><fmt:message key="nav.rent.rules"/></a></li>
                 <li class="${current_action == 'contact' ? 'active' : ''}"><a
                         href="${prefix}/controller?action=contact"><fmt:message key="nav.contact"/></a></li>
+
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                       aria-expanded="false"><fmt:message key="nav.lang"/><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${prefix}/controller?action=locale&lang=ru">RU</a></li>
+                        <li><a href="${prefix}/controller?action=locale&lang=en">EN</a></li>
+                    </ul>
+                </li>
+
                 <c:if test="${sessionScope.user != null}">
                     <li class="${current_action == 'cabinet' ? 'active' : ''}"><a
-                            href="${prefix}/controller?action=cabinet">Cabinet</a></li>
+                            href="${prefix}/controller?action=cabinet"><fmt:message key="nav.cabinet"/></a></li>
                     <li>
-                        <a href="${prefix}/controller?action=logout">${sessionScope.user.getFirstName()}, logout</a>
+                        <a href="${prefix}/controller?action=logout">${sessionScope.user.getFirstName()} (<fmt:message key="nav.logout"/>)</a>
                     </li>
                 </c:if>
 

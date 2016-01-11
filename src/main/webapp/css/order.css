@@ -7,9 +7,17 @@
     margin-right: 10px;
     margin-bottom: 10px;
     background: #fff;
-    -webkit-box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);
-    -moz-box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);
-    box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);
+
+}
+
+.shadow_block {
+    /*-webkit-box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);*/
+    /*-moz-box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);*/
+    /*box-shadow: 6px 7px 9px -6px rgba(0, 0, 0, 0.38);*/
+
+    -webkit-box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.10);
+    -moz-box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.10);
+    box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.10);
 }
 
 .vehicle-block h2 {
@@ -39,6 +47,11 @@
     height: 100px;
     margin: 0;
     padding: 0;
+
+    /*background-image: url("http://i.stack.imgur.com/2OrtT.jpg");*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 }
 
 .vehicle-block .price-a-day > span.currency-class {
@@ -54,8 +67,13 @@
 }
 
 .vehicle-options div.option-block {
-    /*border: 1px solid red;*/
+    display: inline-block;
     height: 35px;
+    position: relative;
+}
+
+div.verify div.option-block{
+    width:100px;
 }
 
 .vehicle-options div.option-label {
@@ -98,6 +116,7 @@
     font-size: 13pt;
 }
 
+.vehicle-options .gearshift,
 .vehicle-block .gearshift {
     background: url('/img/gear.png') 50% 0 no-repeat;
 }
@@ -109,22 +128,61 @@
 }
 
 .price-info-row {
-    height: 25px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16pt;
 }
+
 .price-info-row .labels {
     text-align: right;
+    line-height: 50px;
+    height: 50px;
 }
 
 .order-block .values {
+    line-height: 50px;
+    height: 50px;
     background: #7bbeea;
+    color: #ffffff;
 }
 
 .order-block .values2 {
     background: #01b1ea;
+    line-height: 50px;
+    height: 50px;
+    color: #ffffff;
 }
 
 .vehicle-big-block {
-    padding: 10px;
+    padding: 25px;
+}
+
+.vehicle-big-block h1 {
+    margin: 0;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.img-block img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.white-box {
+    background: #ffffff;
+    margin: 0 0 20px;
+    padding: 0;
+}
+
+.order-price-info {
+    overflow: hidden;
+    background: #eaeaea;
+    margin-bottom: 20px;
 }
 
 .actions-href a{
@@ -133,4 +191,23 @@
 
 .filter-block {
     display: inline;
+}
+
+/** Personal */
+.passport_user_info h3 {
+    color: white;
+    background: #01ade6;
+    padding: 10px 0 10px 20px;
+    margin: 0;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.passport_user_info .info-wrapper {
+    padding: 15px;
+    background: #eaeaea;
+}
+
+.submit-btn {
+    margin: 0 auto;
 }

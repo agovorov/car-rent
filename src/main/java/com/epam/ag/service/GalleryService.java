@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public class GalleryService extends BaseService {
     // save galleryItem
     // save
     public Gallery save(Gallery gallery, boolean transaction) {
+        daoFactory = DaoFactory.getInstance();
+
         GalleryDao dao = daoFactory.getDao(GalleryDao.class);
 
         if (transaction) {
@@ -50,22 +53,45 @@ public class GalleryService extends BaseService {
         if (transaction) {
             dao.commit();
         }
+        daoFactory.close();
         return gallery;
     }
 
-    public Gallery get(Long id, Gallery gallery) {
+
+    /**
+     * Get all items for gallery
+     *
+     * @param id
+     * @return
+     */
+    public Gallery getFullGallery(Long id) {
+        daoFactory = DaoFactory.getInstance();
+
         // Load data for gallery entity
         GalleryDao dao = daoFactory.getDao(GalleryDao.class);
+        Gallery gallery = dao.getById(id);
 
-        gallery = dao.getById(id);
+        if (gallery == null) {
+            log.error("Gallery `{}` not found", id);
+        } else {
+            // Loading items
+            GalleryItemDao itemDao = daoFactory.getDao(GalleryItemDao.class);
+            List<GalleryItem> items = itemDao.getAllForGallery(id);
+            gallery.addItems(items);
+        }
 
-        // Loading items
-        GalleryItemDao itemDao = daoFactory.getDao(GalleryItemDao.class);
-        GalleryItem item = null;
-        List<GalleryItem> items = itemDao.getAllForGallery(id);
-        gallery.addItems(items);
+        log.trace("Gallery loaded: {}", gallery);
 
+        daoFactory.close();
         return gallery;
+    }
+
+    public byte[] getBLOB(GalleryItem item) {
+        daoFactory = DaoFactory.getInstance();
+        GalleryItemDao dao = daoFactory.getDao(GalleryItemDao.class);
+        byte[] bytes = dao.getBLOB(item);
+        daoFactory.close();
+        return bytes;
     }
 
     /**
@@ -76,6 +102,8 @@ public class GalleryService extends BaseService {
      * @return
      */
     public Gallery removeItem(int idx, Gallery gallery) {
+        daoFactory = DaoFactory.getInstance();
+
         GalleryItem item = gallery.getItem(idx);
 
         // Удаляем запись из базы
@@ -84,14 +112,16 @@ public class GalleryService extends BaseService {
         if (delete) {
             gallery.removeImage(idx);
         }
+        daoFactory.close();
         return gallery;
     }
 
     /**
      * Add BLOB object to database.
-     * @param req Servlet request to get files`s Part
-     * @param partName Name of the Part in servlet request
-     * @param galleryId Gallery ID
+     *
+     * @param req        Servlet request to get files`s Part
+     * @param partName   Name of the Part in servlet request
+     * @param galleryId  Gallery ID
      * @param isMainPage Main image or not
      * @return Item of gallery
      */
@@ -100,6 +130,7 @@ public class GalleryService extends BaseService {
         item.setGalleryId(galleryId);
         item.setMainImage(isMainPage);
 
+        daoFactory = DaoFactory.getInstance();
         GalleryItemDao itemDao = daoFactory.getDao(GalleryItemDao.class);
         InputStream imageContent = null;
         try {
@@ -112,6 +143,7 @@ public class GalleryService extends BaseService {
             log.error("Unable to upload gallery", e);
             throw new RuntimeException("Unable to upload resource");
         } finally {
+            daoFactory.close();
             if (imageContent != null) try {
                 imageContent.close();
             } catch (IOException e) {
@@ -120,4 +152,13 @@ public class GalleryService extends BaseService {
         }
         return item;
     }
+
+    public Gallery getGallery(Long id) {
+        daoFactory = DaoFactory.getInstance();
+        GalleryDao dao = daoFactory.getDao(GalleryDao.class);
+        Gallery gallery = dao.getById(id);
+        daoFactory.close();
+        return gallery;
+    }
+
 }

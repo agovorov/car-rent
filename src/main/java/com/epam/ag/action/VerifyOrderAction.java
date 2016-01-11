@@ -26,20 +26,34 @@ public class VerifyOrderAction implements Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         // Validate form
-        FormValidator validator = new FormValidator();
-        SystemMessage systemMessage = validator.validateForm("confirm", req);
-        if (systemMessage.hasErrors()) {
-            req.setAttribute("systemMessage", systemMessage);
-            return "client/order-verify";
-        }
+//        FormValidator validator = new FormValidator();
+//        SystemMessage systemMessage = validator.validateForm("confirm", req);
+//        if (systemMessage.hasErrors()) {
+//            req.setAttribute("systemMessage", systemMessage);
+//            return "client/order-verify";
+//        }
 
+        // Looking for an order
         Order order = (Order) req.getSession(false).getAttribute("order");
         if (order == null) {
             log.trace("Order is not found in session.");
-            req.setAttribute("systemMessage", new SystemMessage("order.not.found", SystemMessage.ERROR));
-            return "client/date_select";
+            req.getSession().setAttribute("systemMessage", new SystemMessage("order.not.found", SystemMessage.ERROR));
+            return "redirect:";
         }
 
+        // Check if passport data is set
+        User user = (User) req.getSession(false).getAttribute("user");
+        if (user == null) {
+            log.trace("User is not found in session.");
+            req.getSession().setAttribute("systemMessage", new SystemMessage("user.not.found", SystemMessage.ERROR));
+            return "redirect:";
+        }
+
+        if (user.getPassport() == null) {
+            log.trace("User has no passport data.");
+            req.getSession().setAttribute("systemMessage", new SystemMessage("order.user.no.passport.data", SystemMessage.ERROR));
+            return "redirect:";
+        }
 
         // Set status to WAITING confirmation
         order.setStatus(Order.OrderStatus.WAITING);
@@ -50,8 +64,8 @@ public class VerifyOrderAction implements Action {
         boolean isSaved = orderService.saveOrder(order);
         if (!isSaved) {
             log.error("Unable to save order via OrderService");
-            req.setAttribute("systemMessage", new SystemMessage("order.confirm.save.fail", SystemMessage.ERROR));
-            return "client/date_select";
+            req.getSession().setAttribute("systemMessage", new SystemMessage("order.confirm.save.fail", SystemMessage.ERROR));
+            return "redirect:";
         }
 
         // It`s ok

@@ -74,7 +74,7 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
             log.error("Unable to query SQL {}, {}", user, e);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
-        return null;
+        return user;
     }
 
     @Override
@@ -180,10 +180,10 @@ public class JdbcUserDao extends JdbcAbstractDao implements UserDao {
                     recordSet.getString("value_en")
             ));
 
-            int passportColumIndex = recordSet.findColumn("passport_id");
-            if (passportColumIndex > 0) {
+            int passportColumnIndex = recordSet.findColumn("passport_id");
+            if (passportColumnIndex > 0) {
                 Long passportId = recordSet.getLong("passport_id");
-                if (passportId != null) {
+                if (passportId > 0) {
                     user.setPassport(new Passport(passportId));
                 }
             }

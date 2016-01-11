@@ -47,6 +47,11 @@ function filterVehicle(modal) {
 
         $.each(data, function(k, v) {
             v.total_price = days * v.price;
+            if (v.img > 0) {
+                v.img_src = '/i?id=' + v.img;
+            } else {
+                v.img_src = '/img/img.png';
+            }
             $(".vehicles-list").append(
                 template({item: v})
             );
@@ -54,7 +59,7 @@ function filterVehicle(modal) {
     }).always(function(){
         // Set label caption
         $('.modal').modal('hide');
-    }).error(function(e){
+    }).error(function(){
         alert('Error');
     })
 }

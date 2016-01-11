@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="a" tagdir="/WEB-INF/tags" %>
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
-<%--<c:if test="${lang == 'ru'}"><fmt:setLocale value='ru' scope="session"/></c:if>--%>
-<%--<c:if test="${lang == 'en'}"><fmt:setLocale value='en' scope="session"/></c:if>--%>
 <fmt:setBundle basename="messages/messages"/>
 <c:set var="prefix" value="${pageContext.request.contextPath}"/>
 

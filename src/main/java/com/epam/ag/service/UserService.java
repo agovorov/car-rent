@@ -39,6 +39,7 @@ public class UserService extends BaseService {
             // Looking for a new
             Passport passport = (Passport) user.getPassport();
             passport.setOwner(user);
+            log.trace("passport model: {}", passport);
 
             // Save address if exists
             if (passport.getLivingAddress() != null) {
@@ -64,7 +65,6 @@ public class UserService extends BaseService {
                 daoFactory.close();
                 return false;
             }
-
         }
 
         // Save user

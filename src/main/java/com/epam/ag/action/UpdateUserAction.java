@@ -28,14 +28,6 @@ public class UpdateUserAction implements Action {
             return "redirect:controller?action=user-list";
         }
 
-        // Get data for showing record
-        UserService service = new UserService();
-        User user = service.getUserById(userId);
-        if (user == null) {
-            req.getSession().setAttribute("systemMessage", new SystemMessage("user.form.no.data", SystemMessage.ERROR));
-            return "redirect:controller?action=user-list";
-        }
-
         RoleService serviceRoles = new RoleService();
         List<UserRole> roles = serviceRoles.getRolesList();
         req.setAttribute("roles", roles);
@@ -43,6 +35,15 @@ public class UpdateUserAction implements Action {
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());
         req.setAttribute("breadcrumbItems", breadcrumbItems);
+
+
+        // Get data for showing record
+        UserService service = new UserService();
+        User user = service.getUserById(userId);
+        if (user == null) {
+            req.getSession().setAttribute("systemMessage", new SystemMessage("user.form.no.data", SystemMessage.ERROR));
+            return "redirect:controller?action=user-list";
+        }
 
         //Validation
         FormValidator validator = new FormValidator();

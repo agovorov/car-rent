@@ -6,18 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Govorov Andrey
  */
-@WebFilter(filterName = "UserRoleFilter")
 public class UserRoleFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(UserRoleFilter.class);
@@ -28,6 +25,7 @@ public class UserRoleFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
         // TODO Can be loaded from database later
         anonymousPage.add("index");
+        anonymousPage.add("locale");
         anonymousPage.add("login");
         anonymousPage.add("rules");
         anonymousPage.add("contact");
@@ -38,7 +36,9 @@ public class UserRoleFilter implements Filter {
         anonymousPage.add("order-vehicle-filter");
         anonymousPage.add("order-verify");
 
+
         // TODO remove after debug
+        anonymousPage.add("test");
         anonymousPage.add("user-tmp");
         anonymousPage.add("admin-tmp");
 
