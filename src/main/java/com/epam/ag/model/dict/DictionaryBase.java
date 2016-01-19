@@ -27,12 +27,12 @@ public class DictionaryBase extends BaseEntity {
         this.value = value;
     }
 
-    public  DictionaryBase(String value_ru, String value_en) {
+    public DictionaryBase(String value_ru, String value_en) {
         this.value = value_ru;
         this.value_en = value_en;
     }
 
-    public  DictionaryBase(Long id, String value_ru, String value_en) {
+    public DictionaryBase(Long id, String value_ru, String value_en) {
         this.id = id;
         this.value = value_ru;
         this.value_en = value_en;
@@ -42,9 +42,7 @@ public class DictionaryBase extends BaseEntity {
         return value;
     }
 
-    // Очень странная функция
-    // Но это загушка
-    // TODO язык надо прикрутить...
+    // TODO Load data depended on locale
     public String getValue(String lang) {
         if (lang.equals("ru")) {
             return value;

@@ -1,6 +1,8 @@
 package com.epam.ag.validator;
 
 /**
+ * Check if month is correct. Should be from 1 to 12
+ *
  * @author Govorov Andrey.
  */
 public class MonthValidator extends BaseValidator implements Validator {

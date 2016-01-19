@@ -29,6 +29,10 @@ public class ShowOrderAdmDetailAction extends UserAction implements Action {
             return "redirect:controller?action=order-list";
         }
 
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
+        }
+
         // Load order model
         OrderService service = new OrderService();
         Order order = service.getOrderById(orderId);

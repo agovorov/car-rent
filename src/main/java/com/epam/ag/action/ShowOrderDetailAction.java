@@ -3,7 +3,6 @@ package com.epam.ag.action;
 import com.epam.ag.model.Breadcrumbs;
 import com.epam.ag.model.BreadcrumbsItem;
 import com.epam.ag.model.Order;
-import com.epam.ag.model.user.UserRole;
 import com.epam.ag.service.OrderService;
 import com.epam.ag.utils.SystemMessage;
 import org.slf4j.Logger;
@@ -22,17 +21,16 @@ public class ShowOrderDetailAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
+        }
+
         Long orderId;
         try {
             orderId = Long.valueOf(req.getParameter("id"));
         } catch (NumberFormatException e) {
             req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.wrong.id", SystemMessage.ERROR));
             return "redirect:controller?action=orders";
-        }
-
-        if (!checkUser(req, UserRole.CLIENT)) {
-            /// return "redirect:controller?action=login";
-            log.warn("WRONG user role");
         }
 
         // Load order model

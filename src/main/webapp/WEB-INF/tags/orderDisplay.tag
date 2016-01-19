@@ -89,5 +89,4 @@
             <spam class="sd">${order.getVehicle().getFullName()}, ${order.getVehicle().getYear()} </spam>
         </div>
     </div>
-    <span class="text-muted">A:orderDisplay</span>
 </div>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Load image from database
+ *
  * @author Govorov Andrey
  */
 public class ImageServlet extends HttpServlet {

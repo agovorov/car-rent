@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * User takes a vehicle from garage
+ *
  * @author Govorov Andrey
  */
 public class IssueVehicleAction extends UserAction implements Action {
@@ -18,6 +20,9 @@ public class IssueVehicleAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
+        }
         Long orderId;
         try {
             orderId = Long.valueOf(req.getParameter("id"));

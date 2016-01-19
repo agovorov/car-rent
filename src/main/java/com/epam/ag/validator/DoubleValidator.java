@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author by Govorov Andrey.
+ * Check if value is double value
+ *
+ * @author Govorov Andrey.
  */
 public class DoubleValidator extends BaseValidator implements Validator {
 
@@ -21,7 +23,5 @@ public class DoubleValidator extends BaseValidator implements Validator {
         }
         log.trace("Ok double");
         return true;
-        // TODO Следует учитываеть разделитель в зависимости от локали (.,)
-        //return param.matches("^\\d*[,\\.]\\d+$");
     }
 }

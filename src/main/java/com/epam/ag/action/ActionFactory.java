@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Action manager
+ *
  * @author Govorov Andrey
  */
 public class ActionFactory {
@@ -95,10 +97,7 @@ public class ActionFactory {
         actions.put("POST/order-issue", new IssueVehicleAction());
         actions.put("GET/order-received", new ShowReceivedVehicleAction());
         actions.put("POST/order-received", new ReceivedVehicleAction());
-
-        //vehicle return
         actions.put("GET/order-return", new ListOrdersAction("return"));
-
 
         // Cabinet
         actions.put("GET/cabinet", new ShowCabinetAction());
@@ -131,11 +130,6 @@ public class ActionFactory {
 
         // Language change
         actions.put("GET/locale", new LocaleChangeAction());
-
-
-        //TEST
-        actions.put("GET/test", new TestAction());
-
     }
 
     public Action getAction(HttpServletRequest request) {

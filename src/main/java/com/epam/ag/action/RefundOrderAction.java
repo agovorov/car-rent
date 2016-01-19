@@ -1,7 +1,6 @@
 package com.epam.ag.action;
 
 import com.epam.ag.model.Order;
-import com.epam.ag.model.user.UserRole;
 import com.epam.ag.service.OrderService;
 import com.epam.ag.utils.SystemMessage;
 import com.epam.ag.validator.FormValidator;
@@ -20,17 +19,16 @@ public class RefundOrderAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        if (!checkUser(req, UserRole.CLIENT)) {
-            log.warn("WRONG user role");
-            /// return "redirect:controller?action=login";
-        }
-
         // Validate form
         FormValidator validator = new FormValidator();
         SystemMessage systemMessage = validator.validateForm("order.pay", req);
         if (systemMessage.hasErrors()) {
             req.setAttribute("systemMessage", systemMessage);
             return "client/order-refund";
+        }
+
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
         }
 
         Long orderId = null;

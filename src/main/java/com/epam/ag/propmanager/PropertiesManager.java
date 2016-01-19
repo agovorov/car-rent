@@ -10,12 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 /**
- * PropertiesManager pm = PropertiesManager.getInstance();
- * pm.loadPropertyFile("query.properties");
- * String query = pm.get("vehicle.insert");
- * <p/>
- * OR
- * String query = pm.get("query.properties", "vehicle.insert");
+ * Basic properties manager
  */
 public class PropertiesManager implements GenericPropertiesManager {
 

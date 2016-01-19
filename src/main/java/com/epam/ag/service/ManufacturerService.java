@@ -31,7 +31,6 @@ public class ManufacturerService extends BaseService {
         VehicleManufacturerDao dao = daoFactory.getDao(VehicleManufacturerDao.class);
         VehicleManufacturer vehicleManufacturer = new VehicleManufacturer(manufacturer);
         boolean saveResult = save(vehicleManufacturer, dao);
-        //daoFactory.close();
         return saveResult;
     }
 
@@ -42,7 +41,6 @@ public class ManufacturerService extends BaseService {
         if (vehicleManufacturer == null) return false;
         vehicleManufacturer.setValues(manufacturer, null);
         boolean saveResult = save(vehicleManufacturer, dao);
-       // daoFactory.close();
         return saveResult;
     }
 

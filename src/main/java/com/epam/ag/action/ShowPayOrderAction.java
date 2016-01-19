@@ -3,7 +3,6 @@ package com.epam.ag.action;
 import com.epam.ag.model.Breadcrumbs;
 import com.epam.ag.model.BreadcrumbsItem;
 import com.epam.ag.model.Order;
-import com.epam.ag.model.user.UserRole;
 import com.epam.ag.service.OrderService;
 import com.epam.ag.utils.SystemMessage;
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Govorov Andrey.
@@ -31,9 +29,8 @@ public class ShowPayOrderAction extends UserAction implements Action {
             return "redirect:controller?action=orders";
         }
 
-        if (!checkUser(req, UserRole.CLIENT)) {
-            /// return "redirect:controller?action=login";
-            log.warn("WRONG user role");
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
         }
 
         OrderService orderService = new OrderService();

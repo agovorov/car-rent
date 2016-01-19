@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
+ * Display form for adding user
+ *
  * @author Govorov Andrey.
  */
 public class AddUserFormAction implements Action {

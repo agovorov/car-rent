@@ -5,7 +5,7 @@ package com.epam.ag.utils;
  */
 public class PasswordUtil {
 
-    private String algorytm = "MD5";
+    private String algorithm = "MD5";
 
     /**
      * Generating random password
@@ -13,7 +13,7 @@ public class PasswordUtil {
      * @return
      */
     public static String generateRandomPassword() {
-        // Generating random password
+        // TODO Generate random password
         String password = "password";
         return password;
     }
@@ -35,6 +35,7 @@ public class PasswordUtil {
      * @return
      */
     public static String hashPassword(String plainPassword) {
+        // TODO Crypt password using method from `algorithm`
         return plainPassword;
     }
 

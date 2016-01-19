@@ -31,9 +31,4 @@ public class DateConverter {
         }
         return date;
     }
-
-    public static String formatDate(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        return format.format(date);
-    }
 }

@@ -2,14 +2,13 @@ package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.VehicleBodyTypeDao;
 import com.epam.ag.model.dict.VehicleBodyType;
-import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class JdbcVehicleBodyTypeDao  extends JdbcAbstractDao implements VehicleBodyTypeDao {
+public class JdbcVehicleBodyTypeDao extends JdbcAbstractDao implements VehicleBodyTypeDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcVehicleBodyTypeDao.class);
 
@@ -48,7 +47,6 @@ public class JdbcVehicleBodyTypeDao  extends JdbcAbstractDao implements VehicleB
         return JdbcCommonDictDao.getById(query, connection, id, VehicleBodyType.class);
     }
 
-    // TODO Что делать с unchecked assigment
     @Override
     public List<VehicleBodyType> getAll() {
         log.trace("getAll SQL statement");

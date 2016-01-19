@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import java.util.List;
 
 /**
+ * Return list as JSON object
+ *
  * @author Govorov Andrey
  */
 public class JsonAjaxReturn implements AjaxReturn {

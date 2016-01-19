@@ -25,7 +25,7 @@ public class DeleteUserAction implements Action {
         // If I try to delete myself
         HttpSession session = req.getSession(false);
         if (session != null) {
-            User user = (User)session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
             long currentUserId = user.getId();
             if (currentUserId == userId) {
                 req.getSession().setAttribute("systemMessage", new SystemMessage("user.form.error.delete.yourself", SystemMessage.ERROR));

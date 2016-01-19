@@ -26,8 +26,4 @@ $(document).ready(function () {
     $('.currency').mask('00000000000', {
         reverse: true
     });
-
-    //$('.card-holder').mask('AAA AAA', {
-    //    reverse: true
-    //});
 });

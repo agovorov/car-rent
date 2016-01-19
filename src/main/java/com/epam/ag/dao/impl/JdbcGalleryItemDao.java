@@ -7,18 +7,14 @@ import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcGalleryItemDao  extends JdbcAbstractDao implements GalleryItemDao {
+public class JdbcGalleryItemDao extends JdbcAbstractDao implements GalleryItemDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcGalleryItemDao.class);
-//    private Connection connection;
-//    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcGalleryItemDao(Connection connection) {
         this.connection = connection;
@@ -214,12 +210,6 @@ public class JdbcGalleryItemDao  extends JdbcAbstractDao implements GalleryItemD
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 imgBytes = rs.getBytes(1);
-
-                // Save to
-//                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
-//                FileOutputStream fos = new FileOutputStream(path + "out.png");
-//                fos.write(imgBytes);
-//                fos.close();
             }
             rs.close();
             ps.close();
@@ -229,32 +219,4 @@ public class JdbcGalleryItemDao  extends JdbcAbstractDao implements GalleryItemD
         }
         return imgBytes;
     }
-
-
-    // THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!! THIS IS TEST FUNCTION !!!
-//    public byte[] getImage(int id) {
-//        byte[] imgBytes = null
-//        PreparedStatement ps = null;
-//        String query = PropertiesManager.getInstance().get("query.properties", "galleryItem.getBLOB");
-//        try {
-//            ps = connection.prepareStatement(query);
-//            ps.setLong(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()) {
-//                byte[] imgBytes = rs.getBytes(1);
-//
-//                // Save to
-////                final String path = PropertiesManager.getInstance().get("config.properties", "upload_img_dir");
-////                FileOutputStream fos = new FileOutputStream(path + "out.png");
-////                fos.write(imgBytes);
-////                fos.close();
-//            }
-//            rs.close();
-//            ps.close();
-//        } catch (SQLException | IOException e) {
-//            log.error("Unable to get resource", e);
-//            throw new RuntimeException("Unable to get resource");
-//        }
-//        return imgBytes;
-//    }
 }

@@ -1,7 +1,5 @@
 package com.epam.ag.dao.impl;
 
-import com.epam.ag.dao.impl.exception.DaoException;
-import com.epam.ag.dao.impl.exception.DaoFactoryException;
 import com.epam.ag.dao.impl.exception.JdbcDaoException;
 import com.epam.ag.model.BaseEntity;
 import com.epam.ag.model.dict.DictionaryBase;
@@ -92,7 +90,7 @@ public class JdbcCommonDictDao {
             int i = ps.executeUpdate();
             isDeleted = (i > 0) ? true : false;
         } catch (SQLException e) {
-            log.error("Unable to query SQL {} {}", entity, e);
+            log.error("Unable to query SQL {}", entity);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return isDeleted;
@@ -114,14 +112,13 @@ public class JdbcCommonDictDao {
                 value_ru = rs.getString("value_ru");
                 value_en = rs.getString("value_en");
 
-                // TODO Create dynamic object with constructor
                 Class c = Class.forName(clazz.getName());
                 entity = c.getDeclaredConstructor(Long.class, String.class, String.class).newInstance(id, value_ru, value_en);
 
                 dictionaryList.add(entity);
             }
         } catch (SQLException e) {
-            log.error("Error while SQL query select {}", e);
+            log.error("Error while SQL query select");
             throw new JdbcDaoException("Unable to query SQL", e);
         } catch (InstantiationException | ClassNotFoundException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             log.error("Error while SQL query select", e);

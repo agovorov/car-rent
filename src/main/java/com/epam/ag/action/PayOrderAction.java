@@ -1,7 +1,6 @@
 package com.epam.ag.action;
 
 import com.epam.ag.model.Order;
-import com.epam.ag.model.user.UserRole;
 import com.epam.ag.service.OrderService;
 import com.epam.ag.utils.SystemMessage;
 import com.epam.ag.validator.FormValidator;
@@ -12,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * User pay money for the vehicle
+ *
  * @author Govorov Andrey.
  */
 public class PayOrderAction extends UserAction implements Action {
@@ -20,17 +21,16 @@ public class PayOrderAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        if (!checkUser(req, UserRole.CLIENT)) {
-            /// return "redirect:controller?action=login";
-            log.warn("WRONG user role");
-        }
-
         // Validate form
         FormValidator validator = new FormValidator();
         SystemMessage systemMessage = validator.validateForm("order.pay", req);
         if (systemMessage.hasErrors()) {
             req.setAttribute("systemMessage", systemMessage);
             return "client/order-pay";
+        }
+
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
         }
 
         Long orderId = null;

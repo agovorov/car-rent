@@ -5,7 +5,6 @@ import com.epam.ag.model.BreadcrumbsItem;
 import com.epam.ag.model.Order;
 import com.epam.ag.service.OrderService;
 import com.epam.ag.utils.SqlParams;
-import com.epam.ag.utils.SystemMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +19,8 @@ import java.util.Map;
  */
 public class ListOrdersAction implements Action {
 
-    private String param;
     private static final Logger log = LoggerFactory.getLogger(ListOrdersAction.class);
-
+    private String param;
 
     public ListOrdersAction(String param) {
         this.param = param;
@@ -30,8 +28,9 @@ public class ListOrdersAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        Map<String,SqlParams> params = new HashMap<>();
+        Map<String, SqlParams> params = new HashMap<>();
         if (param != null) {
+            log.trace("Add parameter to list: {}", param);
             params.put("status", new SqlParams(param));
         }
 

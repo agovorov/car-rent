@@ -2,13 +2,8 @@ package com.epam.ag.action;
 
 import com.epam.ag.model.Order;
 import com.epam.ag.model.User;
-import com.epam.ag.model.user.Address;
-import com.epam.ag.model.user.Passport;
 import com.epam.ag.service.OrderService;
-import com.epam.ag.service.UserService;
-import com.epam.ag.utils.DateConverter;
 import com.epam.ag.utils.SystemMessage;
-import com.epam.ag.validator.FormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,14 +20,6 @@ public class VerifyOrderAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        // Validate form
-//        FormValidator validator = new FormValidator();
-//        SystemMessage systemMessage = validator.validateForm("confirm", req);
-//        if (systemMessage.hasErrors()) {
-//            req.setAttribute("systemMessage", systemMessage);
-//            return "client/order-verify";
-//        }
-
         // Looking for an order
         Order order = (Order) req.getSession(false).getAttribute("order");
         if (order == null) {

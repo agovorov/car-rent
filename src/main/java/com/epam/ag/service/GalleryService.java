@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -24,10 +23,6 @@ public class GalleryService extends BaseService {
 
     private static final Logger log = LoggerFactory.getLogger(GalleryService.class);
 
-    // Транзакция
-    // Save gallery
-    // save galleryItem
-    // save
     public Gallery save(Gallery gallery, boolean transaction) {
         daoFactory = DaoFactory.getInstance();
 
@@ -47,7 +42,7 @@ public class GalleryService extends BaseService {
             for (int i = 0; i < gallery.size(); i++) {
                 item = gallery.getItem(i);
                 item.setGalleryId(galleryId);
-                item = itemDao.save(item);
+                itemDao.save(item);
             }
         }
         if (transaction) {
@@ -86,6 +81,12 @@ public class GalleryService extends BaseService {
         return gallery;
     }
 
+    /**
+     * Get BLOB from database
+     *
+     * @param item
+     * @return
+     */
     public byte[] getBLOB(GalleryItem item) {
         daoFactory = DaoFactory.getInstance();
         GalleryItemDao dao = daoFactory.getDao(GalleryItemDao.class);
@@ -106,7 +107,7 @@ public class GalleryService extends BaseService {
 
         GalleryItem item = gallery.getItem(idx);
 
-        // Удаляем запись из базы
+        // Remove from database
         GalleryItemDao itemDao = daoFactory.getDao(GalleryItemDao.class);
         boolean delete = itemDao.delete(item);
         if (delete) {
@@ -160,5 +161,4 @@ public class GalleryService extends BaseService {
         daoFactory.close();
         return gallery;
     }
-
 }

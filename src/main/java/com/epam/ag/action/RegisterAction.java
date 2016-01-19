@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Register new user
+ *
  * @author Govorov Andrey
  */
 public class RegisterAction implements Action {
@@ -52,6 +54,6 @@ public class RegisterAction implements Action {
 
         // It`s ok
         req.getSession().setAttribute("systemMessage", new SystemMessage("register.success", SystemMessage.SUCCESS));
-        return "redirect:controller?action=cabinet";
+        return "redirect:";
     }
 }

@@ -14,6 +14,7 @@ public class Gallery extends BaseEntity {
     public Gallery(String title) {
         this.title = title;
     }
+
     public Gallery(Long id, String title) {
         this.id = id;
         this.title = title;

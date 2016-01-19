@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Basic util cookie class
+ *
  * @author Govorov Andrey
  */
 public class CookieManager {

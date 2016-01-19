@@ -2,7 +2,6 @@ package com.epam.ag.action;
 
 import com.epam.ag.model.Breadcrumbs;
 import com.epam.ag.model.BreadcrumbsItem;
-import com.epam.ag.model.user.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +18,7 @@ public class ShowProfileAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        if (!checkUser(req, UserRole.CLIENT)) {
-            log.warn("WRONG user role");
+        if (!getUser(req)) {
             return "redirect:controller?action=login";
         }
 

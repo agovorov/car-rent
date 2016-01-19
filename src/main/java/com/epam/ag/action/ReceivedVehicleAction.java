@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Client back vehicle
+ *
  * @author Govorov Andrey.
  */
 public class ReceivedVehicleAction extends UserAction implements Action {
@@ -26,6 +28,10 @@ public class ReceivedVehicleAction extends UserAction implements Action {
             log.trace("Wrong order id parameter", e);
             req.getSession().setAttribute("systemMessage", new SystemMessage("order.form.wrong.id", SystemMessage.ERROR));
             return "redirect:controller?action=order-list";
+        }
+
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
         }
 
         // Load order model

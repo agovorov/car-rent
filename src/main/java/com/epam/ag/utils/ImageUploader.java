@@ -13,7 +13,6 @@ public class ImageUploader {
 
     private static final Logger log = LoggerFactory.getLogger(ImageUploader.class);
 
-    // http://docs.oracle.com/javaee/6/tutorial/doc/glraq.html
     public String fromRequest(Part filePart, String path) {
         final String fileName = getFileName(filePart);
         OutputStream out = null;

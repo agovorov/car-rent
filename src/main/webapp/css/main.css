@@ -4,7 +4,6 @@
 
 body {
     background: #e5eaee;
-    /*background-color: #eee;*/
 }
 
 p {
@@ -14,7 +13,6 @@ p {
 .nav-steps {
     background: #df0226;
 }
-
 
 .main_page {
     text-align: center;
@@ -93,6 +91,5 @@ input.date {
 
 .search-main-form form {
     width: 550px;
-    margin: 0 auto;
-    margin-top: 40px;
+    margin: 40px auto 0;
 }

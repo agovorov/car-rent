@@ -74,12 +74,12 @@ public abstract class IDDocument extends BaseEntity {
         livingAddress = address;
     }
 
-    public void setSeries(String series) {
-        passportSeries = series;
-    }
-
     public String getSeries() {
         return passportSeries;
+    }
+
+    public void setSeries(String series) {
+        passportSeries = series;
     }
 
     @Override

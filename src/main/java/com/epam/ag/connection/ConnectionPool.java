@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ConnectionPool {
 
+    // TODO move to property file
     public static final String DB_USER = "postgres";
     public static final String DB_PASSWORD = "postgres";
     public static final int MAX_CONNECTIONS = 6;
@@ -80,7 +81,7 @@ public class ConnectionPool {
             log.trace("Trying to get connection from pool");
             connection = connectionList.poll(1, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            log.error("Can't get connection for {}", JDBC_URL, e);
+            log.error("Can't get connection for {}", JDBC_URL);
             throw new ConnectionPoolException("Unable to get connection.");
         }
 
@@ -92,8 +93,6 @@ public class ConnectionPool {
         return pooledConnection;
     }
 
-
-    // TODO Кол-во коннектов расте после возврата
     public synchronized void putBack(Connection connection) {
         if (connection == null) {
             // Dead connection. Create new one...
@@ -128,7 +127,6 @@ public class ConnectionPool {
             log.trace("Close method. Connection released.");
             connectionPool.putBack(connection);
         }
-
 
         @Override
         public Statement createStatement() throws SQLException {

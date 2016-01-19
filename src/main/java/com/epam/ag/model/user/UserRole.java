@@ -37,12 +37,13 @@ public class UserRole extends DictionaryBase {
 
     /**
      * We need compare only ID, names are not interesting
+     *
      * @param obj UserRole object
      * @return
      */
     @Override
     public boolean equals(Object obj) {
-        UserRole role = (UserRole)obj;
+        UserRole role = (UserRole) obj;
         return id == role.id;
     }
 }

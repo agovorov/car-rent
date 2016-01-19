@@ -36,9 +36,7 @@ public class UserRoleFilter implements Filter {
         anonymousPage.add("order-vehicle-filter");
         anonymousPage.add("order-verify");
 
-
         // TODO remove after debug
-        anonymousPage.add("test");
         anonymousPage.add("user-tmp");
         anonymousPage.add("admin-tmp");
 
@@ -129,6 +127,9 @@ public class UserRoleFilter implements Filter {
         if (user.getRole().equals(UserRole.ADMIN)) {
             log.trace("Admin found");
             adminPage.addAll(anonymousPage);
+            adminPage.remove("order-vehicle");
+            adminPage.remove("order-vehicle-filter");
+            adminPage.remove("order-verify");
             return adminPage;
         }
 

@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * SQL params for my simple query builder
+ *
  * @author Govorov Andrey
  */
 public class SqlParams {
     public Object value;
     public String expr;
-//    public String operation = "=";
     public List list;
     public Map<String, Double> between;
 
@@ -30,6 +31,7 @@ public class SqlParams {
 
     /**
      * "column" BETWEEN minValue AND maxValue
+     *
      * @param minValue
      * @param maxValue
      */

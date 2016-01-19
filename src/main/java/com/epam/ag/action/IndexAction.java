@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author by Govorov Andrey.
+ * Show index page
+ *
+ * @author Govorov Andrey.
  */
 public class IndexAction implements Action {
     @Override

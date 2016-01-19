@@ -17,6 +17,7 @@ public class Order extends BaseEntity {
     private String causeOfFailure;
     private String damageNote;
     private int damagePrice;
+    private OrderStatus orderStatus;
 
     public int getDamagePrice() {
         return damagePrice;
@@ -33,8 +34,6 @@ public class Order extends BaseEntity {
     public void setStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
-
-    private OrderStatus orderStatus;
 
     public User getCustomer() {
         return customer;
@@ -76,7 +75,7 @@ public class Order extends BaseEntity {
     public int countDays() {
         long diff = dateOfEnding.getTime() - dateOfBeginning.getTime();
         // Last day is not counting. Add this manually
-        return (int)TimeUnit.MILLISECONDS.toDays(diff) + 1;
+        return (int) TimeUnit.MILLISECONDS.toDays(diff) + 1;
     }
 
     @Override

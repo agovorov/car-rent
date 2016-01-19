@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -98,9 +97,7 @@ public class JdbcVehicleDao extends JdbcAbstractDao implements VehicleDao {
             // Updating ID
             Long newId = JdbcHelper.getReturningID(ps);
             vehicle.setId(newId);
-            // TODO SQLException in uncatchable for Tomcat...weird
         } catch (Exception e) {
-//        } catch (SQLException e) {
             log.error("Error while SQL query update", e);
             throw new RuntimeException("Unable to query SQL", e);
         }
@@ -127,21 +124,6 @@ public class JdbcVehicleDao extends JdbcAbstractDao implements VehicleDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 vehicle = fillFromSet(vehicle, rs);
-
-//                // Gallery
-//                //vehicle.setGallery(null);
-//                Long galleryId = rs.getLong("gallery_id");
-//                Long galleryItemId = rs.getLong("gallery_item_id");
-//                if (galleryId > 0 && galleryItemId > 0) {
-//                    Gallery gallery = new Gallery(galleryId);
-//                    GalleryItem item = new GalleryItem(
-//                            galleryItemId,
-//                            rs.getBoolean("gallery_is_main"),
-//                            galleryId
-//                    );
-//                    gallery.addImage(item);
-//                    vehicle.setGallery(gallery);
-//                }
             }
         } catch (SQLException e) {
             log.error("getById: {}", id);

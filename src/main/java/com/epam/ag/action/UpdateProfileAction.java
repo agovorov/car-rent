@@ -2,8 +2,8 @@ package com.epam.ag.action;
 
 import com.epam.ag.model.User;
 import com.epam.ag.model.user.Address;
+import com.epam.ag.model.user.IDDocument;
 import com.epam.ag.model.user.Passport;
-import com.epam.ag.model.user.UserRole;
 import com.epam.ag.service.UserService;
 import com.epam.ag.utils.DateConverter;
 import com.epam.ag.utils.SystemMessage;
@@ -26,8 +26,7 @@ public class UpdateProfileAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        if (!checkUser(req, UserRole.CLIENT)) {
-            log.warn("WRONG user role");
+        if (!getUser(req)) {
             return "redirect:controller?action=login";
         }
 
@@ -74,15 +73,15 @@ public class UpdateProfileAction extends UserAction implements Action {
         service.loadPassportData(user);
 
         // User info
-        user.setLastName( req.getParameter("lastname") );
-        user.setFirstName( req.getParameter("firstname") );
-        user.setPhone( req.getParameter("phone") );
+        user.setLastName(req.getParameter("lastname"));
+        user.setFirstName(req.getParameter("firstname"));
+        user.setPhone(req.getParameter("phone"));
 
         Passport passport = (Passport) user.getPassport();
         if (passport == null) {
             passport = new Passport();
+            user.setPassport(passport);
         }
-//        passport.setAddress(livingAddress);
         passport.setDocumentNumber(req.getParameter("pass_number"));
         passport.setExpirationDate(expirePassportDate);
         passport.setIssueDate(issuePassportDate);

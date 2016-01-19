@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * Add vehicle to database
+ *
  * @author Govorov Andrey
  */
 public class AddVehicleAction implements Action {

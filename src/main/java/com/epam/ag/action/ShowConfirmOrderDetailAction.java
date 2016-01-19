@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
+ * Admin should confirm order before renting
+ *
  * @author Govorov Andrey.
  */
 public class ShowConfirmOrderDetailAction implements Action {

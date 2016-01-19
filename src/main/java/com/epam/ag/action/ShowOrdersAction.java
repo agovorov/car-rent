@@ -25,9 +25,8 @@ public class ShowOrdersAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        if (!checkUser(req, UserRole.CLIENT)) {
-            /// return "redirect:controller?action=login";
-            log.warn("WRONG user role");
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
         }
 
         // Get all non closed orders
@@ -49,7 +48,7 @@ public class ShowOrdersAction extends UserAction implements Action {
         req.setAttribute("orders", orderList);
 //        log.trace("Order: {}", orderList);
 //        log.trace("user: {}", user);
-//
+
         Breadcrumbs breadcrumbs = new Breadcrumbs();
         List<BreadcrumbsItem> breadcrumbItems = breadcrumbs.getItems(getClass().getSimpleName());
         req.setAttribute("breadcrumbItems", breadcrumbItems);

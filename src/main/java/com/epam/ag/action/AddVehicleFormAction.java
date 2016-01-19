@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
+ * Display form for adding vehicle
+ *
  * @author Govorov Andrey
  */
 public class AddVehicleFormAction implements Action {

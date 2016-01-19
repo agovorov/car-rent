@@ -46,7 +46,7 @@ public class JdbcAddressDao extends JdbcAbstractDao implements AddressDao {
             Long newId = JdbcHelper.getReturningID(ps);
             address.setId(newId);
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}, {} ", address, e);
+            log.error("Unable to query SQL {} ", address);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return address;

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
+ * Class than added user to system
+ *
  * @author Govorov Andrey.
  */
 public class AddUserAction implements Action {

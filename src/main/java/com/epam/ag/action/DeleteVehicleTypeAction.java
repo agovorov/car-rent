@@ -1,9 +1,5 @@
 package com.epam.ag.action;
 
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleBodyTypeDao;
-import com.epam.ag.model.dict.VehicleBodyType;
-import com.epam.ag.service.ColorService;
 import com.epam.ag.service.TypeService;
 import com.epam.ag.utils.SystemMessage;
 

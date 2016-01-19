@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
+ * Fabric class. Build
+ *
  * @author Govorov Andrey
  */
 public abstract class AjaxReturnFactory {

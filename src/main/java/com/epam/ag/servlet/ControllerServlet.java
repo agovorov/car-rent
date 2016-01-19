@@ -54,7 +54,6 @@ public class ControllerServlet extends HttpServlet {
     }
 
     private String getRedirectLocation(String view) {
-        //return getServletContext().getServletContextName() + "/" + view.substring(9);
         return "/" + view.substring(9);
     }
 }

@@ -2,8 +2,6 @@ package com.epam.ag.model;
 
 import com.epam.ag.model.dict.*;
 
-import java.util.List;
-
 public class Vehicle extends BaseEntity {
     private VehicleBodyColor vehicleBodyColor;
     private VehicleBodyType vehicleBodyType;
@@ -15,9 +13,10 @@ public class Vehicle extends BaseEntity {
     private boolean isAvailable = true;
     private int consumption;
     private double volume;
-    //private List<GalleryItem> vehicleImages;
-    //private Gallery<GalleryItem> vehicleImages = new Gallery<>();
-    private Gallery vehicleImages = null;//new Gallery();
+    private Gallery vehicleImages = null;
+    // TODO В идеале это кандидат на вынос в другую таблицу, тогда и история будет.
+    // сейчас разрешили тут разместить
+    private double price;
 
     public Vehicle() {
         super();
@@ -35,12 +34,12 @@ public class Vehicle extends BaseEntity {
         this.price = price;
     }
 
-    // TODO В идеале это кандидат на вынос в другую таблицу, тогда и история будет.
-    // сейчас разрешили тут разместить
-    private double price;
-
     public String getModel() {
         return model;
+    }
+
+    public void setModel(String vehicleModel) {
+        this.model = vehicleModel;
     }
 
     public boolean isAvailable() {
@@ -49,14 +48,6 @@ public class Vehicle extends BaseEntity {
 
     public int getAverageConsumption() {
         return consumption;
-    }
-
-    public void setManufacturer(VehicleManufacturer manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public void setModel(String vehicleModel) {
-        this.model = vehicleModel;
     }
 
     public void setTransmission(VehicleGearShift vehicleGearShift) {
@@ -83,6 +74,10 @@ public class Vehicle extends BaseEntity {
         return year;
     }
 
+    public void setYear(int manufacturyYear) {
+        this.year = manufacturyYear;
+    }
+
     public VehicleBodyColor getVehicleBodyColor() {
         return vehicleBodyColor;
     }
@@ -95,6 +90,10 @@ public class Vehicle extends BaseEntity {
         return manufacturer;
     }
 
+    public void setManufacturer(VehicleManufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
     public VehicleFuelType getVehicleFuelType() {
         return vehicleFuelType;
     }
@@ -105,10 +104,6 @@ public class Vehicle extends BaseEntity {
 
     public Gallery getVehicleImages() {
         return vehicleImages;
-    }
-
-    public void setYear(int manufacturyYear) {
-        this.year = manufacturyYear;
     }
 
     public Long getColorId() {

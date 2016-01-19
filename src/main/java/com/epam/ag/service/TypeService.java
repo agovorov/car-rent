@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
+ * Vehicle`s body types
+ *
  * @author Govorov Andrey.
  */
 public class TypeService extends BaseService {

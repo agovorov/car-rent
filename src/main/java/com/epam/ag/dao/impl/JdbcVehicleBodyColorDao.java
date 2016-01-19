@@ -2,7 +2,6 @@ package com.epam.ag.dao.impl;
 
 import com.epam.ag.dao.VehicleBodyColorDao;
 import com.epam.ag.model.dict.VehicleBodyColor;
-import com.epam.ag.propmanager.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,6 @@ public class JdbcVehicleBodyColorDao extends JdbcAbstractDao implements VehicleB
 
     public JdbcVehicleBodyColorDao(Connection connection) {
         this.connection = connection;
-        //pm.loadPropertyFile("query.properties");
     }
 
     @Override

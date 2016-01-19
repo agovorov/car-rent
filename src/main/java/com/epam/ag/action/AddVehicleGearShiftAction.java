@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Add gearshift`s type
+ *
  * @author Govorov Andrey
  */
 public class AddVehicleGearShiftAction implements Action {

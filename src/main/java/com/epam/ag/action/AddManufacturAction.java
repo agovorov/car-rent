@@ -1,8 +1,5 @@
 package com.epam.ag.action;
 
-import com.epam.ag.dao.DaoFactory;
-import com.epam.ag.dao.VehicleManufacturerDao;
-import com.epam.ag.model.dict.VehicleManufacturer;
 import com.epam.ag.service.ManufacturerService;
 import com.epam.ag.utils.SystemMessage;
 import com.epam.ag.validator.FormValidator;
@@ -11,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author by Govorov Andrey.
+ * Add new manufacturer
+ *
+ * @author Govorov Andrey.
  */
 public class AddManufacturAction implements Action {
     @Override

@@ -89,7 +89,6 @@ public class JdbcVehicleManufacturerDao extends JdbcAbstractDao implements Vehic
     }
 
     private VehicleManufacturer update(VehicleManufacturer manufacturer) {
-        // TODO надо убрать куда-то
         String update_query = pm.get("vehicleManufacturer.update");
         log.trace("SQL update statement: {}", manufacturer);
         PreparedStatement ps = null;
@@ -106,7 +105,6 @@ public class JdbcVehicleManufacturerDao extends JdbcAbstractDao implements Vehic
     }
 
     private VehicleManufacturer insert(VehicleManufacturer manufacturer) {
-        // TODO надя убрать куда-то
         String update_query = pm.get("vehicleManufacturer.insert");
 
         log.trace("SQL insert statement: {}", manufacturer);
@@ -115,7 +113,6 @@ public class JdbcVehicleManufacturerDao extends JdbcAbstractDao implements Vehic
             ps = connection.prepareStatement(update_query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, manufacturer.getValue());
             int affectedRows = ps.executeUpdate();
-            // TODO может вынести в утильный класс?
             if (affectedRows == 0) {
                 throw new SQLException("Creating fail, no rows affected.");
             }

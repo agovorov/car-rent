@@ -1,6 +1,8 @@
 package com.epam.ag.validator;
 
 /**
+ * Check value with regex
+ *
  * @author Govorov Andrey
  */
 public class RegexValidator extends BaseValidator implements Validator {

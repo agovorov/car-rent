@@ -15,6 +15,7 @@ public class Address extends BaseEntity {
     public Address() {
 
     }
+
     public Address(long id) {
         super(id);
     }

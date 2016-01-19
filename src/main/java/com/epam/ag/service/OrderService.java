@@ -6,7 +6,6 @@ import com.epam.ag.dao.impl.exception.DaoException;
 import com.epam.ag.model.Order;
 import com.epam.ag.model.User;
 import com.epam.ag.model.Vehicle;
-import com.epam.ag.model.dict.VehicleManufacturer;
 import com.epam.ag.service.exception.OrderServiceException;
 import com.epam.ag.utils.SqlParams;
 import org.slf4j.Logger;
@@ -123,6 +122,7 @@ public class OrderService extends BaseService {
     public List<Order> getUsersOrderList(User user, Map<String, SqlParams> params) {
         List orderList = new ArrayList();
         if (user == null) {
+            log.trace("No user found");
             return orderList;
         }
 
@@ -138,5 +138,4 @@ public class OrderService extends BaseService {
 
         return orderList;
     }
-
 }

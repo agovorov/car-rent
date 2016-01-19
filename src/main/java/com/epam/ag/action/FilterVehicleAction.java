@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
+ * Filtering vehicle. Get data from form and return filtered JSON list of vehicles
+ *
  * @author Govorov Andrey.
  */
 public class FilterVehicleAction implements Action {
@@ -34,10 +36,6 @@ public class FilterVehicleAction implements Action {
         String jsonFilter = req.getParameter("filter");
         Gson gson = new Gson();
         VehicleFilter filter = gson.fromJson(jsonFilter, VehicleFilter.class);
-//
-//        log.trace("Min price: {}", filter.minPrice);
-//        log.trace("Max price: {}", filter.maxPrice);
-//        log.trace("Manufacturer price: {}", filter.manufacturers);
 
         VehicleService vehicleService = new VehicleService();
         List<Vehicle> filteredVehicle = vehicleService.getAvailableVehicles(
@@ -51,6 +49,9 @@ public class FilterVehicleAction implements Action {
         return "json";
     }
 
+    /**
+     * Inner class-container for filtering vehicles
+     */
     public class VehicleFilter {
         public Double minPrice;
         public Double maxPrice;

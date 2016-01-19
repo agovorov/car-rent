@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
+ * Create order and setting dates to it
+ *
  * @author Govorov Andrey.
  */
 public class OrderSetDateAction implements Action {
@@ -35,7 +37,7 @@ public class OrderSetDateAction implements Action {
         Date dateStart = DateConverter.strToDate(dateStartString);
         Date dateEnd = DateConverter.strToDate(dateEndString);
 
-        // TODO compare two dates. If first is greater than first one - error
+        // Compare two dates. If first is greater than first one - error
         if (dateStart.getTime() > dateEnd.getTime()) {
             log.trace("First date greater than second: {} > {}", dateStartString, dateEndString);
             req.setAttribute("systemMessage", new SystemMessage("order.dates.wrong", SystemMessage.ERROR));

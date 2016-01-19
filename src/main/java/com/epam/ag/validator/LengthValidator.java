@@ -1,6 +1,8 @@
 package com.epam.ag.validator;
 
 /**
+ * Check length of value
+ *
  * @author Govorov Andrey
  */
 public class LengthValidator extends BaseValidator implements Validator {

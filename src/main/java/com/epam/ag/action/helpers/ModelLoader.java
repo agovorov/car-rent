@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.util.Locale;
 
 /**
+ * Vehicle model loader
+ *
  * @author Govorov Andrey
  */
 public class ModelLoader {

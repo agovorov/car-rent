@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Add new color
+ *
  * @author Govorov Andrey
  */
 public class AddColorAction implements Action {

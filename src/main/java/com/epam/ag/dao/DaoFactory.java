@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 public abstract class DaoFactory implements AutoCloseable {
 
     private static final Logger log = LoggerFactory.getLogger(DaoFactory.class);
-//    private static DaoFactory instance;
 
     /**
      * Creating base class
@@ -20,15 +19,15 @@ public abstract class DaoFactory implements AutoCloseable {
      * @return instance of DAO factory
      */
     public static DaoFactory getInstance() {
-        /*if (instance == null) {
-            log.trace("Creating new JDBC DAO.");
-            instance = new JdbcDaoFactory();
-        }
-        return instance;*/
-
         return new JdbcDaoFactory();
     }
 
+    /**
+     * Return DAO specified class
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public abstract <T extends GenericDao> T getDao(Class<T> clazz);
 
     public abstract void close();
@@ -38,5 +37,4 @@ public abstract class DaoFactory implements AutoCloseable {
     public abstract void commit();
 
     public abstract void rollback();
-
 }

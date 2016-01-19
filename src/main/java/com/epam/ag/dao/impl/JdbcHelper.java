@@ -22,7 +22,7 @@ public class JdbcHelper {
                 throw new SQLException("Creating failed, no ID obtained.");
             }
         } catch (SQLException e) {
-            log.error("Returning failed: {}", e);
+            log.error("Returning failed");
             e.printStackTrace();
         }
         return id;

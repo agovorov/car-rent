@@ -1,7 +1,6 @@
 package com.epam.ag.action;
 
 import com.epam.ag.utils.CookieManager;
-import com.epam.ag.utils.SystemMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Change user`s locale
+ *
  * @author Govorov Andrey
  */
 public class LocaleChangeAction implements Action {
@@ -20,6 +21,8 @@ public class LocaleChangeAction implements Action {
         String redirectPath = "";
 
         String currentQueryString = req.getHeader("referer");
+
+        // Get URL after `controller` to redirect later
         int urlSplitIdx = currentQueryString.indexOf("/controller");
         if (urlSplitIdx != -1) {
             redirectPath = currentQueryString.substring(urlSplitIdx + 1);
@@ -34,6 +37,5 @@ public class LocaleChangeAction implements Action {
         // Save to cookie
         CookieManager.setParam(resp, "locale", localeStr);
         return "redirect:" + redirectPath;
-        // return "redirect:controller?action=profile";
     }
 }

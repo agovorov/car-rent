@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Add new fuel`s type
+ *
  * @author Govorov Andrey
  */
 public class AddVehicleFuelAction implements Action {

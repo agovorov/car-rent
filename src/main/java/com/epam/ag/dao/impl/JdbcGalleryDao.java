@@ -13,8 +13,6 @@ import java.util.List;
 public class JdbcGalleryDao  extends JdbcAbstractDao implements GalleryDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcGalleryDao.class);
-//    private Connection connection;
-//    private PropertiesManager pm = PropertiesManager.getInstance();
 
     public JdbcGalleryDao(Connection connection) {
         this.connection = connection;
@@ -43,7 +41,7 @@ public class JdbcGalleryDao  extends JdbcAbstractDao implements GalleryDao {
             Long newId = JdbcHelper.getReturningID(ps);
             gallery.setId(newId);
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}, {} ", gallery, e);
+            log.error("Unable to query SQL {} ", gallery);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return gallery;
@@ -59,7 +57,7 @@ public class JdbcGalleryDao  extends JdbcAbstractDao implements GalleryDao {
             ps.setLong(2, gallery.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            log.error("Unable to query SQL {}, {}", gallery, e);
+            log.error("Unable to query SQL {}", gallery);
             throw new JdbcDaoException("Unable to query SQL", e);
         }
         return gallery;

@@ -3,7 +3,6 @@ package com.epam.ag.action;
 import com.epam.ag.model.Breadcrumbs;
 import com.epam.ag.model.BreadcrumbsItem;
 import com.epam.ag.model.Order;
-import com.epam.ag.model.user.UserRole;
 import com.epam.ag.service.OrderService;
 import com.epam.ag.utils.SystemMessage;
 import org.slf4j.Logger;
@@ -30,9 +29,8 @@ public class ShowIssueVehicleAction extends UserAction implements Action {
             return "redirect:controller?action=order-payed";
         }
 
-        if (!checkUser(req, UserRole.ADMIN)) {
-            log.warn("WRONG user role");
-            /// return "redirect:controller?action=login";
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
         }
 
         // Load order model

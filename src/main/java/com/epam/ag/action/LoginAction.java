@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
+/**
+ * Login action. Check user
+ */
 public class LoginAction implements Action {
 
     private static final Logger log = LoggerFactory.getLogger(LoginAction.class);
@@ -60,6 +62,7 @@ public class LoginAction implements Action {
 
     /**
      * Trying to send user back
+     *
      * @param req
      * @param resp
      */

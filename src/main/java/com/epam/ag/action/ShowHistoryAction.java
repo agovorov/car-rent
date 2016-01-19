@@ -1,7 +1,6 @@
 package com.epam.ag.action;
 
 import com.epam.ag.model.Order;
-import com.epam.ag.model.user.UserRole;
 import com.epam.ag.service.OrderService;
 import com.epam.ag.utils.SqlParams;
 import org.slf4j.Logger;
@@ -23,9 +22,8 @@ public class ShowHistoryAction extends UserAction implements Action {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        if (!checkUser(req, UserRole.CLIENT)) {
-            /// return "redirect:controller?action=login";
-            log.warn("WRONG user role");
+        if (!getUser(req)) {
+            return "redirect:controller?action=login";
         }
 
         // Get all closed orders

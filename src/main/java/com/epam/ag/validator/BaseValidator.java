@@ -1,7 +1,7 @@
 package com.epam.ag.validator;
 
 /**
- * @author by Govorov Andrey.
+ * @author Govorov Andrey.
  */
 public class BaseValidator {
 
